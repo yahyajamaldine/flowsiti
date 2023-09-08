@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="">
+
+		<h1>Salesforce Field Creator</h1>
+		<p>
+			This tool provides an interface to easily set up and create custom fields to your Salesforce environment. You can create fields for standard and custom objects, set permissions and layouts and deploy! Much easier than doing it one by one within Salesforce.
+		</p>
+		<p>
+			None of your organisation information or data is captured or kept from running this tool.
+		</p>
+					
+		<table id="login_table">
+
+			<form action="." method="POST" id="loginForm"> 
+
+				{% csrf_token %}
+
+				<table class="login_table">
+
+					{% if messages %}
+
+						<tr>
+							<td colspan="2" style="color:#ff6600;font-weight:bold;">
+							    {% for message in messages %}
+							    	{{ message }}<br/>
+							    {% endfor %}
+							    <br/>
+							</td>
+						</tr>
+						
+					{% endif %}
+
+					{% if not error %}
+
+						<h2>Logged in as:</h2>
+
+						<tr>
+							<td width="150">
+								<strong>Username:</strong>
+							</td>
+							<td>
+								{{ username }}
+							</td>
+						</tr>
+
+						<tr>
+							<td width="150">
+								<strong>Organisation:</strong>
+							</td>
+							<td>
+								{{ org_name }}
+							</td>
+						</tr>
+
+						<tr height="30">
+							<td colspan="2"></td>
+						</tr>
+
+						<tr>
+							<td colspan="2" style="text-align:center;height:50px;">
+								<input type="submit" name="logout" oncomplete="" />
+								<input type="submit" name="get_metadata" value="Query List of Objects"  />
+							</td>
+						</tr>
+
+					{% else %}
+
+					<tr>
+						<td colspan="2">
+							<div class="alert alert-danger" role="alert">
+								<p>
+									<strong>Error:</strong>  {{ error_message }}
+								</p>
+								<p>	
+									Please go <a href="/">back</a> and try again.
+								</p>
+							</div>
+						</td>
+					</tr>
+
+					{% endif %}
+
+				</table>
+
+				<div style="display:none;">
+					{{ login_form.as_p }}
+				</div>
+
+			</form>
+
+		</table>
+
+	</div>    
+</body>
+</html>
