@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Salesforce Field Creator</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f3f4f6;
+        margin: 0;
+        padding: 0;
+      }
+
+      #header {
+        background-color: #00a1e0;
+        padding: 20px;
+        color: #fff;
+        text-align: center;
+      }
+
+      #content {
+        padding: 20px;
+      }
+
+      table {
+        width: 100%;
+        max-width: 600px;
+        margin: 20px auto;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 20px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      form {
+        text-align: center;
+      }
+
+      .message {
+        color: #ff6600;
+        font-weight: bold;
+      }
+
+      h2 {
+        text-align: center;
+      }
+
+      strong {
+        vertical-align: top;
+      }
+
+      .alert {
+        background-color: #ffcccc;
+        padding: 10px;
+        border: 1px solid #ff0000;
+        border-radius: 5px;
+      }
+
+      .btn-primary {
+        background-color: #ff6600;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      .btn-secondary {
+        background-color: #00a1e0;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="header">
+      <h1>Flowsiti app</h1>
+    </div>
+
+    <div id="content">
+      <p>
+        Flowsiti from Arrows and Draws, can create custom objects with an
+        interface that allows you to easily set up and customize fields,
+        configure permissions and layouts, and deploy changes—making the process
+        much more efficient than manual setup within Salesforce.
+      </p>
+      <p>
+        None of your organization information or data is captured or kept from
+        running this tool.
+      </p>
+
+      <table>
+        <form action="." method="POST">
+          {{ login_form.hidden_tag() }}
+          <h2>Logged in as:</h2>
+          <tr>
+            <td width="150">
+              <strong>Env:</strong>
+            </td>
+            <td>{{ login_form.environment.data }}</td>
+          </tr>
+          <tr>
+            <td width="150">
+              <strong>instance_url:</strong>
+            </td>
+            <td>{{ login_form.instance_url.data}}</td>
+          </tr>
+        </form>
+      </table>
+      <ul>
+        {% if custom_object %} {% for obj in custom_object %}
+        <li>
+          <p style="font-weight: bold; font-size: 18px">{{ obj.name }}</p>
+          <p><strong>Name:</strong> {{ obj.name }}</p>
+          <p><strong>Label:</strong> {{ obj.label }}</p>
+        </li>
+        {% endfor %} {% else %}
+        <li>No custom_object found.</li>
+        {% endif %}
+      </ul>
+    </div>
+  </body>
+</html>
