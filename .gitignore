@@ -1,4 +1,6 @@
 
+.venv
+.venv/*
 .venv/
 venv/
 app/__pycache__/
