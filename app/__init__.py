@@ -175,7 +175,7 @@ def oauth_response():
         instance_url = login_form.instance_url.data
         org_id= login_form.org_id.data
         login_form = LoginForm(environment=environment, access_token=access_token, instance_url=instance_url)
-        metadata_client = Client('http://yahya003.pythonanywhere.com/static/metadata-52.xml')
+        metadata_client = Client('https://purple-meadow-4fe551fde8804864b775979f53be8a42.azurewebsites.net/static/metadata-52.xml')
         metadata_url = instance_url + '/services/Soap/m/' +'52.0/' + org_id
         session_header = metadata_client.factory.create("SessionHeader")
         session_header.sessionId = access_token
@@ -191,8 +191,8 @@ def oauth_response():
         custom_object.nameField.label = 'Flowsiti Record'
         custom_object.deploymentStatus = 'Deployed'
         custom_object.sharingModel = 'ReadWrite'
-        return jsonify(metadata_client)
-        """try:
+ 
+        try:
 
             result = metadata_client.service.createMetadata([custom_object])
 
@@ -222,16 +222,16 @@ def oauth_response():
 					'message': ex
 				}
 
-                return jsonify(page_response)"""
+                return jsonify(page_response)
 
-@app.route('/sclient', methods=['GET', 'POST'])
+"""@app.route('/sclient', methods=['GET', 'POST'])
 def sclient(): 
     if request.method == "GET":
         url = Client('http://fieldcreator.herokuapp.com/static/metadata-52.xml')
         print(url.factory.create("SessionHeader"))
         return render_template('client.html',
                                custom_object = url.factory.create("SessionHeader")
-                               )
+                               )"""
      
 
 
