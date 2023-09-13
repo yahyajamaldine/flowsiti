@@ -183,16 +183,16 @@ def oauth_response():
 
         custom_object = metadata_client.factory.create("CustomObject")
 
-        custom_object.fullName = 'Flowsiti__c'
+    """custom_object.fullName = 'Flowsiti__c'
         custom_object.label = 'Flowsiti'
         custom_object.pluralLabel = 'Flowsitis'
         custom_object.nameField =  metadata_client.factory.create("CustomField")
         custom_object.nameField.type_x = 'Text'
         custom_object.nameField.label = 'Flowsiti Record'
         custom_object.deploymentStatus = 'Deployed'
-        custom_object.sharingModel = 'ReadWrite'
-
-        return render_template('client.html',
+        custom_object.sharingModel = 'ReadWrite'"""
+    
+    return render_template('client.html',
                                custom_object = custom_object
                                )
  
