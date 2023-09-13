@@ -183,7 +183,7 @@ def oauth_response():
 
         #custom_object = metadata_client.factory.create("CustomObject")
     return render_template('client.html',
-                               custom_object = metadata_client
+                               custom_object = metadata_client.factory.create("SessionHeader")
                                )
     """custom_object.fullName = 'Flowsiti__c'
         custom_object.label = 'Flowsiti'
