@@ -191,8 +191,12 @@ def oauth_response():
         custom_object.nameField.label = 'Flowsiti Record'
         custom_object.deploymentStatus = 'Deployed'
         custom_object.sharingModel = 'ReadWrite'
+
+        return render_template('client.html',
+                               custom_object = custom_object
+                               )
  
-        try:
+    """try:
 
             result = metadata_client.service.createMetadata([custom_object])
 
@@ -222,7 +226,7 @@ def oauth_response():
 					'message': ex
 				}
 
-                return jsonify(page_response)
+                return jsonify(page_response)"""
 
 """@app.route('/sclient', methods=['GET', 'POST'])
 def sclient(): 
