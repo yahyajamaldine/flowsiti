@@ -174,16 +174,15 @@ def oauth_response():
         access_token = login_form.access_token.data
         instance_url = login_form.instance_url.data
         org_id= login_form.org_id.data
-        login_form = LoginForm(environment=environment, access_token=access_token, instance_url=instance_url)
-        metadata_client = Client('https://purple-meadow-4fe551fde8804864b775979f53be8a42.azurewebsites.net/static/metadata-52.xml')
-        metadata_url = instance_url + '/services/Soap/m/' +'52.0/' + org_id
+        metadata_client = Client('http://purple-meadow-4fe551fde8804864b775979f53be8a42.azurewebsites.net/static/metadata-52.xml')
+        #metadata_url = instance_url + '/services/Soap/m/' +'52.0/' + org_id
         session_header = metadata_client.factory.create("SessionHeader")
         session_header.sessionId = access_token
-        metadata_client.set_options(location=metadata_url, soapheaders=session_header)
+        #metadata_client.set_options(location=metadata_url, soapheaders=session_header)
 
         #custom_object = metadata_client.factory.create("CustomObject")
     return render_template('client.html',
-                               custom_object = metadata_client.factory.create("SessionHeader")
+                               custom_object = session_header
                                )
     """custom_object.fullName = 'Flowsiti__c'
         custom_object.label = 'Flowsiti'
@@ -230,14 +229,13 @@ def oauth_response():
 
                 return jsonify(page_response)"""
 
-"""@app.route('/sclient', methods=['GET', 'POST'])
+@app.route('/sclient', methods=['GET', 'POST'])
 def sclient(): 
     if request.method == "GET":
-        url = Client('http://fieldcreator.herokuapp.com/static/metadata-52.xml')
-        print(url.factory.create("SessionHeader"))
+        url = Client('https://purple-meadow-4fe551fde8804864b775979f53be8a42.azurewebsites.net/static/metadata-52.xml')
         return render_template('client.html',
                                custom_object = url.factory.create("SessionHeader")
-                               )"""
+                               )
      
 
 
