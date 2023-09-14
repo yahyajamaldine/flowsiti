@@ -1,9 +1,8 @@
 
 
-.venv
 .venv/*
-.venv/
-venv/
+.venv/Lib
+.venv/Scripts
 app/__pycache__/
 *.pyc
 *.pyo
