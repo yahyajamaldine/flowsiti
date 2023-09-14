@@ -177,7 +177,7 @@ def oauth_response():
         metadata_client = Client('http://purple-meadow-4fe551fde8804864b775979f53be8a42.azurewebsites.net/static/metadata-52.xml')
         #metadata_url = instance_url + '/services/Soap/m/' +'52.0/' + org_id
         session_header = metadata_client.factory.create("SessionHeader")
-        session_header.sessionId = access_token
+        #session_header.sessionId = access_token
         #metadata_client.set_options(location=metadata_url, soapheaders=session_header)
 
         #custom_object = metadata_client.factory.create("CustomObject")
