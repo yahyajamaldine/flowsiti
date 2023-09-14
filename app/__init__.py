@@ -234,7 +234,7 @@ def sclient():
     if request.method == "GET":
         url = Client('https://purple-meadow-4fe551fde8804864b775979f53be8a42.azurewebsites.net/static/metadata-52.xml')
         return render_template('client.html',
-                               custom_object = url.factory.create("SessionHeader")
+                               custom_object = str(url)
                                )
      
 
