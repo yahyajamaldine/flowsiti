@@ -116,7 +116,8 @@ def oauth_response():
         environment = login_form.environment.data
         access_token = login_form.access_token.data
         instance_url = login_form.instance_url.data
-        login_form = LoginForm(environment=environment, access_token=access_token, instance_url=instance_url)
+        org_id = login_form.org_id.data
+        login_form = LoginForm(environment=environment, access_token=access_token, instance_url=instance_url,org_id = org_id)
         #You can now use these variables as needed
 		#The list of standard objects that support custom fields
 		#https://www.salesforce.com/us/developer/docs/object_reference/Content/sforce_api_objects_custom_objects.html
@@ -175,10 +176,10 @@ def oauth_response():
         instance_url = login_form.instance_url.data
         org_id= login_form.org_id.data
         metadata_client = Client('http://purple-meadow-4fe551fde8804864b775979f53be8a42.azurewebsites.net/static/metadata-52.xml')
-        #metadata_url = instance_url + '/services/Soap/m/' +'52.0/' + org_id
+        metadata_url = instance_url + '/services/Soap/m/' +'52.0/' + org_id
         session_header = metadata_client.factory.create("SessionHeader")
-        #session_header.sessionId = access_token
-        #metadata_client.set_options(location=metadata_url, soapheaders=session_header)
+        session_header.sessionId = access_token
+        metadata_client.set_options(location=metadata_url, soapheaders=session_header)
 
         #custom_object = metadata_client.factory.create("CustomObject")
     return render_template('client.html',
@@ -232,9 +233,13 @@ def oauth_response():
 @app.route('/sclient', methods=['GET', 'POST'])
 def sclient(): 
     if request.method == "GET":
-        url = Client('https://purple-meadow-4fe551fde8804864b775979f53be8a42.azurewebsites.net/static/metadata-52.xml')
+        metadata_client = Client('http://purple-meadow-4fe551fde8804864b775979f53be8a42.azurewebsites.net/static/metadata-52.xml')
+        metadata_url = instance_url + '/services/Soap/m/' +'52.0/' + org_id
+        session_header = metadata_client.factory.create("SessionHeader")
+        session_header.sessionId = access_token
+        metadata_client.set_options(location=metadata_url, soapheaders=session_header)
         return render_template('client.html',
-                               custom_object = str(url)
+                               custom_object = url.factory.create("SessionHeader")
                                )
      
 
