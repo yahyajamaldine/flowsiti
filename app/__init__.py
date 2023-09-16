@@ -176,7 +176,7 @@ def oauth_response():
         instance_url = login_form.instance_url.data
         org_id= login_form.org_id.data
         metadata_client = Client('http://purple-meadow-4fe551fde8804864b775979f53be8a42.azurewebsites.net/static/metadata-52.xml')
-        metadata_url = instance_url + '/services/Soap/m/' +'52.0/' + org_id
+        metadata_url = instance_url + '/services/Soap/m/' +'52.0/'
         session_header = metadata_client.factory.create("SessionHeader")
         session_header.sessionId = access_token
         metadata_client.set_options(location=metadata_url, soapheaders=session_header)
@@ -234,13 +234,53 @@ def oauth_response():
 def sclient(): 
     if request.method == "GET":
         metadata_client = Client('http://purple-meadow-4fe551fde8804864b775979f53be8a42.azurewebsites.net/static/metadata-52.xml')
-        metadata_url = instance_url + '/services/Soap/m/' +'52.0/' + org_id
+        metadata_url = 'https://resilient-fox-bv8mag-dev-ed.trailblaze.my.salesforce.com' + '/services/Soap/m/' +'52.0/'
         session_header = metadata_client.factory.create("SessionHeader")
-        session_header.sessionId = access_token
+        session_header.sessionId = '00D8d00000Aqcl0!ARUAQGtJ38yQF3rf_L8xg8B0yJf0GFRtUTH99_9aCYWFsDhUpnIaW9bbqfbVYld.J98FRV7K.sFQrxcpsRjVltdc1KE4Netk'
         metadata_client.set_options(location=metadata_url, soapheaders=session_header)
-        return render_template('client.html',
-                               custom_object = url.factory.create("SessionHeader")
-                               )
+
+        custom_object=  metadata_client.factory.create("CustomObject")
+        custom_object.fullName = 'Flowsi__c'
+        custom_object.label = 'Flowsi'
+        custom_object.pluralLabel = 'Flowsis'
+        custom_object.nameField =  metadata_client.factory.create("CustomField")
+        custom_object.nameField.type = 'Text'
+        custom_object.nameField.label = 'Flowsi Record'
+        custom_object.deploymentStatus = 'Deployed'
+        custom_object.sharingModel = 'ReadWrite'
+    
+        try:
+
+            result = metadata_client.service.createMetadata([custom_object])
+
+            if result[0].success:
+
+                page_response = {
+						'success': True,
+						'errorCode': None,
+						'message': 'Successfully created field.'
+					}
+
+            else:
+                    page_response = {
+						'success': False,
+						'errorCode': result[0].errors[0].statusCode,
+						'message': result[0].errors[0].message
+					}
+
+				# Return the POST response
+            return str(page_response)
+
+        except Exception as ex:
+
+                page_response = {
+					'success': False,
+					'errorCode': 'Error building field metadata',
+					'message': ex
+				}
+
+                return str(page_response)
+        
      
 
 

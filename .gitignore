@@ -1,7 +1,6 @@
 
 
 # Ignore virtual environment
-.venv/
 .venv/*
 .venv/Scripts
 app/__pycache__/
