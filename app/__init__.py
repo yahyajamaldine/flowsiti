@@ -11,7 +11,7 @@ secret_key = secrets.token_hex(16)
 
 SALESFORCE_CONSUMER_KEY = '3MVG9DREgiBqN9WmkvM3yN3IVuL3AVGBSmf7SjpjZ3P6Za55OmT8i0VFDNK8t_vd9Dhj_oRqp.qqYZUMne.8N'
 SALESFORCE_CONSUMER_SECRET = 'ED6B772975C07C92B2F8EDDBC6C5F1E012C7ED30A54C04C00B27AB6C33FD4C27'
-SALESFORCE_REDIRECT_URI = 'https://purple-meadow-4fe551fde8804864b775979f53be8a42.azurewebsites.net/oauthrp'
+SALESFORCE_REDIRECT_URI = 'https://13.37.66.143/oauthrp'
 
 SALESFORCE_API_VERSION =58
 
@@ -175,30 +175,22 @@ def oauth_response():
         access_token = login_form.access_token.data
         instance_url = login_form.instance_url.data
         org_id= login_form.org_id.data
-        metadata_client = Client('http://purple-meadow-4fe551fde8804864b775979f53be8a42.azurewebsites.net/static/metadata-52.xml')
+        metadata_client = Client('http://13.37.66.143/static/metadata-52.xml')
         metadata_url = instance_url + '/services/Soap/m/' +'52.0/'
         session_header = metadata_client.factory.create("SessionHeader")
         session_header.sessionId = access_token
         metadata_client.set_options(location=metadata_url, soapheaders=session_header)
 
-        #custom_object = metadata_client.factory.create("CustomObject")
-    return render_template('client.html',
-                               custom_object = session_header
-                               )
-    """custom_object.fullName = 'Flowsiti__c'
-        custom_object.label = 'Flowsiti'
-        custom_object.pluralLabel = 'Flowsitis'
+        custom_object = metadata_client.factory.create("CustomObject")
+        custom_object.fullName = 'Flowsit__c'
+        custom_object.label = 'Flowsit'
+        custom_object.pluralLabel = 'Flowsits'
         custom_object.nameField =  metadata_client.factory.create("CustomField")
         custom_object.nameField.type_x = 'Text'
         custom_object.nameField.label = 'Flowsiti Record'
         custom_object.deploymentStatus = 'Deployed'
         custom_object.sharingModel = 'ReadWrite'
-    
-    return render_template('client.html',
-                               custom_object = custom_object
-                               )"""
- 
-    """try:
+        try:
 
             result = metadata_client.service.createMetadata([custom_object])
 
@@ -228,7 +220,7 @@ def oauth_response():
 					'message': ex
 				}
 
-                return jsonify(page_response)"""
+                return jsonify(page_response)
 
 @app.route('/sclient', methods=['GET', 'POST'])
 def sclient(): 
