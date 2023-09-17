@@ -186,8 +186,8 @@ def oauth_response():
         access_token = login_form.access_token.data
         instance_url = login_form.instance_url.data
         org_id= login_form.org_id.data
-        objectfullName = login_form.object_full_name.data 
-        label = login_form.label.data
+        objectfullName = request.form.get('object_full_name')
+        label = request.form.get('label')
         metadata_client = Client('https://13.37.66.143/static/metadata-52.xml')
         metadata_url = instance_url + '/services/Soap/m/' +'52.0/'
         session_header = metadata_client.factory.create("SessionHeader")
