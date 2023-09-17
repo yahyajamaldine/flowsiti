@@ -4,10 +4,13 @@ from .forms import LoginForm
 import json
 import requests
 from suds.client import Client
+import ssl
 import secrets
 
 # Generate a secure random secret key
 secret_key = secrets.token_hex(16)
+
+ssl._create_default_https_context = ssl._create_unverified_context
 
 SALESFORCE_CONSUMER_KEY = '3MVG9DREgiBqN9WmkvM3yN3IVuL3AVGBSmf7SjpjZ3P6Za55OmT8i0VFDNK8t_vd9Dhj_oRqp.qqYZUMne.8N'
 SALESFORCE_CONSUMER_SECRET = 'ED6B772975C07C92B2F8EDDBC6C5F1E012C7ED30A54C04C00B27AB6C33FD4C27'
@@ -228,13 +231,13 @@ def sclient():
         metadata_client = Client('http://purple-meadow-4fe551fde8804864b775979f53be8a42.azurewebsites.net/static/metadata-52.xml')
         metadata_url = 'https://resilient-fox-bv8mag-dev-ed.trailblaze.my.salesforce.com' + '/services/Soap/m/' +'52.0/'
         session_header = metadata_client.factory.create("SessionHeader")
-        session_header.sessionId = '00D8d00000Aqcl0!ARUAQGtJ38yQF3rf_L8xg8B0yJf0GFRtUTH99_9aCYWFsDhUpnIaW9bbqfbVYld.J98FRV7K.sFQrxcpsRjVltdc1KE4Netk'
+        session_header.sessionId = '00D8d00000Aqcl0!ARUAQGuZK25CkICQMcMkuFUbTIDU1ajvZ3Vo_yTbqPIz.Az9jzhEL0OJpudAc4H4X4DPYMVOiUeZCkGqDwd0_yYC.h9gG4Gi'
         metadata_client.set_options(location=metadata_url, soapheaders=session_header)
 
         custom_object=  metadata_client.factory.create("CustomObject")
-        custom_object.fullName = 'Flowsi__c'
-        custom_object.label = 'Flowsi'
-        custom_object.pluralLabel = 'Flowsis'
+        custom_object.fullName = 'travel__c'
+        custom_object.label = 'travel'
+        custom_object.pluralLabel = 'travel'
         custom_object.nameField =  metadata_client.factory.create("CustomField")
         custom_object.nameField.type = 'Text'
         custom_object.nameField.label = 'Flowsi Record'
