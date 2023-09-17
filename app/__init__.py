@@ -197,7 +197,7 @@ def oauth_response():
         custom_object.label = 'Flowsit'
         custom_object.pluralLabel = 'Flowsits'
         custom_object.nameField =  metadata_client.factory.create("CustomField")
-        custom_object.nameField.type_x = 'Text'
+        custom_object.nameField.type = 'Text'
         custom_object.nameField.label = 'Flowsiti Record'
         custom_object.deploymentStatus = 'Deployed'
         custom_object.sharingModel = 'ReadWrite'
