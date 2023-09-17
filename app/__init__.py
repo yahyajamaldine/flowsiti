@@ -10,6 +10,14 @@ import secrets
 # Generate a secure random secret key
 secret_key = secrets.token_hex(16)
 
+#Since I had to implement a self-signed ssl certifcate for the web server 
+#Python doesn't trust it
+#To resolve this issue when dealing with a self-signed certificate, you have a few options:
+"""Disable SSL Verification
+   #This solution is not recommeneded for production(security issuess)
+   #once fixing everthing this code will line must be deleted
+   #ssl._create_default_https_context = ssl._create_unverified_context
+"""
 ssl._create_default_https_context = ssl._create_unverified_context
 
 SALESFORCE_CONSUMER_KEY = '3MVG9DREgiBqN9WmkvM3yN3IVuL3AVGBSmf7SjpjZ3P6Za55OmT8i0VFDNK8t_vd9Dhj_oRqp.qqYZUMne.8N'
@@ -213,7 +221,7 @@ def oauth_response():
 					}
 
 				# Return the POST response
-            return jsonify(page_response)
+            return str(page_response)
 
         except Exception as ex:
 
@@ -223,7 +231,8 @@ def oauth_response():
 					'message': ex
 				}
 
-                return jsonify(page_response)
+                return str(page_response)
+        
 
 @app.route('/sclient', methods=['GET', 'POST'])
 def sclient(): 
