@@ -186,6 +186,8 @@ def oauth_response():
         access_token = login_form.access_token.data
         instance_url = login_form.instance_url.data
         org_id= login_form.org_id.data
+        objectfullName = login_form.object_full_name.data 
+        label = login_form.label.data
         metadata_client = Client('https://13.37.66.143/static/metadata-52.xml')
         metadata_url = instance_url + '/services/Soap/m/' +'52.0/'
         session_header = metadata_client.factory.create("SessionHeader")
@@ -193,8 +195,8 @@ def oauth_response():
         metadata_client.set_options(location=metadata_url, soapheaders=session_header)
 
         custom_object = metadata_client.factory.create("CustomObject")
-        custom_object.fullName = 'Flowsit__c'
-        custom_object.label = 'Flowsit'
+        custom_object.fullName = objectfullName +'__c'
+        custom_object.label = label
         custom_object.pluralLabel = 'Flowsits'
         custom_object.nameField =  metadata_client.factory.create("CustomField")
         custom_object.nameField.type = 'Text'
