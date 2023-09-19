@@ -224,7 +224,7 @@ def oauth_response():
 					}
 
 				# Return the POST response
-            return render_template('client.html',custom_object = json.dumps(page_response))
+            return render_template('client.html',custom_object = json.read(page_response))
 
         except Exception as ex:
 
@@ -234,7 +234,7 @@ def oauth_response():
 					'message': ex
 				}
 
-                return render_template('client.html',custom_object = json.dumps(page_response))
+                return render_template('client.html',custom_object = json.read(page_response))
         
 
 @app.route('/sclient', methods=['GET', 'POST'])
