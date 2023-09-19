@@ -85,6 +85,17 @@
             width: 60%; /* Adjust the width as needed */
             text-align: center;
         }
+
+        /* Styles for error_object */
+        .error-object {
+            background-color: #ff3333; /* Red for error */
+            color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 0 auto;
+            width: 60%; /* Adjust the width as needed */
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -117,6 +128,17 @@
         </div>
     {% else %}
         <p>No custom_object created.</p>
+    {% endif %}
+
+    {% if error %}
+        <div class="error-object">
+            <h2>Error Object</h2>
+            <ul>
+                {% for key, value in error.items() %}
+                    <li>{{ key }}: {{ value }}</li>
+                {% endfor %}
+            </ul>
+        </div>
     {% endif %}
 </div>
 </body>

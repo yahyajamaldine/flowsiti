@@ -224,7 +224,7 @@ def oauth_response():
 					}
 
 				# Return the POST response
-            return render_template('client.html',custom_object = page_response)
+            return render_template('client.html', error = page_response)
 
         except Exception as ex:
 
