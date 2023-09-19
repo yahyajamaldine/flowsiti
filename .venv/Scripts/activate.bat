@@ -8,7 +8,7 @@ if defined _OLD_CODEPAGE (
     "%SystemRoot%\System32\chcp.com" 65001 > nul
 )
 
-set VIRTUAL_ENV=C:\Users\HP\Desktop\Python-WSDL\myproject\.venv
+set VIRTUAL_ENV=C:\Users\hp\Desktop\Python-WSDL\myproject\.venv
 
 if not defined PROMPT set PROMPT=$P$G
 

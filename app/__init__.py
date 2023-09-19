@@ -186,6 +186,7 @@ def oauth_response():
         access_token = login_form.access_token.data
         instance_url = login_form.instance_url.data
         org_id= login_form.org_id.data
+        #Custom Object data
         objectfullName = request.form.get('object_full_name')
         label = request.form.get('label')
         metadata_client = Client('https://13.37.66.143/static/metadata-52.xml')
@@ -212,7 +213,7 @@ def oauth_response():
                 page_response = {
 						'success': True,
 						'errorCode': None,
-						'message': 'Successfully created field.'
+						'message': 'Successfully created Object.'
 					}
 
             else:
@@ -223,7 +224,7 @@ def oauth_response():
 					}
 
 				# Return the POST response
-            return str(page_response)
+            return render_template('client.html',custom_object = json.load(page_response))
 
         except Exception as ex:
 
@@ -233,7 +234,7 @@ def oauth_response():
 					'message': ex
 				}
 
-                return str(page_response)
+                return render_template('client.html',custom_object = json.load(page_response))
         
 
 @app.route('/sclient', methods=['GET', 'POST'])
