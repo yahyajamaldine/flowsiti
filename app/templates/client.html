@@ -101,9 +101,9 @@
       </table>
       <ul>
         {% if custom_object %}
-        {% for obj in custom_object %}
-        <li>{{ obj }}</li>
-    {% endfor %}
+        {% for key, value in custom_object.items() %}
+        <li>{{ key }}: {{ value }}</li>
+        {% endfor %}
         {% else %}
         <li>No custom_object created.</li>
         {% endif %}
