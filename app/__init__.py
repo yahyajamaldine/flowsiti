@@ -213,7 +213,7 @@ def oauth_response():
                 page_response = {
 						'success': True,
 						'errorCode': None,
-						'message': 'Successfully created Object.'
+						'message': 'Successfully created Custom Object '+  custom_object.label
 					}
 
             else:

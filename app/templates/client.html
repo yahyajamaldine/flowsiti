@@ -1,113 +1,123 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Salesforce Field Creator</title>
     <style>
-      body {
-        font-family: Arial, sans-serif;
-        background-color: #f3f4f6;
-        margin: 0;
-        padding: 0;
-      }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f3f4f6;
+            margin: 0;
+            padding: 0;
+        }
 
-      #header {
-        background-color: #00a1e0;
-        padding: 20px;
-        color: #fff;
-        text-align: center;
-      }
+        #header {
+            background-color: #00a1e0;
+            padding: 20px;
+            color: #fff;
+            text-align: center;
+        }
 
-      #content {
-        padding: 20px;
-      }
+        #content {
+            padding: 20px;
+        }
 
-      table {
-        width: 100%;
-        max-width: 600px;
-        margin: 20px auto;
-        background-color: #fff;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        padding: 20px;
-        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-      }
+        table {
+            width: 100%;
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
 
-      form {
-        text-align: center;
-      }
+        form {
+            text-align: center;
+        }
 
-      .message {
-        color: #ff6600;
-        font-weight: bold;
-      }
+        .message {
+            font-weight: bold;
+        }
 
-      h2 {
-        text-align: center;
-      }
+        h2 {
+            text-align: center;
+        }
 
-      strong {
-        vertical-align: top;
-      }
+        strong {
+            vertical-align: top;
+        }
 
-      .alert {
-        background-color: #ffcccc;
-        padding: 10px;
-        border: 1px solid #ff0000;
-        border-radius: 5px;
-      }
+        .alert {
+            background-color: #ffcccc;
+            padding: 10px;
+            border: 1px solid #ff0000;
+            border-radius: 5px;
+        }
 
-      .btn-primary {
-        background-color: #ff6600;
-        color: #fff;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-      }
+        .btn-primary {
+            background-color: #ff6600;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
 
-      .btn-secondary {
-        background-color: #00a1e0;
-        color: #fff;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-      }
+        .btn-secondary {
+            background-color: #00a1e0;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        /* Styles for custom_object */
+        .custom-object {
+            background-color: #4caf50; /* Green for success */
+            color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 0 auto;
+            width: 60%; /* Adjust the width as needed */
+            text-align: center;
+        }
     </style>
-  </head>
-  <body>
-    <div id="header">
-      <h1>Flowsiti app</h1>
-    </div>
+</head>
+<body>
+<div id="header">
+    <h1>Flowsiti app</h1>
+</div>
 
-    <div id="content">
-      <p>
-        Flowsiti from Arrows and Draws, can create custom objects with an
-        interface that allows you to easily set up and customize fields,
-        configure permissions and layouts, and deploy changes—making the process
-        much more efficient than manual setup within Salesforce.
-      </p>
-      <p>
-        None of your organization information or data is captured or kept from
-        running this tool.
-      </p>
+<div id="content">
+    <p>
+        Flowsiti from Arrows and Draws can create custom objects with an interface that allows you to easily set up and customize fields, configure permissions and layouts, and deploy changes—making the process much more efficient than manual setup within Salesforce.
+    </p>
+    <p>
+        None of your organization information or data is captured or kept from running this tool.
+    </p>
 
-      <table>
+    <table>
         <form action="." method="POST">
-          <h2>Logged in as:</h2>
+            <h2>Logged in as:</h2>
         </form>
-      </table>
-      <ul>
-        {% if custom_object %}
-        {% for key, value in custom_object.items() %}
-        <li>{{ key }}: {{ value }}</li>
-        {% endfor %}
-        {% else %}
-        <li>No custom_object created.</li>
-        {% endif %}
-      </ul>
-    </div>
-  </body>
+    </table>
+
+    {% if custom_object %}
+        <div class="custom-object">
+            <h2>Custom Object</h2>
+            <ul>
+                {% for key, value in custom_object.items() %}
+                    <li>{{ key }}: {{ value }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% else %}
+        <p>No custom_object created.</p>
+    {% endif %}
+</div>
+</body>
 </html>
