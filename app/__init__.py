@@ -210,21 +210,21 @@ def oauth_response():
 
             if result[0].success:
 
-                succ_response = {
+                page_response = {
 						'success': True,
 						'errorCode': None,
 						'message': 'Successfully created Custom Object '+  custom_object.label
 					}
 
             else:
-                    error_response = {
+                    page_response = {
 						'success': False,
 						'errorCode': result[0].errors[0].statusCode,
 						'message': result[0].errors[0].message
 					}
 
 				# Return the POST response
-            return render_template('client.html', custom_object = succ_response,error = error_response )
+            return render_template('client.html', custom_object = page_response)
 
         except Exception as ex:
 
