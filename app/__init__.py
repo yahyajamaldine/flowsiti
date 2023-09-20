@@ -210,21 +210,21 @@ def oauth_response():
 
             if result[0].success:
 
-                page_response = {
+                succ_response = {
 						'success': True,
 						'errorCode': None,
 						'message': 'Successfully created Custom Object '+  custom_object.label
 					}
 
             else:
-                    page_response = {
+                    error_response = {
 						'success': False,
 						'errorCode': result[0].errors[0].statusCode,
 						'message': result[0].errors[0].message
 					}
 
 				# Return the POST response
-            return render_template('client.html', error = page_response)
+            return render_template('client.html', custom_object = succ_response,error = error_response )
 
         except Exception as ex:
 
@@ -236,58 +236,15 @@ def oauth_response():
 
                 return render_template('client.html',custom_object = page_response)
         
-
-@app.route('/sclient', methods=['GET', 'POST'])
+"""
+@app.route('/message', methods=['GET', 'POST'])
 def sclient(): 
-    if request.method == "GET":
-        metadata_client = Client('http://purple-meadow-4fe551fde8804864b775979f53be8a42.azurewebsites.net/static/metadata-52.xml')
-        metadata_url = 'https://resilient-fox-bv8mag-dev-ed.trailblaze.my.salesforce.com' + '/services/Soap/m/' +'52.0/'
-        session_header = metadata_client.factory.create("SessionHeader")
-        session_header.sessionId = '00D8d00000Aqcl0!ARUAQGuZK25CkICQMcMkuFUbTIDU1ajvZ3Vo_yTbqPIz.Az9jzhEL0OJpudAc4H4X4DPYMVOiUeZCkGqDwd0_yYC.h9gG4Gi'
-        metadata_client.set_options(location=metadata_url, soapheaders=session_header)
-
-        custom_object=  metadata_client.factory.create("CustomObject")
-        custom_object.fullName = 'travel__c'
-        custom_object.label = 'travel'
-        custom_object.pluralLabel = 'travel'
-        custom_object.nameField =  metadata_client.factory.create("CustomField")
-        custom_object.nameField.type = 'Text'
-        custom_object.nameField.label = 'Flowsi Record'
-        custom_object.deploymentStatus = 'Deployed'
-        custom_object.sharingModel = 'ReadWrite'
-    
-        try:
-
-            result = metadata_client.service.createMetadata([custom_object])
-
-            if result[0].success:
-
-                page_response = {
-						'success': True,
-						'errorCode': None,
-						'message': 'Successfully created field.'
-					}
-
-            else:
-                    page_response = {
-						'success': False,
-						'errorCode': result[0].errors[0].statusCode,
-						'message': result[0].errors[0].message
-					}
-
-				# Return the POST response
-            return str(page_response)
-
-        except Exception as ex:
-
-                page_response = {
-					'success': False,
-					'errorCode': 'Error building field metadata',
-					'message': ex
-				}
-
-                return str(page_response)
+    if request.method == 'GET':
+     if(request.args.get('custom_object')):
+         return render_template('client.html', custom = page_response)
+     elif():
+         return render_template('client.html', error = page_response)
         
-     
+     """
 
 
