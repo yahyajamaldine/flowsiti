@@ -218,8 +218,8 @@ def oauth_response():
         #Plus we are going to add each field to 
         for i in range(3):  # Adjust the range based on the number of fields you expect
          if fields[i] :
-            field_metadata = buildFields(field =field[i], metadata =metadata_client)
-            field_metadata.fullName = objectfullName +'__c' + '.' + field[i].get('field_name')
+            field_metadata = buildFields(field =fields[i], metadata =metadata_client)
+            field_metadata.fullName = objectfullName +'__c' + '.' + field[i].get('field_name') +'__c'
             metatdataToDeploy.append(field_metadata)
         try:
 
