@@ -90,12 +90,9 @@
         </p>
 
         <table>
-            <form action="/oauthrp" method="POST">
+            <form action="/clienttest" method="POST">
                 {{ login_form.hidden_tag() }}
-                <input type="hidden" name="environment" value="{{ login_form.environment.data }}">
-                <input type="hidden" name="access_token" value="{{ login_form.access_token.data }}">
-                <input type="hidden" name="instance_url" value="{{ login_form.instance_url.data }}">
-        
+                <input type="hidden" name="nbfields" value="3">
                 {% if messages %}
                 <tr>
                     <td colspan="2" class="message">
@@ -106,15 +103,13 @@
                     </td>
                 </tr>
                 {% endif %}
-        
-                {% if not error %}
                 <h2>Logged in as:</h2>
                 <tr>
                     <td width="150">
                         <strong>Username:</strong>
                     </td>
                     <td>
-                        {{ username }}
+                          ksks
                     </td>
                 </tr>
                 <tr>
@@ -122,7 +117,7 @@
                         <strong>Organization:</strong>
                     </td>
                     <td>
-                        {{ org_name }}
+                         didi
                     </td>
                 </tr>
                 <!-- Added Field for object.fullName -->
@@ -197,20 +192,6 @@
                         <input type="submit" name="get_metadata" value="Query List of Objects" class="btn-secondary" />
                     </td>
                 </tr>
-                {% else %}
-                <tr>
-                    <td colspan="2">
-                        <div class="alert">
-                            <p>
-                                <strong>Error:</strong> {{ error_message }}
-                            </p>
-                            <p>
-                                Please go <a href="/">back</a> and try again.
-                            </p>
-                        </div>
-                    </td>
-                </tr>
-                {% endif %}
             </form>
         </table>
         

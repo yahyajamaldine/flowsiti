@@ -1,6 +1,6 @@
 from flask import Flask, request, redirect, jsonify, url_for
 from flask import render_template
-from .forms import LoginForm
+from .forms import LoginForm, buildFields
 import json
 import requests
 from suds.client import Client
@@ -194,7 +194,7 @@ def oauth_response():
         session_header = metadata_client.factory.create("SessionHeader")
         session_header.sessionId = access_token
         metadata_client.set_options(location=metadata_url, soapheaders=session_header)
-
+        metatdataToDeploy = []
         custom_object = metadata_client.factory.create("CustomObject")
         custom_object.fullName = objectfullName +'__c'
         custom_object.label = label
@@ -204,9 +204,26 @@ def oauth_response():
         custom_object.nameField.label = 'Flowsiti Record'
         custom_object.deploymentStatus = 'Deployed'
         custom_object.sharingModel = 'ReadWrite'
+        metatdataToDeploy.append(custom_object)
+        fields = []
+        for i in range(3):  # Adjust the range based on the number of fields you expect
+         field ={
+             'field_label':request.form.get(f'field_label_{i}'),
+             'field_name':request.form.get(f'field_name_{i}'),
+             'field_type':request.form.get(f'field_type_{i}')
+           }
+         #Append the values to their respective lists
+         fields.append(field)
+        #Since we have pulled fields data, let's create Metadata for fields
+        #Plus we are going to add each field to 
+        for i in range(3):  # Adjust the range based on the number of fields you expect
+         if fields[i] :
+            field_metadata = buildFields(field =field[i], metadata =metadata_client)
+            field_metadata.fullName = objectfullName +'__c' + '.' + field[i].get('field_name')
+            metatdataToDeploy.append(field_metadata)
         try:
 
-            result = metadata_client.service.createMetadata([custom_object])
+            result = metadata_client.service.createMetadata(metatdataToDeploy)
 
             if result[0].success:
 
@@ -247,4 +264,26 @@ def sclient():
         
      """
 
+@app.route('/clienttest', methods=['GET', 'POST'])
+def page():
+    login_form = LoginForm(request.form)
+    if request.method == 'GET':
+        return render_template('clienttest.html', login_form=login_form)
+    if request.method == 'POST':
+        fields = []
+
+        for i in range(3):  # Adjust the range based on the number of fields you expect
+         field ={
+             'field_label':request.form.get(f'field_label_{i}'),
+             'field_name':request.form.get(f'field_name_{i}'),
+             'field_type':request.form.get(f'field_type_{i}')
+           }
+         #Append the values to their respective lists
+         fields.append(field)
+
+        if fields :
+            return str(fields)
+        else :
+            return 'no fields built'
+        
 
