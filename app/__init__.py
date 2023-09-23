@@ -215,15 +215,14 @@ def oauth_response():
          #Append the values to their respective lists
          fields.append(field)
         #Since we have pulled fields data, let's create Metadata for fields
+        for i in range(3):  # Adjust the range based on the number of fields you expect
+          if fields[i] :
+             field_metadata = buildFields(field =fields[i], metadata =metadata_client)
+             field_metadata.fullName = objectfullName +'__c' + '.' + fields[i].get('field_name') +'__c'
+             metatdataToDeploy.append(field_metadata)
         #Plus we are going to add each field to 
         
         try:
-            for i in range(3):  # Adjust the range based on the number of fields you expect
-              if fields[i] :
-               field_metadata = buildFields(field =fields[i], metadata =metadata_client)
-               field_metadata.fullName = objectfullName +'__c' + '.' + fields[i].get('field_name') +'__c'
-               metatdataToDeploy.append(field_metadata)
-
             result = metadata_client.service.createMetadata(metatdataToDeploy)
 
             if result[0].success:
