@@ -118,6 +118,7 @@
     </table>
 
     {% if custom_object %}
+        {% if custom_object.success %}
         <div class="custom-object">
             <h2>Custom Object</h2>
             <ul>
@@ -126,6 +127,16 @@
                 {% endfor %}
             </ul>
         </div>
+        {% else %}
+        <div class="error-object">
+            <h2>Custom Object</h2>
+            <ul>
+                {% for key, value in custom_object.items() %}
+                    <li>{{ key }}: {{ value }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
     {% endif %}
 
     {% if error %}
