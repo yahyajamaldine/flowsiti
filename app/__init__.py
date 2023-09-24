@@ -217,8 +217,7 @@ def oauth_response():
         #Since we have pulled fields data, let's create Metadata for fields
         for i in range(3):  # Adjust the range based on the number of fields you expect
           if fields[i] :
-             field_metadata = buildFields(fields[i], metadata =metadata_client)
-             #field_metadata.fullName = objectfullName +'__c' + '.' + fields[i].get('field_name') +'__c'
+             field_metadata = buildFields(fields[i], metadata =metadata_client, objectName = objectfullName)
              metatdataToDeploy.append(field_metadata)
         return str(metatdataToDeploy)
         #Plus we are going to add each field to 
@@ -281,10 +280,10 @@ def page():
            }
          #Append the values to their respective lists
          fields.append(field)
-        lists=[]
-        for i in range(3):  # Adjust the range based on the number of fields you expect
-          if fields[i] :
-             lists.append(fields[i].get('field_label'))
-        return str(lists)
+
+        if fields :
+            return str(fields)
+        else :
+            return 'no fields built'
         
 

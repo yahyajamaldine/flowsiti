@@ -12,7 +12,7 @@ class LoginForm(FlaskForm):
 	org_name = StringField(validators=[validators.Optional()])
 	org_id = StringField(validators=[validators.Optional()])
 
-def buildFields(field, metadata):
+def buildFields(field, metadata, objectName):
 	"""
 	Build the field metadata for the Metadata API, after we are going to use 
 	"""
@@ -31,6 +31,8 @@ def buildFields(field, metadata):
 	#field values based on user Input
 
 	fieldMetadata.label = field.get('field_label')
-	fieldMetadata.type = field.get('field_name')
+	fieldMetadata.type = field.get('field_type')
+	fieldMetadata.fullName = objectName +'__c' + '.' + field.get('field_name') +'__c'
+	fieldMetadata.length = 50
 	
 	return fieldMetadata
