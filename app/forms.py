@@ -30,7 +30,7 @@ def buildFields(field, metadata):
 
 	#field values based on user Input
 
-	fieldMetadata.label = field.get('label')
-	fieldMetadata.type = field.get('type')
+	fieldMetadata.label = field.get('field_label')
+	fieldMetadata.type = field.get('field_name')
 	
 	return fieldMetadata
