@@ -219,10 +219,9 @@ def oauth_response():
           if fields[i] :
              field_metadata = buildFields(fields[i], metadata =metadata_client, objectName = objectfullName)
              metatdataToDeploy.append(field_metadata)
-        return str(metatdataToDeploy)
-        #Plus we are going to add each field to 
         
-    """   try:
+        #Plus we are going to add each field to   
+        try:
             result = metadata_client.service.createMetadata(metatdataToDeploy)
 
             if result[0].success:
@@ -251,7 +250,7 @@ def oauth_response():
 					'message': ex
 				}
 
-                return render_template('client.html',custom_object = page_response)"""
+                return render_template('client.html',custom_object = page_response)
         
 """       
 @app.route('/message', methods=['GET', 'POST'])
