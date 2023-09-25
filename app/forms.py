@@ -46,11 +46,12 @@ def buildFields(field, metadata, objectName):
 		fieldMetadata.required = True
 	
 	elif fieldMetadata.type == 'Email':
+
 		fieldMetadata.defaultValue = 'nothing@email.com'
+		fieldMetadata.externalId = False
+		fieldMetadata.required = False
+		fieldMetadata.unique = False
 		
-	elif fieldMetadata.type == 'Text':	
-		fieldMetadata.defaultValue = 'nothing'
-		fieldMetadata.length = 50
 
 	elif fieldMetadata.type == 'Date' or fieldMetadata.type == 'DateTime' or fieldMetadata.type == 'Phone' or fieldMetadata.type == 'TextArea' or fieldMetadata.type == 'Url':
 		fieldMetadata.required = True
