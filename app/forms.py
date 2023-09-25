@@ -31,8 +31,36 @@ def buildFields(field, metadata, objectName):
 	#field values based on user Input
 
 	fieldMetadata.label = field.get('field_label')
-	fieldMetadata.type = field.get('field_type')
 	fieldMetadata.fullName = objectName +'__c' + '.' + field.get('field_name') +'__c'
 	fieldMetadata.length = 50
 	
+	fieldMetadata.inlineHelpText = field.get('description') +'add Helptext'
+	fieldMetadata.description = field.get('description')
+	fieldMetadata.type = field.get('field_type')
+	
+	if fieldMetadata.type == 'Checkbox':
+		fieldMetadata.defaultValue = True if field['checkboxdefault'] == 'checked' else False
+
+	elif fieldMetadata.type == 'Currency':
+		if field['default']:
+			fieldMetadata.defaultValue = field['default']
+		fieldMetadata.precision = int(field['precision']) + int(field['decimal'])
+		fieldMetadata.scale = int(field['decimal'])
+		fieldMetadata.required = field['required']
+	
+	elif fieldMetadata.type == 'Email':
+		if field['default']:
+			fieldMetadata.default = field['default']
+		fieldMetadata.externalId = field['external']
+		fieldMetadata.required = field['required']
+		fieldMetadata.unique = field['uniqueSetting']
+		
+	elif fieldMetadata.type == 'Text':
+		if field['default']:
+			fieldMetadata.defaultValue = field['default']
+		fieldMetadata.length = field['length']
+		fieldMetadata.externalId = field['external']
+		fieldMetadata.required = field['required']
+		fieldMetadata.unique = field['uniqueSetting']
+
 	return fieldMetadata
