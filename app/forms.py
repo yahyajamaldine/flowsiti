@@ -41,8 +41,8 @@ def buildFields(field, metadata, objectName):
 		fieldMetadata.defaultValue = False
 
 	elif fieldMetadata.type == 'Currency':
-		fieldMetadata.precision = 18
-		fieldMetadata.scale = 0
+		fieldMetadata.precision = 0
+		fieldMetadata.scale = 18
 		fieldMetadata.required = True
 	
 	elif fieldMetadata.type == 'Email':
@@ -55,6 +55,11 @@ def buildFields(field, metadata, objectName):
 	elif fieldMetadata.type == 'Date' or fieldMetadata.type == 'DateTime' or fieldMetadata.type == 'Phone' or fieldMetadata.type == 'TextArea' or fieldMetadata.type == 'Url':
 		fieldMetadata.required = True
 	
+	elif fieldMetadata.type== 'Location':
+		fieldMetadata.displayLocationInDecimal = True
+		fieldMetadata.required = True
+		fieldMetadata.scale = 18
+
 
 	return fieldMetadata
 
