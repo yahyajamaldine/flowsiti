@@ -34,8 +34,8 @@ def buildFields(field, metadata, objectName):
 	fieldMetadata.fullName = objectName +'__c' + '.' + field.get('field_name') +'__c'
 	fieldMetadata.length = 50
 	
-	fieldMetadata.inlineHelpText = field.get('description') +'add Helptext'
-	fieldMetadata.description = field.get('description')
+	fieldMetadata.inlineHelpText ='add Helptext'
+	fieldMetadata.description = 'add Helptext'
 	fieldMetadata.type = field.get('field_type')
 	
 	if fieldMetadata.type == 'Checkbox':
@@ -50,7 +50,7 @@ def buildFields(field, metadata, objectName):
 	
 	elif fieldMetadata.type == 'Email':
 		if field['default']:
-			fieldMetadata.default = field['default']
+			fieldMetadata.default = 'nothing@email.com'
 		fieldMetadata.externalId = field['external']
 		fieldMetadata.required = field['required']
 		fieldMetadata.unique = field['uniqueSetting']
