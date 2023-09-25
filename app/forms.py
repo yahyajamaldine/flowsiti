@@ -55,6 +55,7 @@ def buildFields(field, metadata, objectName):
 
 	elif fieldMetadata.type == 'Date' or fieldMetadata.type == 'DateTime' or fieldMetadata.type == 'Phone' or fieldMetadata.type == 'TextArea' or fieldMetadata.type == 'Url':
 		fieldMetadata.required = True
+		fieldMetadata.required = None
 	
 
 	return fieldMetadata
