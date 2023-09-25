@@ -47,7 +47,7 @@ def buildFields(field, metadata, objectName):
 		fieldMetadata.required = True
 	
 	elif fieldMetadata.type == 'Email':
-		fieldMetadata.default = 'nothing@email.com'
+		fieldMetadata.defaultValue = 'nothing@email.com'
 		
 	elif fieldMetadata.type == 'Text':
 		
