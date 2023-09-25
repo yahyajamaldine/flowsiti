@@ -56,9 +56,16 @@ def buildFields(field, metadata, objectName):
 		fieldMetadata.required = True
 	
 	elif fieldMetadata.type== 'Location':
-		fieldMetadata.displayLocationInDecimal = True
 		fieldMetadata.required = True
 		fieldMetadata.scale = 18
+
+	elif fieldMetadata.type == 'Number':
+
+		fieldMetadata.externalId = False
+		fieldMetadata.precision = 0
+		fieldMetadata.scale = 18
+		fieldMetadata.required = False
+		fieldMetadata.unique = False
 
 
 	return fieldMetadata
