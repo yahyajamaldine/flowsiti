@@ -39,6 +39,32 @@ def buildFields(field, metadata, objectName):
 	fieldMetadata.type = field.get('field_type')
 	
 	if fieldMetadata.type == 'Checkbox':
+		fieldMetadata.defaultValue = False
+
+	elif fieldMetadata.type == 'Currency':
+		fieldMetadata.precision = 18
+		fieldMetadata.scale = 0
+		fieldMetadata.required = True
+	
+	elif fieldMetadata.type == 'Email':
+		if field['default']:
+			fieldMetadata.default = 'nothing@email.com'
+		
+	elif fieldMetadata.type == 'Text':
+		if field['default']:
+			fieldMetadata.defaultValue = 'nothing'
+		fieldMetadata.length = 50
+	elif fieldMetadata.type == 'Date' or fieldMetadata.type == 'DateTime' or fieldMetadata.type == 'Phone' or fieldMetadata.type == 'TextArea' or fieldMetadata.type == 'Url':
+		fieldMetadata.required = True
+	
+
+	return fieldMetadata
+
+#Since these data is not specified right now, we are going to use static data
+
+"""
+    
+	if fieldMetadata.type == 'Checkbox':
 		fieldMetadata.defaultValue = True if field['checkboxdefault'] == 'checked' else False
 
 	elif fieldMetadata.type == 'Currency':
@@ -63,4 +89,4 @@ def buildFields(field, metadata, objectName):
 		fieldMetadata.required = field['required']
 		fieldMetadata.unique = field['uniqueSetting']
 
-	return fieldMetadata
+"""
