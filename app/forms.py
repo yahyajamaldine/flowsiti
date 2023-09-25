@@ -32,7 +32,6 @@ def buildFields(field, metadata, objectName):
 
 	fieldMetadata.label = field.get('field_label')
 	fieldMetadata.fullName = objectName +'__c' + '.' + field.get('field_name') +'__c'
-	fieldMetadata.length = 50
 	
 	fieldMetadata.inlineHelpText ='add Helptext'
 	fieldMetadata.description = 'add Helptext'
@@ -49,10 +48,10 @@ def buildFields(field, metadata, objectName):
 	elif fieldMetadata.type == 'Email':
 		fieldMetadata.defaultValue = 'nothing@email.com'
 		
-	elif fieldMetadata.type == 'Text':
-		
+	elif fieldMetadata.type == 'Text':	
 		fieldMetadata.defaultValue = 'nothing'
 		fieldMetadata.length = 50
+
 	elif fieldMetadata.type == 'Date' or fieldMetadata.type == 'DateTime' or fieldMetadata.type == 'Phone' or fieldMetadata.type == 'TextArea' or fieldMetadata.type == 'Url':
 		fieldMetadata.required = True
 	
