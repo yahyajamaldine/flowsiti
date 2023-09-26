@@ -62,8 +62,15 @@ def buildFields(field, metadata, objectName):
 	elif fieldMetadata.type == 'Number':
 
 		fieldMetadata.externalId = False
-		fieldMetadata.precision = 0
-		fieldMetadata.scale = 18
+		fieldMetadata.required = False
+		fieldMetadata.precision = 10
+		fieldMetadata.scale = 10
+		fieldMetadata.unique = False
+
+	elif fieldMetadata.type == 'Text':
+		
+		fieldMetadata.length = 90
+		fieldMetadata.externalId = False
 		fieldMetadata.required = False
 		fieldMetadata.unique = False
 
