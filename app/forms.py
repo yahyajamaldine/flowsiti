@@ -63,7 +63,7 @@ def buildFields(field, metadata, objectName):
 
 	elif fieldMetadata.type == 'Number':
 		
-		fieldMetadata.default = 0
+		fieldMetadata.defaultValue = 0
 		fieldMetadata.externalId = False
 		fieldMetadata.required = False
 		fieldMetadata.precision = 10
@@ -72,7 +72,7 @@ def buildFields(field, metadata, objectName):
 		   
 	elif fieldMetadata.type == 'Percent':
 		
-		fieldMetadata.default = 0
+		fieldMetadata.defaultValue = 0
 		fieldMetadata.externalId = False
 		fieldMetadata.required = False
 		fieldMetadata.precision = 10
