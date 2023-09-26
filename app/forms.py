@@ -42,7 +42,7 @@ def buildFields(field, metadata, objectName):
 
 	elif fieldMetadata.type == 'Currency':
 		fieldMetadata.precision = 0
-		fieldMetadata.scale = 18
+		fieldMetadata.scale = 10
 		fieldMetadata.required = True
 	
 	elif fieldMetadata.type == 'Email':
@@ -62,14 +62,14 @@ def buildFields(field, metadata, objectName):
 	elif fieldMetadata.type == 'Number':
 
 		fieldMetadata.externalId = False
-		fieldMetadata.required = False
-		fieldMetadata.precision = 10
+		fieldMetadata.required = True
+		fieldMetadata.precision = 0
 		fieldMetadata.scale = 10
 		fieldMetadata.unique = False
 
 	elif fieldMetadata.type == 'Text':
 		
-		fieldMetadata.length = 90
+		fieldMetadata.length = 80
 		fieldMetadata.externalId = False
 		fieldMetadata.required = False
 		fieldMetadata.unique = False
