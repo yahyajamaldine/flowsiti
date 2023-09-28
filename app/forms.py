@@ -146,6 +146,7 @@ def build_picklist_values_metadata(field_data, metadata_client):
 		picklist_value = metadata_client.factory.create("CustomValue")
 		picklist_value.label = picklist
 		picklist_value.isActive = True
+		picklist_value.fullName= picklist
 		picklist_value.default = True if first_value else False # If first value and first value default is checked
 
 		# Add to the value list
