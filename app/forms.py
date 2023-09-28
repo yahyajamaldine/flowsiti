@@ -92,7 +92,7 @@ def buildFields(field, metadata, objectName):
 
 	elif fieldMetadata.type == 'MultiselectPicklist':
 
-		fieldMetadata.valueSet = metadata.factory.create("CustomValue")
+		fieldMetadata.valueSet = metadata.factory.create("ValueSet")
 		fieldMetadata.visibleLines = 4
 		fieldMetadata.valueSet.valueSetDefinition = build_picklist_values_metadata(field, metadata)
 
