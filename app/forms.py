@@ -95,15 +95,16 @@ def buildFields(field, metadata, objectName):
 		fieldMetadata.valueSet = metadata.factory.create("ValueSet")
 		fieldMetadata.visibleLines = 4
 		fieldMetadata.valueSet.valueSetDefinition = build_picklist_values_metadata(field, metadata)
-
-		
+	
 	elif fieldMetadata.type == 'LongTextArea':
 	
 		fieldMetadata.length = 80
+		fieldMetadata.defaultValue = ''
 		fieldMetadata.visibleLines = 40
 	
 	elif fieldMetadata.type == 'Html':
 		fieldMetadata.length = 100
+		fieldMetadata.defaultValue = ''
 		fieldMetadata.visibleLines = 40
 
 	elif fieldMetadata.type == 'EncryptedText':
