@@ -87,12 +87,14 @@ def buildFields(field, metadata, objectName):
 		fieldMetadata.unique = False   
 
 	elif fieldMetadata.type == 'Picklist':
+		fieldMetadata.valueSet = metadata.factory.create("CustomValue")
 		fieldMetadata.valueSet.valueSetDefinition = build_picklist_values_metadata(field,metadata)
 
 	elif fieldMetadata.type == 'MultiselectPicklist':
-		
+
+		fieldMetadata.valueSet = metadata.factory.create("CustomValue")
 		fieldMetadata.visibleLines = 4
-		fieldMetadata.valueSet.valueSetDefinition = build_picklist_values_metadata(field_data, metadata_client)
+		fieldMetadata.valueSet.valueSetDefinition = build_picklist_values_metadata(field, metadata)
 
 		
 	elif fieldMetadata.type == 'LongTextArea':
@@ -145,7 +147,6 @@ def build_picklist_values_metadata(field_data, metadata_client):
 	for picklist in picklist_values_list:
 
 		picklist_value = metadata_client.factory.create("CustomValue")
-		picklist_value.fullName = picklist
 		picklist_value.label = picklist
 		picklist_value.default = True if first_value and Static[0] else False # If first value and first value default is checked
 
