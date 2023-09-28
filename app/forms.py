@@ -123,7 +123,7 @@ def build_picklist_values_metadata(field_data, metadata_client):
 
 	# Create the value set
 	value_set = metadata_client.factory.create("ValueSetValuesDefinition")
-	value_set.sorted = field_data.get('sortalpha', False)
+	value_set.sorted = False
 	value_set.value = []
 
 	# The array of valeus to create picklist values for
@@ -133,9 +133,6 @@ def build_picklist_values_metadata(field_data, metadata_client):
 	Static = ['Value 1', 'Value 2', 'Value 3', 'Value4']
 	# Split string for new lines
 	for value in Static:
-
-		# Trim any whitesapce
-		value = value.strip()
 
 		# If value isn't blank or null, add to array
 		if value:
@@ -148,7 +145,8 @@ def build_picklist_values_metadata(field_data, metadata_client):
 
 		picklist_value = metadata_client.factory.create("CustomValue")
 		picklist_value.label = picklist
-		picklist_value.default = True if first_value and Static[0] else False # If first value and first value default is checked
+		picklist_value.isActive = True
+		picklist_value.default = True if first_value else False # If first value and first value default is checked
 
 		# Add to the value list
 		value_set.value.append(picklist_value)
