@@ -79,7 +79,6 @@ def buildFields(field, metadata, objectName):
 		fieldMetadata.scale = 2
 		fieldMetadata.unique = False 
 
-
 	elif fieldMetadata.type == 'Text':
 		
 		fieldMetadata.length = 80
@@ -87,35 +86,73 @@ def buildFields(field, metadata, objectName):
 		fieldMetadata.required = False
 		fieldMetadata.unique = False   
 
+	elif fieldMetadata.type == 'Picklist':
+		fieldMetadata.valueSet.valueSetDefinition = build_picklist_values_metadata(field,metadata)
+
+	elif fieldMetadata.type == 'MultiselectPicklist':
+		
+		fieldMetadata.visibleLines = 4
+		fieldMetadata.valueSet.valueSetDefinition = build_picklist_values_metadata(field_data, metadata_client)
+
+		
+	elif fieldMetadata.type == 'LongTextArea':
+	
+		fieldMetadata.length = 80
+		fieldMetadata.visibleLines = 40
+	
+	elif fieldMetadata.type == 'Html':
+		fieldMetadata.length = 100
+		fieldMetadata.visibleLines = 40
+
+	elif fieldMetadata.type == 'EncryptedText':
+
+		fieldMetadata.length = 80
+		fieldMetadata.required = False
+		fieldMetadata.maskChar = 'asterisk'
+		fieldMetadata.maskType =  'all'
+
 	return fieldMetadata
 
 #Since these data is not specified right now, we are going to use static data
+def build_picklist_values_metadata(field_data, metadata_client):
+	"""
+	Build the valueSet metadata for picklist fields
+	"""
 
-"""
-    
-	if fieldMetadata.type == 'Checkbox':
-		fieldMetadata.defaultValue = True if field['checkboxdefault'] == 'checked' else False
+	# Create the value set
+	value_set = metadata_client.factory.create("ValueSetValuesDefinition")
+	value_set.sorted = field_data.get('sortalpha', False)
+	value_set.value = []
 
-	elif fieldMetadata.type == 'Currency':
-		if field['default']:
-			fieldMetadata.defaultValue = field['default']
-		fieldMetadata.precision = int(field['precision']) + int(field['decimal'])
-		fieldMetadata.scale = int(field['decimal'])
-		fieldMetadata.required = field['required']
-	
-	elif fieldMetadata.type == 'Email':
-		if field['default']:
-			fieldMetadata.default = 'nothing@email.com'
-		fieldMetadata.externalId = field['external']
-		fieldMetadata.required = field['required']
-		fieldMetadata.unique = field['uniqueSetting']
-		
-	elif fieldMetadata.type == 'Text':
-		if field['default']:
-			fieldMetadata.defaultValue = field['default']
-		fieldMetadata.length = field['length']
-		fieldMetadata.externalId = field['external']
-		fieldMetadata.required = field['required']
-		fieldMetadata.unique = field['uniqueSetting']
+	# The array of valeus to create picklist values for
+	picklist_values_list = []
+	#Here we define static data for fields 
+	#Once ready we'll get data from a form and put it in place of Static
+	Static = ['Value 1', 'Value 2', 'Value 3', 'Value4']
+	# Split string for new lines
+	for value in Static:
 
-"""
+		# Trim any whitesapce
+		value = value.strip()
+
+		# If value isn't blank or null, add to array
+		if value:
+			picklist_values_list.append(value)
+
+	# Determine first value for the loop
+	first_value = True
+
+	for picklist in picklist_values_list:
+
+		picklist_value = metadata_client.factory.create("CustomValue")
+		picklist_value.fullName = picklist
+		picklist_value.label = picklist
+		picklist_value.default = True if first_value and Static[0] else False # If first value and first value default is checked
+
+		# Add to the value list
+		value_set.value.append(picklist_value)
+
+		# Remove the first value boolean
+		first_value = False
+
+	return value_set
