@@ -62,21 +62,20 @@ def buildFields(field, metadata, objectName):
 		fieldMetadata.scale = 18
 
 	elif fieldMetadata.type == 'Number':
-		
-		fieldMetadata.defaultValue = 0
+
 		fieldMetadata.externalId = False
-		fieldMetadata.required = False
 		fieldMetadata.precision = 10
-		fieldMetadata.scale = 2
+		fieldMetadata.scale = 4
+		fieldMetadata.defaultValue=0
+		fieldMetadata.required = False
 		fieldMetadata.unique = False
 		   
 	elif fieldMetadata.type == 'Percent':
-		
-		fieldMetadata.defaultValue = 0
-		fieldMetadata.externalId = False
-		fieldMetadata.required = False
+
 		fieldMetadata.precision = 10
+		fieldMetadata.defaultValue= '10%'
 		fieldMetadata.scale = 2
+		fieldMetadata.precision = 10	
 		fieldMetadata.unique = False 
 
 	elif fieldMetadata.type == 'Text':
@@ -100,7 +99,7 @@ def buildFields(field, metadata, objectName):
 	
 		fieldMetadata.length = 80
 		fieldMetadata.defaultValue = ''
-		fieldMetadata.visibleLines = 40
+		fieldMetadata.visibleLines = 4
 	
 	elif fieldMetadata.type == 'Html':
 		fieldMetadata.length = 100

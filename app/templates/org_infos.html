@@ -122,19 +122,65 @@
             </td>
             <td>{{ login_form.org_id.data}}</td>
           </tr>
+          <tr>
+            <ul>
+              {% if custom_object %} 
+              <li>All Objects in your Org</li>
+              <select id="customObjectDropdown">
+              {% for obj in custom_object %}
+              <option value="{{ obj.name }}">{{ obj.label }}</option>
+              {% endfor %}
+             </select>
+              {% else %}
+              <li>No custom_object found.</li>
+              {% endif %}
+            </ul>
+          </tr>
+          <tr height="20">
+            <td colspan="2"></td>
+        </tr>
+        {% for i in range(3) %}
+        <tr class="field">
+            <td class="text-center" style="vertical-align:middle;">
+                Field-{{ i }}
+            </td>
+            <td>
+                <input type="text" class="form-control" name="field_label_{{ i }}" placeholder="Field label..." />
+            </td>
+            <td>
+                <input type="text" class="form-control" name="field_name_{{ i }}" placeholder="Field name..." />
+            </td>
+            <td>
+                <input type="text" class="form-control" name="field_description_{{ i }}" placeholder="Field name..." />
+            </td>
+            <td>
+                <select class="form-control" name="field_type_{{ i }}">
+                    <option value="Checkbox">Checkbox</option>
+                    <option value="Currency">Currency</option>
+                    <option value="Date">Date</option>
+                    <option value="DateTime">Date / Time</option>
+                    <option value="Email">Email</option>
+                    <option value="Location">Geolocation</option>
+                    <option value="Number">Number</option>
+                    <option value="Percent">Percent</option>
+                    <option value="Phone">Phone</option>
+                    <option value="Picklist">Picklist</option>
+                    <option value="MultiselectPicklist">Picklist (Multi-Select)</option>
+                    <option value="Text">Text</option>
+                    <option value="TextArea">Text Area</option>
+                    <option value="LongTextArea">Text Area (Long)</option>
+                    <option value="Html">Text Area (Rich)</option>
+                    <option value="Url">URL</option>
+                </select>
+            </td>
+        </tr>
+        {% endfor %}
+
+        <tr height="30">
+            <td colspan="2"></td>
+        </tr>
         </form>
       </table>
-      <ul>
-        {% if custom_object %} {% for obj in custom_object %}
-        <li>
-          <p style="font-weight: bold; font-size: 18px">{{ obj.name }}</p>
-          <p><strong>Name:</strong> {{ obj.name }}</p>
-          <p><strong>Label:</strong> {{ obj.label }}</p>
-        </li>
-        {% endfor %} {% else %}
-        <li>No custom_object found.</li>
-        {% endif %}
-      </ul>
     </div>
   </body>
 </html>
