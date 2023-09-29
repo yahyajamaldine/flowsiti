@@ -4,77 +4,117 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Salesforce Field Creator</title>
+    charset="UTF-8">
     <style>
-      body {
-        font-family: Arial, sans-serif;
-        background-color: #f3f4f6;
-        margin: 0;
-        padding: 0;
-      }
+        /* Your existing styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f3f4f6;
+            margin: 0;
+            padding: 0;
+        }
 
-      #header {
-        background-color: #00a1e0;
-        padding: 20px;
-        color: #fff;
-        text-align: center;
-      }
+        #header {
+            background-color: #00a1e0;
+            padding: 20px;
+            color: #fff;
+            text-align: center;
+        }
 
-      #content {
-        padding: 20px;
-      }
+        #content {
+            padding: 20px;
+        }
 
-      table {
-        width: 100%;
-        max-width: 600px;
-        margin: 20px auto;
-        background-color: #fff;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        padding: 20px;
-        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-      }
+        table {
+            width: 100%;
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
 
-      form {
-        text-align: center;
-      }
+        form {
+            text-align: center;
+        }
 
-      .message {
-        color: #ff6600;
-        font-weight: bold;
-      }
+        .message {
+            color: #ff6600;
+            font-weight: bold;
+        }
 
-      h2 {
-        text-align: center;
-      }
+        h2 {
+            text-align: center;
+        }
 
-      strong {
-        vertical-align: top;
-      }
+        strong {
+            vertical-align: top;
+        }
 
-      .alert {
-        background-color: #ffcccc;
-        padding: 10px;
-        border: 1px solid #ff0000;
-        border-radius: 5px;
-      }
+        .alert {
+            background-color: #ffcccc;
+            padding: 10px;
+            border: 1px solid #ff0000;
+            border-radius: 5px;
+        }
 
-      .btn-primary {
-        background-color: #ff6600;
-        color: #fff;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-      }
+        .btn-primary {
+            background-color: #ff6600;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
 
-      .btn-secondary {
-        background-color: #00a1e0;
-        color: #fff;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-      }
+        .btn-secondary {
+            background-color: #00a1e0;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        /* New styles for the updated form */
+        .form-container {
+            max-width: 400px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            font-weight: bold;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 8px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .form-control select {
+            height: 38px;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
     </style>
   </head>
   <body>
@@ -93,93 +133,83 @@
         None of your organization information or data is captured or kept from
         running this tool.
       </p>
-
-      <table>
-        <form action="." method="POST">
-          {{ login_form.hidden_tag() }}
-          <h2>Logged in as:</h2>
-          <tr>
-            <td width="150">
-              <strong>Env:</strong>
-            </td>
-            <td>{{ login_form.environment.data }}</td>
-          </tr>
-          <tr>
-            <td width="150">
-              <strong>instance_url:</strong>
-            </td>
-            <td>{{ login_form.instance_url.data}}</td>
-          </tr>
-          <tr>
-            <td width="150">
-              <strong>token:</strong>
-            </td>
-            <td>{{ login_form.access_token.data}}</td>
-          </tr>
-          <tr>
-            <td width="150">
-              <strong>org_id:</strong>
-            </td>
-            <td>{{ login_form.org_id.data}}</td>
-          </tr>
-          <tr>
-            <ul>
-              {% if custom_object %} 
-              <li>All Objects in your Org</li>
-              <select id="customObjectDropdown">
-              {% for obj in custom_object %}
-              <option value="{{ obj.name }}">{{ obj.label }}</option>
-              {% endfor %}
-             </select>
-              {% else %}
-              <li>No custom_object found.</li>
-              {% endif %}
-            </ul>
-          </tr>
-          <tr height="20">
-            <td colspan="2"></td>
-        </tr>
+      <form action="." method="POST">
+        {{ login_form.hidden_tag() }}
+        
+        <div class="form-group">
+          <label for="environment">Env:</label>
+          <input type="text" class="form-control" id="environment" name="environment" value="{{ login_form.environment.data }}">
+        </div>
+        
+        <div class="form-group">
+          <label for="instance_url">instance_url:</label>
+          <input type="text" class="form-control" id="instance_url" name="instance_url" value="{{ login_form.instance_url.data }}">
+        </div>
+        
+        <div class="form-group">
+          <label for="token">token:</label>
+          <input type="text" class="form-control" id="token" name="token" value="{{ login_form.access_token.data }}">
+        </div>
+        
+        <div class="form-group">
+          <label for="org_id">org_id:</label>
+          <input type="text" class="form-control" id="org_id" name="org_id" value="{{ login_form.org_id.data }}">
+        </div>
+      
+        {% if custom_object %}
+        <div class="form-group">
+          <label for="customObjectDropdown">All Objects in your Org</label>
+          <select class="form-control" id="customObjectDropdown">
+            {% for obj in custom_object %}
+            <option value="{{ obj.name }}">{{ obj.label }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        {% else %}
+        <div class="alert alert-warning" role="alert">
+          No custom_object found.
+        </div>
+        {% endif %}
+      
         {% for i in range(3) %}
-        <tr class="field">
-            <td class="text-center" style="vertical-align:middle;">
-                Field-{{ i }}
-            </td>
-            <td>
-                <input type="text" class="form-control" name="field_label_{{ i }}" placeholder="Field label..." />
-            </td>
-            <td>
-                <input type="text" class="form-control" name="field_name_{{ i }}" placeholder="Field name..." />
-            </td>
-            <td>
-                <input type="text" class="form-control" name="field_description_{{ i }}" placeholder="Field name..." />
-            </td>
-            <td>
-                <select class="form-control" name="field_type_{{ i }}">
-                    <option value="Checkbox">Checkbox</option>
-                    <option value="Currency">Currency</option>
-                    <option value="Date">Date</option>
-                    <option value="DateTime">Date / Time</option>
-                    <option value="Email">Email</option>
-                    <option value="Location">Geolocation</option>
-                    <option value="Number">Number</option>
-                    <option value="Percent">Percent</option>
-                    <option value="Phone">Phone</option>
-                    <option value="Picklist">Picklist</option>
-                    <option value="MultiselectPicklist">Picklist (Multi-Select)</option>
-                    <option value="Text">Text</option>
-                    <option value="TextArea">Text Area</option>
-                    <option value="LongTextArea">Text Area (Long)</option>
-                    <option value="Html">Text Area (Rich)</option>
-                    <option value="Url">URL</option>
-                </select>
-            </td>
-        </tr>
+        <div class="form-group">
+          <label for="field_label_{{ i }}">Field-{{ i }}</label>
+          <input type="text" class="form-control" id="field_label_{{ i }}" name="field_label_{{ i }}" placeholder="Field label...">
+        </div>
+        
+        <div class="form-group">
+          <input type="text" class="form-control" id="field_name_{{ i }}" name="field_name_{{ i }}" placeholder="Field name...">
+        </div>
+        
+        <div class="form-group">
+          <input type="text" class="form-control" id="field_description_{{ i }}" name="field_description_{{ i }}" placeholder="Field description...">
+        </div>
+        
+        <div class="form-group">
+          <select class="form-control" id="field_type_{{ i }}" name="field_type_{{ i }}">
+            <option value="Checkbox">Checkbox</option>
+            <option value="Currency">Currency</option>
+            <option value="Date">Date</option>
+            <option value="DateTime">Date / Time</option>
+            <option value="Email">Email</option>
+            <option value="Location">Geolocation</option>
+            <option value="Number">Number</option>
+            <option value="Percent">Percent</option>
+            <option value="Phone">Phone</option>
+            <option value="Picklist">Picklist</option>
+            <option value="MultiselectPicklist">Picklist (Multi-Select)</option>
+            <option value="Text">Text</option>
+            <option value="TextArea">Text Area</option>
+            <option disabled ="LongTextArea">Text Area (Long)-( Not available)</option>
+            <option disabled ="Html">Text Area (Rich)-(Not available)</option>
+            <option value="Url">URL</option>
+          </select>
+        </div>
         {% endfor %}
-        <tr height="30">
-            <td colspan="2"></td>
-        </tr>
-        </form>
-      </table>
+        
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+      
     </div>
   </body>
 </html>
