@@ -98,15 +98,12 @@ def buildFields(field, metadata, objectName):
 	
 	elif fieldMetadata.type == 'LongTextArea':
 	
-		fieldMetadata.length = 80
-		fieldMetadata.defaultValue = ''
-		fieldMetadata.visibleLines = 4
+		fieldMetadata.visibleLines = 3
 		fieldMetadata.required = False
 	
 	elif fieldMetadata.type == 'Html':
-		fieldMetadata.length = 100
-		fieldMetadata.defaultValue = '<html></html>'
-		fieldMetadata.visibleLines = 40
+
+		fieldMetadata.visibleLines = 25
 		fieldMetadata.required = False
 
 	elif fieldMetadata.type == 'EncryptedText':
