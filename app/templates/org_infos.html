@@ -1,185 +1,178 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Salesforce Field Creator</title>
     <style>
-      body {
-        font-family: Arial, sans-serif;
-        background-color: #f3f4f6;
-        margin: 0;
-        padding: 0;
-      }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f3f4f6;
+            margin: 0;
+            padding: 0;
+        }
 
-      #header {
-        background-color: #00a1e0;
-        padding: 20px;
-        color: #fff;
-        text-align: center;
-      }
+        #header {
+            background-color: #00a1e0;
+            padding: 20px;
+            color: #fff;
+            text-align: center;
+        }
 
-      #content {
-        padding: 20px;
-      }
+        #content {
+            padding: 20px;
+            text-align: center;
+        }
 
-      table {
-        width: 100%;
-        max-width: 600px;
-        margin: 20px auto;
-        background-color: #fff;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        padding: 20px;
-        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-      }
+        .form-container {
+            max-width: 400px;
+            margin: 0 auto;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
 
-      form {
-        text-align: center;
-      }
+        .form-group {
+            margin-bottom: 15px;
+        }
 
-      .message {
-        color: #ff6600;
-        font-weight: bold;
-      }
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
 
-      h2 {
-        text-align: center;
-      }
+        .form-control {
+            width: calc(100% - 22px);
+            padding: 8px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            display: inline-block;
+        }
 
-      strong {
-        vertical-align: top;
-      }
+        .btn-primary {
+            background-color: #ff6600;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
 
-      .alert {
-        background-color: #ffcccc;
-        padding: 10px;
-        border: 1px solid #ff0000;
-        border-radius: 5px;
-      }
-
-      .btn-primary {
-        background-color: #ff6600;
-        color: #fff;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-      }
-
-      .btn-secondary {
-        background-color: #00a1e0;
-        color: #fff;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-      }
+        .btn-secondary {
+            background-color: #00a1e0;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
     </style>
-  </head>
-  <body>
+</head>
+
+<body>
     <div id="header">
-      <h1>Flowsiti app</h1>
+        <h1>Flowsiti app</h1>
     </div>
 
     <div id="content">
-      <p>
-        Flowsiti from Arrows and Draws, can create custom objects with an
-        interface that allows you to easily set up and customize fields,
-        configure permissions and layouts, and deploy changes—making the process
-        much more efficient than manual setup within Salesforce.
-      </p>
-      <p>
-        None of your organization information or data is captured or kept from
-        running this tool.
-      </p>
+        <p>
+            Flowsiti from Arrows and Draws, can create custom objects with an
+            interface that allows you to easily set up and customize fields,
+            configure permissions and layouts, and deploy changes—making the process
+            much more efficient than manual setup within Salesforce.
+        </p>
+        <p>
+            None of your organization information or data is captured or kept from
+            running this tool.
+        </p>
 
-      <table>
-        <form action="." method="POST">
-          {{ login_form.hidden_tag() }}
-          <h2>Logged in as:</h2>
-          <tr>
-            <td width="150">
-              <strong>Env:</strong>
-            </td>
-            <td>{{ login_form.environment.data }}</td>
-          </tr>
-          <tr>
-            <td width="150">
-              <strong>instance_url:</strong>
-            </td>
-            <td>{{ login_form.instance_url.data}}</td>
-          </tr>
-          <tr>
-            <td width="150">
-              <strong>token:</strong>
-            </td>
-            <td>{{ login_form.access_token.data}}</td>
-          </tr>
-          <tr>
-            <td width="150">
-              <strong>org_id:</strong>
-            </td>
-            <td>{{ login_form.org_id.data}}</td>
-          </tr>
-          <tr>
-            <ul>
-              {% if custom_object %} 
-              <li>All Objects in your Org</li>
-              <select id="customObjectDropdown">
-              {% for obj in custom_object %}
-              <option value="{{ obj.name }}">{{ obj.label }}</option>
-              {% endfor %}
-             </select>
-              {% else %}
-              <li>No custom_object found.</li>
-              {% endif %}
-            </ul>
-          </tr>
-          <tr height="20">
-            <td colspan="2"></td>
-        </tr>
-        {% for i in range(3) %}
-        <tr class="field">
-            <td class="text-center" style="vertical-align:middle;">
-                Field-{{ i }}
-            </td>
-            <td>
-                <input type="text" class="form-control" name="field_label_{{ i }}" placeholder="Field label..." />
-            </td>
-            <td>
-                <input type="text" class="form-control" name="field_name_{{ i }}" placeholder="Field name..." />
-            </td>
-            <td>
-                <input type="text" class="form-control" name="field_description_{{ i }}" placeholder="Field name..." />
-            </td>
-            <td>
-                <select class="form-control" name="field_type_{{ i }}">
-                    <option value="Checkbox">Checkbox</option>
-                    <option value="Currency">Currency</option>
-                    <option value="Date">Date</option>
-                    <option value="DateTime">Date / Time</option>
-                    <option value="Email">Email</option>
-                    <option value="Location">Geolocation</option>
-                    <option value="Number">Number</option>
-                    <option value="Percent">Percent</option>
-                    <option value="Phone">Phone</option>
-                    <option value="Picklist">Picklist</option>
-                    <option value="MultiselectPicklist">Picklist (Multi-Select)</option>
-                    <option value="Text">Text</option>
-                    <option value="TextArea">Text Area</option>
-                    <option value="LongTextArea">Text Area (Long)</option>
-                    <option value="Html">Text Area (Rich)</option>
-                    <option value="Url">URL</option>
-                </select>
-            </td>
-        </tr>
-        {% endfor %}
-        <tr height="30">
-            <td colspan="2"></td>
-        </tr>
-        </form>
-      </table>
+        <div class="form-container">
+            <form action="." method="POST">
+                {{ login_form.hidden_tag() }}
+                <h2>Logged in as:</h2>
+
+                <div class="form-group">
+                    <label for="environment">Env:</label>
+                    <input type="text" class="form-control" id="environment" name="environment" value="{{ login_form.environment.data }}">
+                </div>
+
+                <div class="form-group">
+                    <label for="instance_url">instance_url:</label>
+                    <input type="text" class="form-control" id="instance_url" name="instance_url" value="{{ login_form.instance_url.data }}">
+                </div>
+
+                <div class="form-group">
+                    <label for="token">token:</label>
+                    <input type="text" class="form-control" id="token" name="token" value="{{ login_form.access_token.data }}">
+                </div>
+
+                <div class="form-group">
+                    <label for="org_id">org_id:</label>
+                    <input type="text" class="form-control" id="org_id" name="org_id" value="{{ login_form.org_id.data }}">
+                </div>
+
+                <div class="form-group">
+                    <label for="customObjectDropdown">Select Custom Object:</label>
+                    {% if custom_object %}
+                    <select class="form-control" id="customObjectDropdown" name="customObject">
+                        {% for obj in custom_object %}
+                        <option value="{{ obj.name }}">{{ obj.label }}</option>
+                        {% endfor %}
+                    </select>
+                    {% else %}
+                    <p>No custom objects found.</p>
+                    {% endif %}
+                </div>
+
+                {% for i in range(3) %}
+                <div class="form-group">
+                    <label for="field_label_{{ i }}">Field-{{ i }} Label:</label>
+                    <input type="text" class="form-control" id="field_label_{{ i }}" name="field_label_{{ i }}" placeholder="Field label...">
+                </div>
+
+                <div class="form-group">
+                    <label for="field_name_{{ i }}">Field-{{ i }} Name:</label>
+                    <input type="text" class="form-control" id="field_name_{{ i }}" name="field_name_{{ i }}" placeholder="Field name...">
+                </div>
+
+                <div class="form-group">
+                    <label for="field_description_{{ i }}">Field-{{ i }} Description:</label>
+                    <input type="text" class="form-control" id="field_description_{{ i }}" name="field_description_{{ i }}" placeholder="Field description...">
+                </div>
+
+                <div class="form-group">
+                    <label for="field_type_{{ i }}">Field-{{ i }} Type:</label>
+                    <select class="form-control" id="field_type_{{ i }}" name="field_type_{{ i }}">
+                        <option value="Checkbox">Checkbox</option>
+                        <option value="Currency">Currency</option>
+                        <option value="Date">Date</option>
+                        <option value="DateTime">Date / Time</option>
+                        <option value="Email">Email</option>
+                        <option value="Location">Geolocation</option>
+                        <option value="Number">Number</option>
+                        <option value="Percent">Percent</option>
+                        <option value="Phone">Phone</option>
+                        <option value="Picklist">Picklist</option>
+                        <option value="MultiselectPicklist">Picklist (Multi-Select)</option>
+                        <option value="Text">Text</option>
+                        <option value="TextArea">Text Area</option>
+                        <option value="LongTextArea">Text Area (Long)</option>
+                        <option value="Html">Text Area (Rich)</option>
+                        <option value="Url">URL</option>
+                    </select>
+                </div>
+                {% endfor %}
+
+                <button type="submit" class="btn-primary">Submit</button>
+            </form>
+        </div>
     </div>
-  </body>
+</body>
+
 </html>
