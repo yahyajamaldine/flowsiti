@@ -1,6 +1,6 @@
 from flask import Flask, request, redirect, jsonify, url_for
 from flask import render_template
-from .forms import LoginForm, buildFields
+from .forms import LoginForm, buildFieldsForCObject, buildFieldsForSObject
 import json
 import requests
 from suds.client import Client
@@ -217,7 +217,7 @@ def oauth_response():
         #Since we have pulled fields data, let's create Metadata for fields
         for i in range(3):  # Adjust the range based on the number of fields you expect
           if fields[i] :
-             field_metadata = buildFields(fields[i], metadata =metadata_client, objectName = objectfullName)
+             field_metadata = buildFieldsForCObject(fields[i], metadata =metadata_client, objectName = objectfullName)
              metatdataToDeploy.append(field_metadata)
         #return str(metatdataToDeploy)
         
@@ -285,5 +285,66 @@ def page():
             return str(fields)
         else :
             return 'no fields built'
-        
 
+@app.route('/addfield', methods=['GET', 'POST'])
+def page():
+
+    login_form = LoginForm(request.form)
+
+    if request.method == 'POST':
+
+        login_form = LoginForm(request.form)
+        access_token = login_form.access_token.data
+        instance_url = login_form.instance_url.data
+        #Custom Object data
+        objectfullName = request.form.get('object_full_name')
+        metadata_client = Client('https://13.37.66.143/static/metadata-52.xml')
+        metadata_url = instance_url + '/services/Soap/m/' +'52.0/'
+        session_header = metadata_client.factory.create("SessionHeader")
+        session_header.sessionId = access_token
+        metadata_client.set_options(location=metadata_url, soapheaders=session_header)
+        fields = []
+        for i in range(3):  # Adjust the range based on the number of fields you expect
+         field ={
+             'field_label':request.form.get(f'field_label_{i}'),
+             'field_name':request.form.get(f'field_name_{i}'),
+             'field_type':request.form.get(f'field_type_{i}')
+           }
+        #Append the values to their respective lists
+        fields.append(field)
+        metatdataToDeploy=[]
+        #Since we have pulled fields data, let's create Metadata for fields
+        for i in range(3):  # Adjust the range based on the number of fields you expect
+          if fields[i] :
+             field_metadata = buildFieldsForSObject(fields[i], metadata =metadata_client, objectName = objectfullName)
+             metatdataToDeploy.append(field_metadata)
+        #return str(metatdataToDeploy)
+        
+        #Plus we are going to add each field to   
+        try:
+            result = metadata_client.service.createMetadata(metatdataToDeploy)
+
+            if result[0].success:
+
+                page_response = {
+						'success': True,
+						'errorCode': None,
+						'message': 'Successfully created Custom Object all fields has been added'
+					}
+
+            else:
+                    page_response = {
+						'success': False,
+						'errorCode': result[0].errors[0].statusCode,
+						'message': result[0].errors[0].message
+					}
+        except Exception as ex:
+
+                page_response = {
+					'success': False,
+					'errorCode': 'Error building field metadata',
+					'message': ex
+				}
+                 
+                return render_template('client.html',custom_object = page_response)
+				# Return the POST response

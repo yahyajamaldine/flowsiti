@@ -12,7 +12,7 @@ class LoginForm(FlaskForm):
 	org_name = StringField(validators=[validators.Optional()])
 	org_id = StringField(validators=[validators.Optional()])
 
-def buildFields(field, metadata, objectName):
+def buildFieldsForCObject(field, metadata, objectName):
 	"""
 	Build the field metadata for the Metadata API, after we are going to use 
 	"""
@@ -32,6 +32,110 @@ def buildFields(field, metadata, objectName):
 
 	fieldMetadata.label = field.get('field_label')
 	fieldMetadata.fullName = objectName +'__c' + '.' + field.get('field_name') +'__c'
+	
+	fieldMetadata.inlineHelpText ='add Helptext'
+	fieldMetadata.description = 'add Helptext'
+	fieldMetadata.type = field.get('field_type')
+	
+	if fieldMetadata.type == 'Checkbox':
+		fieldMetadata.defaultValue = False
+
+	elif fieldMetadata.type == 'Currency':
+
+		fieldMetadata.defaultValue = 0
+		fieldMetadata.precision = 10
+		fieldMetadata.scale = 4
+		fieldMetadata.required = True
+	
+	elif fieldMetadata.type == 'Email':
+
+		fieldMetadata.externalId = False
+		fieldMetadata.required = True
+		fieldMetadata.unique = False
+		
+
+	elif fieldMetadata.type == 'Date' or fieldMetadata.type == 'DateTime' or fieldMetadata.type == 'Phone' or fieldMetadata.type == 'TextArea' or fieldMetadata.type == 'Url':
+		fieldMetadata.required = True
+	
+	elif fieldMetadata.type== 'Location':
+		fieldMetadata.required = True
+		fieldMetadata.scale = 18
+
+	elif fieldMetadata.type == 'Number':
+
+		fieldMetadata.externalId = False
+		fieldMetadata.precision = 10
+		fieldMetadata.scale = 4
+		fieldMetadata.defaultValue=0
+		fieldMetadata.required = False
+		fieldMetadata.unique = False
+		   
+	elif fieldMetadata.type == 'Percent':
+
+		fieldMetadata.precision = 10
+		fieldMetadata.defaultValue= '10'
+		fieldMetadata.scale = 2
+		fieldMetadata.precision = 10	
+		fieldMetadata.required = False
+		fieldMetadata.unique = False 
+
+	elif fieldMetadata.type == 'Text':
+		
+		fieldMetadata.length = 80
+		fieldMetadata.externalId = False
+		fieldMetadata.required = False
+		fieldMetadata.unique = False   
+
+	elif fieldMetadata.type == 'Picklist':
+		fieldMetadata.valueSet = metadata.factory.create("ValueSet")
+		fieldMetadata.valueSet.valueSetDefinition = build_picklist_values_metadata(field,metadata)
+
+	elif fieldMetadata.type == 'MultiselectPicklist':
+
+		fieldMetadata.valueSet = metadata.factory.create("ValueSet")
+		fieldMetadata.visibleLines = 4
+		fieldMetadata.valueSet.valueSetDefinition = build_picklist_values_metadata(field, metadata)
+	
+	elif fieldMetadata.type == 'LongTextArea':
+	
+		fieldMetadata.visibleLines = 3
+		fieldMetadata.required = False
+	
+	elif fieldMetadata.type == 'Html':
+
+		fieldMetadata.visibleLines = 25
+		fieldMetadata.required = False
+
+	elif fieldMetadata.type == 'EncryptedText':
+
+		fieldMetadata.length = 80
+		fieldMetadata.required = False
+		fieldMetadata.maskChar = 'asterisk'
+		fieldMetadata.maskType =  'all'
+
+	return fieldMetadata
+
+
+def buildFieldsForSObject(field, metadata, objectName):
+	"""
+	Build the field metadata for the Metadata API, after we are going to use 
+	"""
+	#Creating a custom field using metadata API
+	# Clear out all the fields that cause deployment issues when resolved to blank strings
+	# So explicity need to be set to None/Null
+	fieldMetadata = metadata.factory.create("CustomField")
+	fieldMetadata.deleteConstraint = None
+	fieldMetadata.fieldManageability = None
+	fieldMetadata.maskChar = None
+	fieldMetadata.maskType = None
+	fieldMetadata.formulaTreatBlanksAs = None
+	fieldMetadata.securityClassification = None
+	fieldMetadata.summaryOperation = None
+
+	#field values based on user Input
+
+	fieldMetadata.label = field.get('field_label')
+	fieldMetadata.fullName = objectName + '.' + field.get('field_name') +'__c'
 	
 	fieldMetadata.inlineHelpText ='add Helptext'
 	fieldMetadata.description = 'add Helptext'
