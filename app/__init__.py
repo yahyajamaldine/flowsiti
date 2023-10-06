@@ -297,7 +297,7 @@ def fields():
                 page_response = {
 						'success': True,
 						'errorCode': None,
-						'message': 'Successfully created Custom Object all fields has been added'
+						'message': 'Successfully added 3 fields to the '+ objectfullName + 'Object'
 					}
 
             else:
