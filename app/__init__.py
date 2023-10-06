@@ -314,5 +314,5 @@ def fields():
 					'message': ex
 				}
                  
-                return render_template('client.html',custom_object = page_response)
+        return render_template('client.html',custom_object = page_response)
 				# Return the POST response"""
