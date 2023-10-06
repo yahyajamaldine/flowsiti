@@ -261,7 +261,7 @@ def fields():
     if request.method == 'POST':
 
         login_form = LoginForm(request.form)
-        access_token = login_form.access_token.data
+        access_token = login_form.token.data
         instance_url = login_form.instance_url.data
         #Custom Object data
         objectfullName = request.form.get('object_full_name')
