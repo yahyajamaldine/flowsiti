@@ -120,7 +120,7 @@
                 <div class="form-group">
                     <label for="customObjectDropdown">Select Custom Object:</label>
                     {% if custom_object %}
-                    <select class="form-control" id="customObjectDropdown" name="customObject">
+                    <select class="form-control" id="customObjectDropdown" name="object_full_name">
                         {% for obj in custom_object %}
                         <option value="{{ obj.name }}">{{ obj.label }}</option>
                         {% endfor %}

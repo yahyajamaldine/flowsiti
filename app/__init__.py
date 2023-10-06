@@ -252,39 +252,6 @@ def oauth_response():
 				}
 
                 return render_template('client.html',custom_object = page_response)
-        
-"""       
-@app.route('/message', methods=['GET', 'POST'])
-def sclient(): 
-    if request.method == 'GET':
-     if(request.args.get('custom_object')):
-         return render_template('client.html', custom = page_response)
-     elif():
-         return render_template('client.html', error = page_response)
-        
-     """
-
-@app.route('/clienttest', methods=['GET', 'POST'])
-def page():
-    login_form = LoginForm(request.form)
-    if request.method == 'GET':
-        return render_template('clienttest.html', login_form=login_form)
-    if request.method == 'POST':
-        fields = []
-
-        for i in range(3):  # Adjust the range based on the number of fields you expect
-         field ={
-             'field_label':request.form.get(f'field_label_{i}'),
-             'field_name':request.form.get(f'field_name_{i}'),
-             'field_type':request.form.get(f'field_type_{i}')
-           }
-         #Append the values to their respective lists
-         fields.append(field)
-
-        if fields :
-            return str(fields)
-        else :
-            return 'no fields built'
 
 @app.route('/addfield', methods=['GET', 'POST'])
 def fields():
