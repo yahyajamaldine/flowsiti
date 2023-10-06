@@ -277,19 +277,19 @@ def fields():
              'field_name':request.form.get(f'field_name_{i}'),
              'field_type':request.form.get(f'field_type_{i}')
            }
+         fields.append(field)
         #Append the values to their respective lists
-        fields.append(field)
+        
         metatdataToDeploy=[]
         #Since we have pulled fields data, let's create Metadata for fields
-        return str(fields)
-    """  for i in range(3):  # Adjust the range based on the number of fields you expect
+        for i in range(3):  # Adjust the range based on the number of fields you expect
           if fields[i] :
              field_metadata = buildFieldsForSObject(fields[i], metadata =metadata_client, objectName = objectfullName)
-             metatdataToDeploy.append(field_metadata)"""
+             metatdataToDeploy.append(field_metadata)
         #return str(metatdataToDeploy)
         
         #Plus we are going to add each field to   
-    """try:
+        try:
             result = metadata_client.service.createMetadata(metatdataToDeploy)
 
             if result[0].success:
