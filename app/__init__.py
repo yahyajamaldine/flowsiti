@@ -287,7 +287,7 @@ def page():
             return 'no fields built'
 
 @app.route('/addfield', methods=['GET', 'POST'])
-def page():
+def fields():
 
     login_form = LoginForm(request.form)
 
