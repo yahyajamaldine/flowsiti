@@ -170,11 +170,13 @@ def oauth_response():
 			'Authorization': 'Bearer ' + access_token
 		}
 
-        custom_objects_infos = []
+        custom_objects_infos = []   
         custom_objects = requests.get(request_url + 'sobjects', headers=headers).json()['sobjects']
 
         for record in custom_objects:
-          custom_object_info = {
+          #This condition is neccessary to get objects That we can do CRUD apps with !
+          if record['custom'] or record['name'] in supported_standard_objects:
+           custom_object_info = {
             'label': record['label'],
             'name': record['name'],
           }
@@ -322,3 +324,7 @@ def fields():
                  
         return render_template('client.html',custom_object = page_response)
 				# Return the POST response"""
+
+@app.route('/objfields', methods=['GET', 'POST'])
+def object_fields():
+    return 'Testr'

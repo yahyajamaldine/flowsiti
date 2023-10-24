@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salesforce Field Creator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f3f4f6;
+            margin: 0;
+            padding: 0;
+        }
+
+        #header {
+            background-color: #00a1e0;
+            padding: 20px;
+            color: #fff;
+            text-align: center;
+        }
+
+        #content {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .form-container {
+            max-width: 400px;
+            margin: 0 auto;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .form-control {
+            width: calc(100% - 22px);
+            padding: 8px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background-color: #ff6600;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btn-secondary {
+            background-color: #00a1e0;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="header">
+        <h1>Flowsiti app</h1>
+    </div>
+
+    <div id="content">
+        <p>
+            Flowsiti from Arrows and Draws, can create custom objects with an
+            interface that allows you to easily set up and customize fields,
+            configure permissions and layouts, and deploy changes—making the process
+            much more efficient than manual setup within Salesforce.
+        </p>
+        <p>
+            None of your organization information or data is captured or kept from
+            running this tool.
+        </p>
+
+        <div class="form-container">
+            <form action="/" method="POST">
+                <!--
+                {{ login_form.hidden_tag() }}
+                <h2>Logged in as:</h2>
+
+                <div class="form-group">
+                    <label for="environment">Env:</label>
+                    <input type="text" class="form-control" id="environment" name="environment" value="{{ login_form.environment.data }}">
+                </div>
+
+                <div class="form-group">
+                    <label for="instance_url">instance_url:</label>
+                    <input type="text" class="form-control" id="instance_url" name="instance_url" value="{{ login_form.instance_url.data }}">
+                </div>
+
+                <div class="form-group">
+                    <label for="token">token:</label>
+                    <input type="text" class="form-control" id="token" name="access_token" value="{{ login_form.access_token.data }}">
+                </div>
+           
+                <div class="form-group">
+                    <label for="org_id">org_id:</label>
+                    <input type="text" class="form-control" id="org_id" name="org_id" value="{{ login_form.org_id.data }}">
+                </div>
+                  -->
+                <div class="form-columns">
+                    {% for i in range(4) %}
+                    <div class="form-column">
+                        <div class="form-group">
+                            <label for="customObjectDropdown_{{ i }}">Select Custom Object {{ i + 1 }}:</label>
+                            {% if custom_object %}
+                            <select class="form-control" id="customObjectDropdown_{{ i }}" name="object_full_name_{{ i }}">
+                                {% for obj in custom_object %}
+                                <option value="{{ obj.name }}">{{ obj.label }}</option>
+                                {% endfor %}
+                            </select>
+                            {% else %}
+                            <p>No custom objects found.</p>
+                            {% endif %}
+                        </div>
+                
+                        <div class="form-group">
+                            <label for="field_label_{{ i }}">Field-{{ i }} Label:</label>
+                            <input type="text" class="form-control" id="field_label_{{ i }}" name="field_label_{{ i }}" placeholder="Field label...">
+                        </div>
+                
+                        <div class="form-group">
+                            <label for="field_name_{{ i }}">Field-{{ i }} Name:</label>
+                            <input type="text" class="form-control" id="field_name_{{ i }}" name="field_name_{{ i }}" placeholder="Field name...">
+                        </div>
+                
+                        <div class="form-group">
+                            <label for="field_description_{{ i }}">Field-{{ i }} Description:</label>
+                            <input type="text" class="form-control" id="field_description_{{ i }}" name="field_description_{{ i }}" placeholder="Field description...">
+                        </div>
+                
+                        <div class="form-group">
+                            <label for="field_type_{{ i }}">Field-{{ i }} Type:</label>
+                            <select class="form-control" id="field_type_{{ i }}" name="field_type_{{ i }}">
+                                <option value="Checkbox">Checkbox</option>
+                                <option value="Currency">Currency</option>
+                                <option value="Date">Date</option>
+                                <option value="DateTime">Date / Time</option>
+                                <option value="Email">Email</option>
+                                <option value="Location">Geolocation</option>
+                                <option value="Number">Number</option>
+                                <option value="Percent">Percent</option>
+                                <option value="Phone">Phone</option>
+                                <option value="Picklist">Picklist</option>
+                                <option value="MultiselectPicklist">Picklist (Multi-Select)</option>
+                                <option value="Text">Text</option>
+                                <option value="TextArea">Text Area</option>
+                                <option value="LongTextArea">Text Area (Long)</option>
+                                <option value="Html">Text Area (Rich)</option>
+                                <option value="Url">URL</option>
+                                <!-- Add other options here -->
+                            </select>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>                
+
+                <button type="submit" class="btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>
