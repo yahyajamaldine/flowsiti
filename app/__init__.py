@@ -179,8 +179,8 @@ def oauth_response():
            custom_object_info = {
             'label': record['label'],
             'name': record['name'],
-          }
-          custom_objects_infos.append(custom_object_info)
+             }
+           custom_objects_infos.append(custom_object_info)
 
         # Now, custom_objects is a list of dictionaries representing CustomObject instances
         return render_template('org_infos.html',
