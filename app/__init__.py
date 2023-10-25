@@ -260,6 +260,7 @@ def oauth_response():
 				}
 
                 return render_template('client.html',custom_object = page_response)
+    
 
 @app.route('/addfield', methods=['GET', 'POST'])
 def fields():
@@ -323,8 +324,76 @@ def fields():
 				}
                  
         return render_template('client.html',custom_object = page_response)
-				# Return the POST response"""
+				# Return the POST response"
+    if request.method == 'POST' and 'object_field' in request.form:
+
+        login_form = LoginForm(request.form)
+        environment = login_form.environment.data
+        access_token = login_form.access_token.data
+        instance_url = login_form.instance_url.data
+        org_id = login_form.org_id.data
+        login_form = LoginForm(environment=environment, access_token=access_token, instance_url=instance_url,org_id = org_id)
+        
+        #You can now use these variables as needed
+		#The list of standard objects that support custom fields
+		#https://www.salesforce.com/us/developer/docs/object_reference/Content/sforce_api_objects_custom_objects.html
+		# Define the list of supported standard objects
+        supported_standard_objects = [
+             'Account',
+             'Asset',
+             'Campaign',
+             'CampaignMember',
+             'Case',
+             'Contact',
+             'Contract',
+             'Event',
+             'Lead',
+             'Opportunity',
+             'OpportunityCompetitor',
+             'OpportunityLineItem',
+             'Order',
+             'OrderItem',
+             'Pricebook2',
+             'PricebookEntry',
+             'Product2',
+             'Quote',
+             'QuoteLineItem',
+             'Task',
+             'User',
+             'WorkOrder',
+             'WorkOrderLineItem',]
+        request_url = instance_url + '/services/data/v' + str(SALESFORCE_API_VERSION) + '.0/'
+        headers = {
+			'Accept': 'application/json',
+			'X-PrettyPrint': '1',
+			'Authorization': 'Bearer ' + access_token
+		}
+
+        custom_objects_infos = []   
+        custom_objects = requests.get(request_url + 'sobjects', headers=headers).json()['sobjects']
+
+        for record in custom_objects:
+          #This condition is neccessary to get objects That we can do CRUD apps with !
+          if record['custom'] or record['name'] in supported_standard_objects:
+           custom_object_info = {
+            'label': record['label'],
+            'name': record['name'],
+             }
+           custom_objects_infos.append(custom_object_info)
+
+        return render_template('objectfields.html',custom_object = custom_objects_infos,
+                                                  login_form = login_form  )
 
 @app.route('/objfields', methods=['GET', 'POST'])
 def object_fields():
-    return 'Testr'
+     login_form = LoginForm(request.form)
+     environment = login_form.environment.data
+     access_token = login_form.access_token.data
+     instance_url = login_form.instance_url.data
+     org_id = login_form.org_id.data
+     login_form = LoginForm(environment=environment, access_token=access_token, instance_url=instance_url,org_id = org_id)
+       
+    
+     return render_template('org_infos.html',
+                               login_form=login_form,
+                               )

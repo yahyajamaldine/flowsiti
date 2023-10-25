@@ -75,6 +75,15 @@
             border-radius: 5px;
             cursor: pointer;
         }
+
+        .btn-third {
+            background-color: #94c0ae;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -198,6 +207,7 @@
                     <td colspan="2" style="text-align: center; height: 50px;">
                         <input type="submit" name="insert_object" value="add object" class="btn-primary" />
                         <input type="submit" name="get_metadata" value="Query List of Objects" class="btn-secondary" />
+                        <input type="submit" name="object_field" value="get object fields" class="btn-third" />
                     </td>
                 </tr>
                 {% else %}

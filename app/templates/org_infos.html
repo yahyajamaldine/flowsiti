@@ -118,21 +118,20 @@
                 </div>
 
                 <div class="form-columns">
-                    {% for i in range(4) %}
                     <div class="form-column">
                         <div class="form-group">
-                            <label for="customObjectDropdown_{{ i }}">Select Custom Object {{ i + 1 }}:</label>
+                            <label for="customObjectDropdown_{{ i }}">Select Custom Objec:</label>
                             {% if custom_object %}
                             <select class="form-control" id="customObjectDropdown_{{ i }}" name="object_full_name_{{ i }}">
                                 {% for obj in custom_object %}
-                                <option value="{{ obj.name }}">{{ obj.label }}</option>
+                                <option value="{{ obj.name }}">{{ obj.name  }}</option>
                                 {% endfor %}
                             </select>
                             {% else %}
                             <p>No custom objects found.</p>
                             {% endif %}
                         </div>
-                
+                        {% for i in range(4) %}
                         <div class="form-group">
                             <label for="field_label_{{ i }}">Field-{{ i }} Label:</label>
                             <input type="text" class="form-control" id="field_label_{{ i }}" name="field_label_{{ i }}" placeholder="Field label...">
