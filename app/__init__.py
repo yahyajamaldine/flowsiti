@@ -197,8 +197,7 @@ def oauth_response():
         org_id = login_form.org_id.data           
         custom_objects = requests.get(instance_url + '/services/data/v' + str(SALESFORCE_API_VERSION) + '.0/sobjects/Account/describe', headers={'Authorization': 'OAuth ' + access_token})
         for record in custom_objects:
-           if record['field']:
-            fields = record
+            fields = record[5]
         return str(fields)
     
     if request.method == 'POST' and 'insert_object' in request.form:
@@ -220,7 +219,7 @@ def oauth_response():
         custom_object = metadata_client.factory.create("CustomObject")
         custom_object.fullName = objectfullName +'__c'
         custom_object.label = label
-        custom_object.pluralLabel = 'Flowsits'
+        custom_object.pluralLabel = label+'s'
         custom_object.nameField =  metadata_client.factory.create("CustomField")
         custom_object.nameField.type = 'Text'
         custom_object.nameField.label = 'Flowsiti Record'
