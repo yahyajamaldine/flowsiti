@@ -271,7 +271,7 @@ def oauth_response():
                 return render_template('client.html',custom_object = page_response)
     
 
-@app.route('/addfield', methods=['GET', 'POST'])
+@app.route('/addfields-toobject', methods=['GET', 'POST'])
 def fields():
 
     login_form = LoginForm(request.form)
@@ -339,11 +339,10 @@ def object_fields():
     
     if request.method == 'POST':
         login_form = LoginForm(request.form)
-        environment = login_form.environment.data
         access_token = login_form.access_token.data
-        instance_url = login_form.instance_url.data
-        org_id = login_form.org_id.data           
-        custom_object = requests.get(instance_url + '/services/data/v' + str(SALESFORCE_API_VERSION) + '.0/sobjects/Account/describe', headers={'Authorization': 'OAuth ' + access_token})
+        instance_url = login_form.instance_url.data   
+        objectName = request.form.get('object_name')
+        custom_object = requests.get(instance_url + '/services/data/v' + str(SALESFORCE_API_VERSION) + '.0/sobjects/'+objectName+'/describe', headers={'Authorization': 'OAuth ' + access_token})
         fields = json.loads(custom_object.text)['fields']
         modifiedfields=[]
         for field in fields:

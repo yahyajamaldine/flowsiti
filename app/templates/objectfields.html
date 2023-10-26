@@ -93,7 +93,7 @@
         </p>
 
         <div class="form-container">
-            <form action="/addfield" method="POST">
+            <form action="/getobjfields" method="POST">
                 {{ login_form.hidden_tag() }}
                 <h2>Logged in as:</h2>
 
@@ -114,11 +114,11 @@
                 <div class="form-columns">
                     <div class="form-column">
                         <div class="form-group">
-                            <label for="customObjectDropdown_{{ i }}">Select Custom Objec:</label>
+                            <label for="customObjectDropdown">Select Custom Objec:</label>
                             {% if custom_object %}
-                            <select class="form-control" id="customObjectDropdown_{{ i }}" name="object_full_name_{{ i }}">
+                            <select class="form-control" id="customObjectDropdown" name="object_name">
                                 {% for obj in custom_object %}
-                                <option value="{{ obj.name }}">{{ obj.name  }}</option>
+                                <option value="{{ obj.name }}">{{ obj.name }}({{ obj.label }})</option>
                                 {% endfor %}
                             </select>
                             {% else %}
