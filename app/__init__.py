@@ -196,7 +196,7 @@ def oauth_response():
         instance_url = login_form.instance_url.data
         org_id = login_form.org_id.data           
         custom_object = requests.get(instance_url + '/services/data/v' + str(SALESFORCE_API_VERSION) + '.0/sobjects/Account/describe', headers={'Authorization': 'OAuth ' + access_token})
-        fields = json.loads(custom_objects.text)['fields']
+        fields = json.loads(custom_object.text)['fields']
         modifiedfields=[]
         for field in fields:
            fieldinfo = {
