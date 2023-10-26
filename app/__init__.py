@@ -195,10 +195,17 @@ def oauth_response():
         access_token = login_form.access_token.data
         instance_url = login_form.instance_url.data
         org_id = login_form.org_id.data           
-        custom_objects = requests.get(instance_url + '/services/data/v' + str(SALESFORCE_API_VERSION) + '.0/sobjects/Account/describe', headers={'Authorization': 'OAuth ' + access_token})
-        auth_response = json.loads(custom_objects.text)['fields']
+        custom_object = requests.get(instance_url + '/services/data/v' + str(SALESFORCE_API_VERSION) + '.0/sobjects/Account/describe', headers={'Authorization': 'OAuth ' + access_token})
+        fields = json.loads(custom_objects.text)['fields']
+        modifiedfields=[]
+        for field in fields:
+           fieldinfo = {
+             'label': field['label'],
+            'name': field['name'],
+            'type': field['type']}
+           modifiedfields.append(fieldinfo)
 
-        return auth_response
+        return str(modifiedfields)
     
     if request.method == 'POST' and 'insert_object' in request.form:
 
