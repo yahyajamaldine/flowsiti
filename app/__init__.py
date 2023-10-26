@@ -127,7 +127,7 @@ def oauth_response():
                                username=username, org_name=org_name, login_form=login_form)
 
     # POST method to get objects
-    if request.method == 'POST' and 'get_metadata' in request.form:
+    if request.method == 'POST':
 
         login_form = LoginForm(request.form)
         environment = login_form.environment.data
@@ -183,29 +183,18 @@ def oauth_response():
            custom_objects_infos.append(custom_object_info)
 
         # Now, custom_objects is a list of dictionaries representing CustomObject instances
-        return render_template('org_infos.html',
+        if 'get_metadata' in request.form:
+
+          return render_template('org_infos.html',
                                login_form=login_form,
                                custom_object =  custom_objects_infos
                                )
     				# Return the POST response"
-    if request.method == 'POST' and 'object_field' in request.form:
-
-        login_form = LoginForm(request.form)
-        environment = login_form.environment.data
-        access_token = login_form.access_token.data
-        instance_url = login_form.instance_url.data
-        org_id = login_form.org_id.data           
-        custom_object = requests.get(instance_url + '/services/data/v' + str(SALESFORCE_API_VERSION) + '.0/sobjects/Account/describe', headers={'Authorization': 'OAuth ' + access_token})
-        fields = json.loads(custom_object.text)['fields']
-        modifiedfields=[]
-        for field in fields:
-           fieldinfo = {
-             'label': field['label'],
-            'name': field['name'],
-            'type': field['type']}
-           modifiedfields.append(fieldinfo)
-
-        return str(modifiedfields)
+        if 'object_field' in request.form:
+          return render_template('objectfields.html',
+                               login_form=login_form,
+                               custom_object =  custom_objects_infos
+                               )
     
     if request.method == 'POST' and 'insert_object' in request.form:
 
@@ -345,14 +334,23 @@ def fields():
                  
         return render_template('client.html',custom_object = page_response)
 
-@app.route('/objfields', methods=['GET', 'POST'])
+@app.route('/getobjfields', methods=['GET', 'POST'])
 def object_fields():
-     login_form = LoginForm(request.form)
-     environment = login_form.environment.data
-     access_token = login_form.access_token.data
-     instance_url = login_form.instance_url.data
-     org_id = login_form.org_id.data
-     login_form = LoginForm(environment=environment, access_token=access_token, instance_url=instance_url,org_id = org_id)
-     return render_template('org_infos.html',
-                               login_form=login_form,
-                               )
+    
+    if request.method == 'POST':
+        login_form = LoginForm(request.form)
+        environment = login_form.environment.data
+        access_token = login_form.access_token.data
+        instance_url = login_form.instance_url.data
+        org_id = login_form.org_id.data           
+        custom_object = requests.get(instance_url + '/services/data/v' + str(SALESFORCE_API_VERSION) + '.0/sobjects/Account/describe', headers={'Authorization': 'OAuth ' + access_token})
+        fields = json.loads(custom_object.text)['fields']
+        modifiedfields=[]
+        for field in fields:
+           fieldinfo = {
+             'label': field['label'],
+            'name': field['name'],
+            'type': field['type']}
+           modifiedfields.append(fieldinfo)
+
+        return str(modifiedfields)
