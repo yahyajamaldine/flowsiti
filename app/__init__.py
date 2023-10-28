@@ -347,13 +347,14 @@ def object_fields():
         modifiedfields=[]
         for field in fields:
            fieldinfo = {
-            'label': field['label'],
-            'name': field['name'],
+            'Field Label': field['label'],
+            'Field Name': field['name'],
             'API Name': field['name'],
-            'type': field['type'],
-            'Description': field['Description'],
+            'Data Type': field['type'],
+            'Description': field['inlineHelpText'],
+            'Help Text' : field['inlineHelpText'],
             'defaultValue': field['defaultValue'],
             }
            modifiedfields.append(fieldinfo)
 
-        return str(fields)
+        return str(modifiedfields)
