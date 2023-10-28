@@ -345,12 +345,15 @@ def object_fields():
         custom_object = requests.get(instance_url + '/services/data/v' + str(SALESFORCE_API_VERSION) + '.0/sobjects/'+objectName+'/describe', headers={'Authorization': 'OAuth ' + access_token})
         fields = json.loads(custom_object.text)['fields']
         modifiedfields=[]
-        """for field in fields:
+        for field in fields:
            fieldinfo = {
-             'label': field['label'],
+            'label': field['label'],
             'name': field['name'],
-            'type': field['type']
+            'API Name': field['name'],
+            'type': field['type'],
+            'Description': field['Description'],
+            'defaultValue': field['defaultValue'],
             }
-           modifiedfields.append(fieldinfo)"""
+           modifiedfields.append(fieldinfo)
 
         return str(fields)
