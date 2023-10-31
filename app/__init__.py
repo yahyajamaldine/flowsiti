@@ -348,8 +348,8 @@ def deleteCustomObjectSync():
         session_header.sessionId = access_token
         metadata_client.set_options(location=metadata_url, soapheaders=session_header)
         Fieldsconfig=[]
-        for i in fieldlist:
-          newconfig= objectfullName +"."+fieldlist[i]
+        for field in fieldlist:
+          newconfig= objectfullName +"."+ field
           Fieldsconfig.append(newconfig)
         try:
             result = metadata_client.service.deleteMetadata("CustomField",Fieldsconfig)
