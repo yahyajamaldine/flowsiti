@@ -274,10 +274,7 @@ def oauth_response():
 @app.route('/addfields-toobject', methods=['GET', 'POST'])
 def fields():
 
-    login_form = LoginForm(request.form)
-
     if request.method == 'POST':
-
         login_form = LoginForm(request.form)
         access_token = login_form.access_token.data
         instance_url = login_form.instance_url.data
@@ -333,6 +330,57 @@ def fields():
 				}
                  
         return render_template('client.html',custom_object = page_response)
+    
+@app.route('/updateField', methods=['GET', 'POST'])
+def deleteCustomObjectSync():
+     
+     if request.method == 'POST':
+
+        login_form = LoginForm(request.form)
+        access_token = login_form.access_token.data
+        instance_url = login_form.instance_url.data
+        #Custom Object data
+        objectfullName = 'accounting_ma__c'
+        fieldlist = ['office_name__c']
+        metadata_client = Client('https://13.37.66.143/static/metadata-52.xml')
+        metadata_url = instance_url + '/services/Soap/m/' +'52.0/'
+        session_header = metadata_client.factory.create("SessionHeader")
+        session_header.sessionId = access_token
+        metadata_client.set_options(location=metadata_url, soapheaders=session_header)
+        Fieldsconfig=[]
+        for i in fieldlist:
+          newconfig= objectfullName +"."+fieldlist[i]
+          Fieldsconfig.append(newconfig)
+        try:
+            result = metadata_client.service.deleteMetadata("CustomField",Fieldsconfig)
+            if result[0].success:
+
+                page_response = {
+						'success': True,
+						'errorCode': None,
+						'message': 'Successfully Deleted all fields'
+					}
+
+            else:
+                    page_response = {
+						'success': False,
+						'errorCode': result[0].errors[0].statusCode,
+						'message': result[0].errors[0].message
+					}
+        except Exception as ex:
+
+                page_response = {
+					'success': False,
+					'errorCode': 'Error building field metadata',
+					'message': ex
+				}
+                 
+        return str(page_response)
+
+        
+
+
+
 
 @app.route('/getobjfields', methods=['GET', 'POST'])
 def object_fields():
