@@ -340,8 +340,8 @@ def deleteCustomObjectSync():
         access_token = login_form.access_token.data
         instance_url = login_form.instance_url.data
         #Custom Object data
-        objectfullName = 'accounting_ma__c'
-        fieldlist = ['office_name__c']
+        objectfullName = request.form.get('object_full_name')
+        fieldlist = request.form.get('fields')
         metadata_client = Client('https://13.37.66.143/static/metadata-52.xml')
         metadata_url = instance_url + '/services/Soap/m/' +'52.0/'
         session_header = metadata_client.factory.create("SessionHeader")
