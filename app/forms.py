@@ -14,7 +14,7 @@ class LoginForm(FlaskForm):
 
 def buildFieldsForCObject(field, metadata, objectName):
 	"""
-	Build the field metadata for the Metadata API, after we are going to use 
+	Build the field metadata for the Metadata API, after we are going to use tooling API
 	"""
 	#Creating a custom field using metadata API
 	# Clear out all the fields that cause deployment issues when resolved to blank strings
@@ -260,3 +260,14 @@ def build_picklist_values_metadata(field_data, metadata_client):
 		first_value = False
 
 	return value_set
+
+def updateFieldsForObject(field, metadata, objectName):
+    """
+    Updating field values !!
+	"""
+	#Creating a custom field using metadata API
+    fieldMetadata = metadata.factory.create("CustomField")
+    fieldMetadata.fullName = objectName + '.' + field.get('field_name')
+    fieldMetadata.description = 'updating field value'
+
+    return fieldMetadata

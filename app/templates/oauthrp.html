@@ -84,6 +84,15 @@
             border-radius: 5px;
             cursor: pointer;
         }
+
+        .btn-fourth {
+            background-color: rgb(46, 69, 189);
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -205,11 +214,16 @@
                 </tr>
                 <tr>
                     <td colspan="2" style="text-align: center; height: 50px;">
-                        <input type="submit" name="insert_object" value="add object" class="btn-primary" />
-                        <input type="submit" name="get_metadata" value="Query List of Objects" class="btn-secondary" />
-                        <input type="submit" name="object_field" value="get object fields" class="btn-third" />
+                      <input type="submit" name="insert_object" value="add object" class="btn-primary" />
+                      <input type="submit" name="get_metadata" value="Query List of Objects" class="btn-secondary" />
                     </td>
-                </tr>
+                  </tr>
+                  <tr>
+                    <td colspan="2" style="text-align: center; height: 50px;">
+                      <input type="submit" name="object_field" value="get object fields" class="btn-third" />
+                      <input type="submit" name="update_field" value="Update object fields" class="btn-fourth" />
+                    </td>
+                  </tr>
                 {% else %}
                 <tr>
                     <td colspan="2">

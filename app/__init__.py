@@ -1,6 +1,6 @@
 from flask import Flask, request, redirect, jsonify, url_for
 from flask import render_template
-from .forms import LoginForm, buildFieldsForCObject, buildFieldsForSObject
+from .forms import LoginForm, updateFieldsForObject, buildFieldsForCObject, buildFieldsForSObject
 import json
 import requests
 from suds.client import Client
@@ -193,6 +193,11 @@ def oauth_response():
         if 'object_field' in request.form:
           return render_template('objectfields.html',
                                login_form=login_form,
+                               custom_object =  custom_objects_infos)
+
+        if 'update_field' in request.form:
+           return render_template('update.html',
+                               login_form=login_form,
                                custom_object =  custom_objects_infos
                                )
     
@@ -330,8 +335,63 @@ def fields():
 				}
                  
         return render_template('client.html',custom_object = page_response)
-    
+
 @app.route('/updateField', methods=['GET', 'POST'])
+def updateObjectfieldSync():
+     if request.method == 'POST':
+
+        login_form = LoginForm(request.form)
+        access_token = login_form.access_token.data
+        instance_url = login_form.instance_url.data
+        #Object Name
+        objectfullName = 'Account'
+        #list of field to updata
+        Fieldsnewconfig = [{
+             'field_label':'ts2',
+             'field_name':'ts2__c'
+           }]
+        metadata_client = Client('https://13.37.66.143/static/metadata-52.xml')
+        metadata_url = instance_url + '/services/Soap/m/' +'52.0/'
+        session_header = metadata_client.factory.create("SessionHeader")
+        session_header.sessionId = access_token
+        metadata_client.set_options(location=metadata_url, soapheaders=session_header)
+        metatdataToUpdate = []
+
+        for field in Fieldsnewconfig:
+
+          updated_metadata = updateFieldsForObject(field, metadata =metadata_client, objectName = objectfullName)
+          metatdataToUpdate.append(updated_metadata)
+        
+        try:
+            result = metadata_client.service.updateMetadata(metatdataToUpdate)
+            if result[0].success:
+
+                page_response = {
+						'success': True,
+						'errorCode': None,
+						'message': 'Successfully updated the field'
+					}
+
+            else:
+                    page_response = {
+						'success': False,
+						'errorCode': result[0].errors[0].statusCode,
+						'message': result[0].errors[0].message
+					}
+        except Exception as ex:
+
+                page_response = {
+					'success': False,
+					'errorCode': 'Error building field metadata',
+					'message': ex
+				}
+                 
+        return str(page_response)
+
+
+
+
+@app.route('/deleteField', methods=['GET', 'POST'])
 def deleteCustomObjectSync():
      
      if request.method == 'POST':
@@ -378,10 +438,6 @@ def deleteCustomObjectSync():
         return str(page_response)
 
         
-
-
-
-
 @app.route('/getobjfields', methods=['GET', 'POST'])
 def object_fields():
     
