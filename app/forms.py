@@ -268,5 +268,7 @@ def updateFieldsForObject(field, metadata, objectName):
     fieldMetadata = metadata.factory.create("CustomField")
     fieldMetadata.fullName = objectName + '.' + field.get('field_name')
     fieldMetadata.description = 'updating field value'
+    fieldMetadata.type = field.get('field_type')
+    fieldMetadata.label = field.get('field_label')
 
     return fieldMetadata
