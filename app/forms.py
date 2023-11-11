@@ -270,5 +270,8 @@ def updateFieldsForObject(field, metadata, objectName):
     fieldMetadata.description = 'updating field value'
     fieldMetadata.type = field.get('field_type')
     fieldMetadata.label = field.get('field_label')
-
+    fieldMetadata.defaultValue = 0
+    fieldMetadata.precision = 10
+    fieldMetadata.scale = 4
+    fieldMetadata.required = True
     return fieldMetadata
