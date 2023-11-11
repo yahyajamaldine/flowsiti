@@ -349,7 +349,7 @@ def updateObjectfieldSync():
         Fieldsnewconfig = [{
              'field_label':'ts2',
              'field_name':'ts2__c',
-             'field_type':'currency'
+             'field_type':'Currency'
            }]
         metadata_client = Client('https://13.37.66.143/static/metadata-52.xml')
         metadata_url = instance_url + '/services/Soap/m/' +'52.0/'
