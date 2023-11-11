@@ -260,6 +260,10 @@ def build_picklist_values_metadata(field_data, metadata_client):
 
 	return value_set
 
+#When updating fields, we should take in consideration that 
+#all the previous values must be present to Update the field
+#in other words we keep the values of the properties that we don't want to change
+#we keep the ones we want
 def updateFieldsForObject(field, metadata, objectName):
     """
     Updating field values !!
@@ -267,9 +271,8 @@ def updateFieldsForObject(field, metadata, objectName):
 	#Creating a custom field using metadata API
     fieldMetadata = metadata.factory.create("CustomField")
     fieldMetadata.fullName = objectName + '.' + field.get('field_name')
-    fieldMetadata.description = 'updating field value'
     fieldMetadata.type = field.get('field_type')
-    fieldMetadata.label = field.get('field_label')
+    fieldMetadata.label = field.get('field_label')+'Test'
     fieldMetadata.defaultValue = 0
     fieldMetadata.precision = 10
     fieldMetadata.scale = 4
