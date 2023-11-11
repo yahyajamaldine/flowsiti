@@ -1,7 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import SelectField, StringField, validators
 from wtforms.validators import InputRequired
-from suds.client import Client
 
 class LoginForm(FlaskForm):
 	environment = SelectField('environment', choices=[('Production', 'Production'), ('Developer', 'Developer'), ('Sandbox', 'Sandbox')], validators=[InputRequired()])

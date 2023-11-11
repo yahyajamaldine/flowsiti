@@ -1,4 +1,4 @@
-from flask import Flask, request, redirect, jsonify, url_for
+from flask import Flask, request, redirect
 from flask import render_template
 from .forms import LoginForm, updateFieldsForObject, buildFieldsForCObject, buildFieldsForSObject
 import json
