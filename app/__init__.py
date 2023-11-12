@@ -453,5 +453,5 @@ def object_fields():
     return render_template('clienttest.html',
                                login_form=login_form,
                                object_name=objectName,
-                               fields_data = fields
+                               fields_data = str(fields)
                                )
