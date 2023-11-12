@@ -116,7 +116,7 @@
                         <div class="form-group">
                             <label for="customObjectDropdown">Object</label>
                             {% if object_name %}
-                             <p> object_name</p>
+                             <p> {{ object_name }}</p>
                             {% else %}
                             <p>No custom objects found.</p>
                             {% endif %}
@@ -124,7 +124,7 @@
                         
              {% if fields_data %}
 
-           <p>fields_data</p>
+           <p>{{ fields_data }}</p>
           {% endif %}                     
 
                 </div>                
