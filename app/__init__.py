@@ -1,4 +1,4 @@
-from flask import Flask, request, redirect, session
+from flask import Flask, request, redirect
 from flask import render_template
 from .forms import LoginForm, updateFieldsForObject, buildFieldsForCObject, buildFieldsForSObject
 import json
@@ -101,8 +101,6 @@ def oauth_response():
         else:
             access_token = auth_response['access_token']
             instance_url = auth_response['instance_url']
-            session['access_token'] = access_token
-            session['instance_url'] = instance_url
             user_id = auth_response['id'][-18:]
             org_id = auth_response['id'][:-19]
             org_id = org_id[-18:]
@@ -446,8 +444,8 @@ def object_fields():
     
     if request.method == 'POST':
         login_form = LoginForm(request.form)
-        access_token = session.get('access_token')
-        instance_url = session.get('instance_url')
+        access_token = login_form.access_token.data
+        instance_url = login_form.instance_url.data   
         objectName = request.form.get('object_name')
         custom_object = requests.get(instance_url + '/services/data/v' + str(SALESFORCE_API_VERSION) + '.0/sobjects/'+objectName+'/describe', headers={'Authorization': 'OAuth ' + access_token})
         fields = json.loads(custom_object.text)['fields']
