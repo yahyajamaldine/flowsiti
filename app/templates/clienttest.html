@@ -152,6 +152,17 @@
                         <option value="Date" {% if field['DataType'] == 'date' %}selected{% endif %}>Date</option>
                         <option value="DateTime" {% if field['DataType'] == 'datetime' %}selected{% endif %}>Date / Time</option>
                         <option value="Email" {% if field['DataType'] == 'email' %}selected{% endif %}>Email</option>
+                        <option value="Location" {% if field['DataType'] == 'location' %}selected{% endif %}>Geolocation</option>
+                        <option value="Number" {% if field['DataType'] == 'number' %}selected{% endif %}>Number</option>
+                        <option value="Percent" {% if field['DataType'] == 'percent' %}selected{% endif %}>Percent</option>
+                        <option value="Phone" {% if field['DataType'] == 'phone' %}selected{% endif %}>Phone</option>
+                        <option value="Picklist" {% if field['DataType'] == 'picklist' %}selected{% endif %}>Picklist</option>
+                        <option value="MultiselectPicklist" {% if field['DataType'] == 'multiselectpicklist' %}selected{% endif %}>Picklist (Multi-Select)</option>
+                        <option value="Text" {% if field['DataType'] == 'text' %}selected{% endif %}>Text</option>
+                        <option value="TextArea" {% if field['DataType'] == 'textarea' %}selected{% endif %}>Text Area</option>
+                        <option value="LongTextArea" {% if field['DataType'] == 'longtextarea' %}selected{% endif %}>Text Area (Long)</option>
+                        <option value="Html" {% if field['DataType'] == 'html' %}selected{% endif %}>Text Area (Rich)</option>
+                        <option value="Url" {% if field['DataType'] == 'url' %}selected{% endif %}>URL</option>
                         <!-- Add other options based on your data types -->
                     </select>
                 </div>
