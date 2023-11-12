@@ -196,7 +196,7 @@ def oauth_response():
                                custom_object =  custom_objects_infos)
 
         if 'update_field' in request.form:
-           return render_template('update.html',
+           return render_template('getfields.html',
                                login_form=login_form,
                                custom_object =  custom_objects_infos
                                )
@@ -449,17 +449,10 @@ def object_fields():
         objectName = request.form.get('object_name')
         custom_object = requests.get(instance_url + '/services/data/v' + str(SALESFORCE_API_VERSION) + '.0/sobjects/'+objectName+'/describe', headers={'Authorization': 'OAuth ' + access_token})
         fields = json.loads(custom_object.text)['fields']
-        modifiedfields=[]
-        for field in fields:
-           fieldinfo = {
-            'Label': field['label'],
-            'Name': field['name'],
-            'APIName': field['name'],
-            'DataType': field['type'],
-            'Description': field['inlineHelpText'],
-            'HelpText' : field['inlineHelpText'],
-            'defaultValue': field['defaultValue'],
-            }
-           modifiedfields.append(fieldinfo)
 
-        return str(modifiedfields)
+        str(fields)
+        """return render_template('clienttest.html',
+                               login_form=login_form,
+                               object_name=objectName,
+                               fields_data = fields
+                               )"""

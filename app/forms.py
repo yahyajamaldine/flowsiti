@@ -218,6 +218,95 @@ def buildFieldsForSObject(field, metadata, objectName):
 
 	return fieldMetadata
 
+
+#When updating fields, we should take in consideration that 
+#all the previous values must be present to Update the field
+#in other words we keep the values of the properties that we don't want to change
+#we keep the ones we want
+def updateFieldsForObject(field, metadata, objectName):
+    """
+    Updating field values !!
+	"""
+	#Creating a custom field using metadata API
+    fieldMetadata = metadata.factory.create("CustomField")
+	#field_name is not an option
+    fieldMetadata.fullName = objectName + '.' + field.get('field_name')
+	#field_type is not an option
+    fieldMetadata.type = field.get('field_type')
+	#field_label is not an option
+    fieldMetadata.label = field.get('field_label')
+	
+    fieldMetadata.inlineHelpText = field.get('inlineHelpText','add Help Text')
+    fieldMetadata.description = field.get('description','add Description')
+
+    if fieldMetadata.type == 'Checkbox':
+        fieldMetadata.defaultValue = field.get('defaultValue', False)
+
+    elif fieldMetadata.type == 'Currency':
+        fieldMetadata.defaultValue = field.get('defaultValue', 0)
+        fieldMetadata.precision = field.get('precision', 10)
+        fieldMetadata.scale = field.get('scale', 4)
+        fieldMetadata.required = field.get('required', True)
+
+    elif fieldMetadata.type == 'Email':
+        fieldMetadata.externalId = field.get('externalId', False)
+        fieldMetadata.required = field.get('required', True)
+        fieldMetadata.unique = field.get('unique', False)
+
+    elif fieldMetadata.type in ['Date', 'DateTime', 'Phone', 'TextArea', 'Url']:
+        fieldMetadata.required = field.get('required', True)
+
+    elif fieldMetadata.type == 'Location':
+        fieldMetadata.required = field.get('required', True)
+        fieldMetadata.scale = field.get('scale', 18)
+
+    elif fieldMetadata.type == 'Number':
+        fieldMetadata.externalId = field.get('externalId', False)
+        fieldMetadata.precision = field.get('precision', 10)
+        fieldMetadata.scale = field.get('scale', 4)
+        fieldMetadata.defaultValue = field.get('defaultValue', 0)
+        fieldMetadata.required = field.get('required', False)
+        fieldMetadata.unique = field.get('unique', False)
+
+    elif fieldMetadata.type == 'Percent':
+        fieldMetadata.precision = field.get('precision', 10)
+        fieldMetadata.defaultValue = field.get('defaultValue', '10')
+        fieldMetadata.scale = field.get('scale', 2)
+        fieldMetadata.required = field.get('required', False)
+        fieldMetadata.unique = field.get('unique', False)
+
+    elif fieldMetadata.type == 'Text':
+        fieldMetadata.length = field.get('length', 80)
+        fieldMetadata.externalId = field.get('externalId', False)
+        fieldMetadata.required = field.get('required', False)
+        fieldMetadata.unique = field.get('unique', False)
+
+    elif fieldMetadata.type == 'Picklist':
+        fieldMetadata.valueSet = metadata.factory.create("ValueSet")
+        fieldMetadata.valueSet.valueSetDefinition = build_picklist_values_metadata(field, metadata)
+
+    elif fieldMetadata.type == 'MultiselectPicklist':
+        fieldMetadata.valueSet = metadata.factory.create("ValueSet")
+        fieldMetadata.visibleLines = field.get('visibleLines', 4)
+        fieldMetadata.valueSet.valueSetDefinition = build_picklist_values_metadata(field, metadata)
+
+    elif fieldMetadata.type == 'LongTextArea':
+        fieldMetadata.visibleLines = field.get('visibleLines', 3)
+        fieldMetadata.required = field.get('required', False)
+
+    elif fieldMetadata.type == 'Html':
+        fieldMetadata.visibleLines = field.get('visibleLines', 25)
+        fieldMetadata.required = field.get('required', False)
+
+    elif fieldMetadata.type == 'EncryptedText':
+        fieldMetadata.length = field.get('length', 80)
+        fieldMetadata.required = field.get('required', False)
+        fieldMetadata.maskChar = field.get('maskChar', 'asterisk')
+        fieldMetadata.maskType = field.get('maskType', 'all')
+
+    return fieldMetadata
+
+
 #Since these data is not specified right now, we are going to use static data
 def build_picklist_values_metadata(field_data, metadata_client):
 	"""
@@ -259,22 +348,3 @@ def build_picklist_values_metadata(field_data, metadata_client):
 		first_value = False
 
 	return value_set
-
-#When updating fields, we should take in consideration that 
-#all the previous values must be present to Update the field
-#in other words we keep the values of the properties that we don't want to change
-#we keep the ones we want
-def updateFieldsForObject(field, metadata, objectName):
-    """
-    Updating field values !!
-	"""
-	#Creating a custom field using metadata API
-    fieldMetadata = metadata.factory.create("CustomField")
-    fieldMetadata.fullName = objectName + '.' + field.get('field_name')
-    fieldMetadata.type = field.get('field_type')
-    fieldMetadata.label = field.get('field_label')+'Test'
-    fieldMetadata.defaultValue = 0
-    fieldMetadata.precision = 10
-    fieldMetadata.scale = 4
-    fieldMetadata.required = True
-    return fieldMetadata

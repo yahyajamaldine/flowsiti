@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flowsiti</title>
+    <title>Salesforce Field Creator</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -13,7 +14,7 @@
         }
 
         #header {
-            background-color: #00A1E0;
+            background-color: #00a1e0;
             padding: 20px;
             color: #fff;
             text-align: center;
@@ -21,12 +22,12 @@
 
         #content {
             padding: 20px;
+            text-align: center;
         }
 
-        table {
-            width: 100%;
-            max-width: 600px;
-            margin: 20px auto;
+        .form-container {
+            max-width: 400px;
+            margin: 0 auto;
             background-color: #fff;
             border: 1px solid #ccc;
             border-radius: 5px;
@@ -34,28 +35,24 @@
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
         }
 
-        form {
-            text-align: center;
+        .form-group {
+            margin-bottom: 15px;
         }
 
-        .message {
-            color: #ff6600;
+        .form-group label {
+            display: block;
             font-weight: bold;
+            margin-bottom: 5px;
         }
 
-        h2 {
-            text-align: center;
-        }
-
-        strong {
-            vertical-align: top;
-        }
-
-        .alert {
-            background-color: #ffcccc;
-            padding: 10px;
-            border: 1px solid #ff0000;
+        .form-control {
+            width: calc(100% - 22px);
+            padding: 8px;
+            font-size: 16px;
+            border: 1px solid #ccc;
             border-radius: 5px;
+            margin-bottom: 10px;
+            display: inline-block;
         }
 
         .btn-primary {
@@ -68,7 +65,7 @@
         }
 
         .btn-secondary {
-            background-color: #00A1E0;
+            background-color: #00a1e0;
             color: #fff;
             padding: 10px 20px;
             border: none;
@@ -77,6 +74,7 @@
         }
     </style>
 </head>
+
 <body>
     <div id="header">
         <h1>Flowsiti app</h1>
@@ -84,122 +82,91 @@
 
     <div id="content">
         <p>
-		Flowsiti from Arrows and Draws, can create custom objects with an interface that allows you to easily set up and customize fields, configure permissions and layouts, and deploy changes—making the process much more efficient than manual setup within Salesforce.</p>
+            Flowsiti from Arrows and Draws, can create custom objects with an
+            interface that allows you to easily set up and customize fields,
+            configure permissions and layouts, and deploy changes—making the process
+            much more efficient than manual setup within Salesforce.
+        </p>
         <p>
-            None of your organization information or data is captured or kept from running this tool.
+            None of your organization information or data is captured or kept from
+            running this tool.
         </p>
 
-        <table>
-            <form action="/clienttest" method="POST">
+        <div class="form-container">
+            <form action="/getobjfields" method="POST">
                 {{ login_form.hidden_tag() }}
-                <input type="hidden" name="nbfields" value="3">
-                {% if messages %}
-                <tr>
-                    <td colspan="2" class="message">
-                        {% for message in messages %}
-                        {{ message }}<br/>
-                        {% endfor %}
-                        <br/>
-                    </td>
-                </tr>
-                {% endif %}
                 <h2>Logged in as:</h2>
-                <tr>
-                    <td width="150">
-                        <strong>Username:</strong>
-                    </td>
-                    <td>
-                          ksks
-                    </td>
-                </tr>
-                <tr>
-                    <td width="150">
-                        <strong>Organization:</strong>
-                    </td>
-                    <td>
-                         didi
-                    </td>
-                </tr>
-                <!-- Added Field for object.fullName -->
-                <tr>
-                    <td width="150">
-                        <strong>Object Full Name:</strong>
-                    </td>
-                    <td>
-                        <input type="text" name="object_full_name">
-                    </td>
-                </tr>
-                <!-- Object Label -->
-                <tr>
-                    <td width="150">
-                        <strong>Label:</strong>
-                    </td>
-                    <td>
-                        <input type="text" name="label">
-                    </td>
-                </tr>
-                <tr height="20">
-                    <td colspan="2"></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>Label</td>
-                    <td>Name</td>
-                    <td>description</td>
-                    <td>Type</td>
-                </tr>
-                <tr height="20">
-                    <td colspan="2"></td>
-                </tr>
-                {% for i in range(3) %}
-                <tr class="field">
-                    <td class="text-center" style="vertical-align:middle;">
-                        Field-{{ i }}
-                    </td>
-                    <td>
-                        <input type="text" class="form-control" name="field_label_{{ i }}" placeholder="Field label..." />
-                    </td>
-                    <td>
-                        <input type="text" class="form-control" name="field_name_{{ i }}" placeholder="Field name..." />
-                    </td>
-                    <td>
-                        <input type="text" class="form-control" name="field_description_{{ i }}" placeholder="Field name..." />
-                    </td>
-                    <td>
-                        <select class="form-control" name="field_type_{{ i }}">
-                            <option value="Checkbox">Checkbox</option>
-                            <option value="Currency">Currency</option>
-                            <option value="Date">Date</option>
-                            <option value="DateTime">Date / Time</option>
-                            <option value="Email">Email</option>
-                            <option value="Location">Geolocation</option>
-                            <option value="Number">Number</option>
-                            <option value="Percent">Percent</option>
-                            <option value="Phone">Phone</option>
-                            <option value="Picklist">Picklist</option>
-                            <option value="MultiselectPicklist">Picklist (Multi-Select)</option>
-                            <option value="Text">Text</option>
-                            <option value="TextArea">Text Area</option>
-                            <option value="LongTextArea">Text Area (Long)</option>
-                            <option value="Html">Text Area (Rich)</option>
-                            <option value="Url">URL</option>
-                        </select>
-                    </td>
-                </tr>
-                {% endfor %}
 
-                <tr height="30">
-                    <td colspan="2"></td>
-                </tr>
-                <tr>
-                    <td colspan="2" style="text-align: center; height: 50px;">
-                        <input type="submit" name="insert_object" value="add object" class="btn-primary" />
-                        <input type="submit" name="get_metadata" value="Query List of Objects" class="btn-secondary" />
-                    </td>
-                </tr>
+                <div class="form-group">
+                    <label for="environment">Env:</label>
+                    <input type="text" class="form-control" id="environment" name="environment" value="{{ login_form.environment.data }}">
+                </div>
+
+                <div class="form-group">
+                    <label for="instance_url">instance_url:</label>
+                    <input type="text" class="form-control" id="instance_url" name="instance_url" value="{{ login_form.instance_url.data }}">
+                </div>
+
+                <div class="form-group">
+                    <label for="token">token:</label>
+                    <input type="text" class="form-control" id="token" name="access_token" value="{{ login_form.access_token.data }}">
+                </div>
+                <div class="form-columns">
+                    <div class="form-column">
+                        <div class="form-group">
+                            <label for="customObjectDropdown">Select Custom Objec:</label>
+                            {% if custom_object %}
+                            <select class="form-control" id="customObjectDropdown" name="object_name">
+                                {% for obj in custom_object %}
+                                <option value="{{ obj.name }}">{{ obj.name }}({{ obj.label }})</option>
+                                {% endfor %}
+                            </select>
+                            {% else %}
+                            <p>No custom objects found.</p>
+                            {% endif %}
+                    </div>
+                        
+             {% if fields_data %}
+
+          <h2>Fields Data:</h2>
+    <ul>
+        {% for field in fields_data %}
+            <li>
+                <div class="form-group">
+                    <label for="field_label_{{ loop.index0 }}">Field Label:</label>
+                    <input type="text" class="form-control" id="field_label_{{ loop.index0 }}" name="field_label_{{ loop.index0 }}" value="{{ field['Label'] }}">
+                </div>
+                <div class="form-group">
+                    <label for="field_name_{{ loop.index0 }}">Field Name:</label>
+                    <input type="text" class="form-control" id="field_name_{{ loop.index0 }}" name="field_name_{{ loop.index0 }}" value="{{ field['Name'] }}">
+                </div>
+                <div class="form-group">
+                    <label for="field_description_{{ loop.index0 }}">Field Description:</label>
+                    <input type="text" class="form-control" id="field_description_{{ loop.index0 }}" name="field_description_{{ loop.index0 }}" value="{{ field['Description'] }}">
+                </div>
+                <div class="form-group">
+                    <label for="field_type_{{ loop.index0 }}">Field Type:</label>
+                    <select class="form-control" id="field_type_{{ loop.index0 }}" name="field_type_{{ loop.index0 }}">
+                        <option value="Checkbox" {% if field['DataType'] == 'boolean' %}selected{% endif %}>Checkbox</option>
+                        <option value="Currency" {% if field['DataType'] == 'currency' %}selected{% endif %}>Currency</option>
+                        <option value="Date" {% if field['DataType'] == 'date' %}selected{% endif %}>Date</option>
+                        <option value="DateTime" {% if field['DataType'] == 'datetime' %}selected{% endif %}>Date / Time</option>
+                        <option value="Email" {% if field['DataType'] == 'email' %}selected{% endif %}>Email</option>
+                        <!-- Add other options based on your data types -->
+                    </select>
+                </div>
+                <!-- Add more fields as needed -->
+            </li>
+        {% endfor %}
+    </ul>
+{% endif %}                     
+
+                </div>                
+
+                <button type="submit" class="btn-primary">Update field</button>
             </form>
-        </table>
-        
+        </div>
     </div>
 </body>
+
 </html>
