@@ -123,8 +123,12 @@
                     </div>
                         
              {% if fields_data %}
-
-           <p>{{ fields_data }}</p>
+             {% for field in fields_data %}
+            
+             <!-- Add more fields as needed -->
+             <p> field['Name'] </p>
+         
+           {% endfor %}
           {% endif %}                     
 
                 </div>                
