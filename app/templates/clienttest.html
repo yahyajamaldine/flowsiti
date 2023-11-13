@@ -126,11 +126,11 @@
              {% for field in fields_data %}
             
              <!-- Add more fields as needed -->
-             <p> {{ field['Name'] }} </p>
+             <p> {{ field.get('Name') }} </p>
          
            {% endfor %}
           {% endif %}                     
-          <pre>{{ field | tojson | safe }}</pre>
+          <pre>{{ fields_data | tojson | safe }}</pre>
 
                 </div>                
 
