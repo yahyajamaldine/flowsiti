@@ -449,7 +449,7 @@ def object_fields():
         objectName = request.form.get('object_name')
         custom_object = requests.get(instance_url + '/services/data/v' + str(SALESFORCE_API_VERSION) + '.0/sobjects/'+objectName+'/describe', headers={'Authorization': 'OAuth ' + access_token})
         fields = json.loads(custom_object.text)['fields']
-        fields= str(fields)
+        #fields= str(fields)
 
     return render_template('clienttest.html',
                                login_form=login_form,
