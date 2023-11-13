@@ -72,6 +72,23 @@
             border-radius: 5px;
             cursor: pointer;
         }
+        .field-list {
+    list-style: none;
+}
+
+.field-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.form-group {
+    flex: 1;
+    margin-right: 10px;
+}
+
+/* Add more styling as needed */
+
     </style>
 </head>
 
@@ -124,9 +141,9 @@
                         
                     {% if fields_data %}
                     <h2>Fields Data:</h2>
-                    <ul>
+                    <ul class="field-list">
                         {% for field in fields_data %}
-                            <li>
+                            <li class="field-row">
                                 <div class="form-group">
                                     <label for="field_label_{{ loop.index0 }}">Field Label:</label>
                                     <input type="text" class="form-control" id="field_label_{{ loop.index0 }}" name="field_label_{{ loop.index0 }}" value="{{ field.get('label') }}">
