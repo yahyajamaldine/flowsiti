@@ -26,7 +26,7 @@
         }
 
         .form-container {
-            max-width: 400px;
+            max-width: fit-content;
             margin: 0 auto;
             background-color: #fff;
             border: 1px solid #ccc;
@@ -72,6 +72,23 @@
             border-radius: 5px;
             cursor: pointer;
         }
+        .field-list {
+    list-style: none;
+}
+
+.field-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.form-group {
+    flex: 1;
+    margin-right: 10px;
+}
+
+/* Add more styling as needed */
+
     </style>
 </head>
 
@@ -93,7 +110,7 @@
         </p>
 
         <div class="form-container">
-            <form action="/getobjfields" method="POST">
+            <form action="/updateField" method="POST">
                 {{ login_form.hidden_tag() }}
                 <h2>Logged in as:</h2>
 
@@ -109,25 +126,67 @@
 
                 <div class="form-group">
                     <label for="token">token:</label>
-                    <input type="text" class="form-control" id="token" name="access_token" value="{{ login_form.access_token.data }}">
+                    <input type="hidden" class="form-control" id="token" name="access_token" value="{{ login_form.access_token.data }}">
                 </div>
                 <div class="form-columns">
                     <div class="form-column">
                         <div class="form-group">
-                            <label for="customObjectDropdown">Select Custom Objec:</label>
+                            <label for="customObjectDropdown"></label>
                             {% if custom_object %}
-                            <select class="form-control" id="customObjectDropdown" name="object_name">
-                                {% for obj in custom_object %}
-                                <option value="{{ obj.name }}">{{ obj.name }}({{ obj.label }})</option>
-                                {% endfor %}
-                            </select>
+                            
                             {% else %}
                             <p>No custom objects found.</p>
                             {% endif %}
-                        </div>
+                    </div>
+                        
+                    {% if fields_data %}
+                    <h2>Fields Data:</h2>
+                    <ul class="field-list">
+                        {% for field in fields_data %}
+                            <li class="field-row">
+                                <div class="form-group">
+                                    <label for="field_label_{{ loop.index0 }}">Field Label:</label>
+                                    <input type="text" class="form-control" id="field_label_{{ loop.index0 }}" name="field_label_{{ loop.index0 }}" value="{{ field.get('label') }}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="field_name_{{ loop.index0 }}">Field Name:</label>
+                                    <input type="text" class="form-control" id="field_name_{{ loop.index0 }}" name="field_name_{{ loop.index0 }}" value="{{ field.get('name') }}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="field_description_{{ loop.index0 }}">Field Description:</label>
+                                    <input type="text" class="form-control" id="field_description_{{ loop.index0 }}" name="field_description_{{ loop.index0 }}" value="{{ field.get('description') }}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="field_type_{{ loop.index0 }}">Field Type:</label>
+                                    <select class="form-control" id="field_type_{{ loop.index0 }}" name="field_type_{{ loop.index0 }}">
+                                        <option value="Checkbox" {% if field.get('type') == 'boolean' %}selected{% endif %}>Checkbox</option>
+                                        <option value="Currency" {% if field.get('type') == 'currency' %}selected{% endif %}>Currency</option>
+                                        <option value="Date" {% if field.get('type') == 'date' %}selected{% endif %}>Date</option>
+                                        <option value="DateTime" {% if field.get('type') == 'datetime' %}selected{% endif %}>Date / Time</option>
+                                        <option value="Email" {% if field.get('type') == 'email' %}selected{% endif %}>Email</option>
+                                        <option value="Location" {% if field.get('type') == 'location' %}selected{% endif %}>Geolocation</option>
+                                        <option value="Number" {% if field.get('type') == 'number' %}selected{% endif %}>Number</option>
+                                        <option value="Percent" {% if field['type'] == 'percent' %}selected{% endif %}>Percent</option>
+                                        <option value="Phone" {% if field['type'] == 'phone' %}selected{% endif %}>Phone</option>
+                                        <option value="Picklist" {% if field['type'] == 'picklist' %}selected{% endif %}>Picklist</option>
+                                        <option value="MultiselectPicklist" {% if field['type'] == 'multiselectpicklist' %}selected{% endif %}>Picklist (Multi-Select)</option>
+                                        <option value="Text" {% if field['type'] == 'text' %}selected{% endif %}>Text</option>
+                                        <option value="TextArea" {% if field['type'] == 'textarea' %}selected{% endif %}>Text Area</option>
+                                        <option value="LongTextArea" {% if field['type'] == 'longtextarea' %}selected{% endif %}>Text Area (Long)</option>
+                                        <option value="Html" {% if field['type'] == 'html' %}selected{% endif %}>Text Area (Rich)</option>
+                                        <option value="Url" {% if field['type'] == 'url' %}selected{% endif %}>URL</option>
+                                        <!-- Add other options based on your data types -->
+                                    </select>
+                                </div>
+                                <!-- Add more fields as needed -->
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                
                 </div>                
 
-                <button type="submit" class="btn-primary">Get object field</button>
+                <button type="submit" class="btn-primary">Update field</button>
             </form>
         </div>
     </div>

@@ -458,7 +458,7 @@ def object_fields():
         fields = json.loads(custom_object.text)['fields']
         #fields= str(fields)
 
-    return render_template('clienttest.html',
+    return render_template('update.html',
                                login_form=login_form,
                                object_name=objectName,
                                fields_data = fields
