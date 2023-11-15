@@ -343,9 +343,15 @@ def updateObjectfieldSync():
         login_form = LoginForm(request.form)
         access_token = login_form.access_token.data
         instance_url = login_form.instance_url.data
-        #Object Name
+
+        #Object Name to get from the responce
+
+        """objectfullName = request.form.get('object_full_name')"""
+        #We are using 'Account' as an example
         objectfullName = 'Account'
+
         #list of field to updata
+        #request.form.get('property name')
         Fieldsnewconfig = [{
              'field_label':'ts2',
              'field_name':'ts2__c',
@@ -354,8 +360,7 @@ def updateObjectfieldSync():
              'description':'description',
              'default':'',
              'defaultValue':'',
-             'lengh':''
-             
+             'lengh':''         
            }]
         
         metadata_client = Client('https://13.37.66.143/static/metadata-52.xml')
