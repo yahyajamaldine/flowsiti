@@ -350,8 +350,10 @@ def updateObjectfieldSync():
         #We are using 'Account' as an example
         objectfullName = 'Account'
 
-        #list of field to updata
+        #list of field to update
         #request.form.get('property name')
+        #This Array accept a list of fields
+        #Eeach Field has a sit of attribute
         Fieldsnewconfig = [{
              'field_label':'ts2',
              'field_name':'ts2__c',
@@ -360,7 +362,7 @@ def updateObjectfieldSync():
              'description':'description',
              'default':'',
              'defaultValue':'',
-             'lengh':''         
+             'length':''         
            }]
         
         metadata_client = Client('https://13.37.66.143/static/metadata-52.xml')
