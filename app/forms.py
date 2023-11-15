@@ -247,17 +247,15 @@ def updateFieldsForObject(field, metadata, objectName):
         fieldMetadata.precision = field.get('precision', 10)
         fieldMetadata.scale = field.get('scale', 4)
         fieldMetadata.required = field.get('required', True)
-        fieldMetadata.length = field.get('length', 80)
 
     elif fieldMetadata.type == 'Email':
         fieldMetadata.externalId = field.get('externalId', False)
         fieldMetadata.required = field.get('required', True)
         fieldMetadata.unique = field.get('unique', False)
-        fieldMetadata.length = field.get('length', 80)
 
     elif fieldMetadata.type in ['Date', 'DateTime', 'Phone', 'TextArea', 'Url']:
         fieldMetadata.required = field.get('required', True)
-        fieldMetadata.length = field.get('length', 80)
+
 
     elif fieldMetadata.type == 'Location':
         fieldMetadata.required = field.get('required', True)
@@ -270,8 +268,7 @@ def updateFieldsForObject(field, metadata, objectName):
         fieldMetadata.defaultValue = field.get('defaultValue', 0)
         fieldMetadata.required = field.get('required', False)
         fieldMetadata.unique = field.get('unique', False)
-        fieldMetadata.length = field.get('length', 80)
-
+		
     elif fieldMetadata.type == 'Percent':
         fieldMetadata.precision = field.get('precision', 10)
         fieldMetadata.defaultValue = field.get('defaultValue', '10')
