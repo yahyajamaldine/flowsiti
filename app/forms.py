@@ -241,20 +241,23 @@ def updateFieldsForObject(field, metadata, objectName):
 
     if fieldMetadata.type == 'Checkbox':
         fieldMetadata.defaultValue = field.get('defaultValue', False)
-
+  
     elif fieldMetadata.type == 'Currency':
         fieldMetadata.defaultValue = field.get('defaultValue', 0)
         fieldMetadata.precision = field.get('precision', 10)
         fieldMetadata.scale = field.get('scale', 4)
         fieldMetadata.required = field.get('required', True)
+        fieldMetadata.length = field.get('length', 80)
 
     elif fieldMetadata.type == 'Email':
         fieldMetadata.externalId = field.get('externalId', False)
         fieldMetadata.required = field.get('required', True)
         fieldMetadata.unique = field.get('unique', False)
+        fieldMetadata.length = field.get('length', 80)
 
     elif fieldMetadata.type in ['Date', 'DateTime', 'Phone', 'TextArea', 'Url']:
         fieldMetadata.required = field.get('required', True)
+        fieldMetadata.length = field.get('length', 80)
 
     elif fieldMetadata.type == 'Location':
         fieldMetadata.required = field.get('required', True)
@@ -267,6 +270,7 @@ def updateFieldsForObject(field, metadata, objectName):
         fieldMetadata.defaultValue = field.get('defaultValue', 0)
         fieldMetadata.required = field.get('required', False)
         fieldMetadata.unique = field.get('unique', False)
+        fieldMetadata.length = field.get('length', 80)
 
     elif fieldMetadata.type == 'Percent':
         fieldMetadata.precision = field.get('precision', 10)
@@ -280,6 +284,7 @@ def updateFieldsForObject(field, metadata, objectName):
         fieldMetadata.externalId = field.get('externalId', False)
         fieldMetadata.required = field.get('required', False)
         fieldMetadata.unique = field.get('unique', False)
+        fieldMetadata.length = field.get('length', 80)
 
     elif fieldMetadata.type == 'Picklist':
         fieldMetadata.valueSet = metadata.factory.create("ValueSet")
@@ -297,6 +302,7 @@ def updateFieldsForObject(field, metadata, objectName):
     elif fieldMetadata.type == 'Html':
         fieldMetadata.visibleLines = field.get('visibleLines', 25)
         fieldMetadata.required = field.get('required', False)
+        fieldMetadata.length = field.get('length', 80)
 
     elif fieldMetadata.type == 'EncryptedText':
         fieldMetadata.length = field.get('length', 80)

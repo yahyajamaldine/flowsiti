@@ -349,8 +349,15 @@ def updateObjectfieldSync():
         Fieldsnewconfig = [{
              'field_label':'ts2',
              'field_name':'ts2__c',
-             'field_type':'Currency'
+             'field_type':'Currency',
+             'inlineHelpText':'testing tc2',
+             'description':'description',
+             'default':'',
+             'defaultValue':'',
+             'lengh':''
+             
            }]
+        
         metadata_client = Client('https://13.37.66.143/static/metadata-52.xml')
         metadata_url = instance_url + '/services/Soap/m/' +'52.0/'
         session_header = metadata_client.factory.create("SessionHeader")

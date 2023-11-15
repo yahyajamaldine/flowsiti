@@ -26,7 +26,7 @@
         }
 
         .form-container {
-            max-width: 400px;
+            max-width: fit-content;
             margin: 0 auto;
             background-color: #fff;
             border: 1px solid #ccc;
@@ -126,7 +126,7 @@
 
                 <div class="form-group">
                     <label for="token">token:</label>
-                    <input type="text" class="form-control" id="token" name="access_token" value="{{ login_form.access_token.data }}">
+                    <input type="hidden" class="form-control" id="token" name="access_token" value="{{ login_form.access_token.data }}">
                 </div>
                 <div class="form-columns">
                     <div class="form-column">
