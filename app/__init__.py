@@ -1,4 +1,4 @@
-from flask import Flask, request, redirect
+from flask import Flask, request, redirect, session
 from flask import render_template
 from .forms import LoginForm, updateFieldsForObject, buildFieldsForCObject, buildFieldsForSObject
 import json
@@ -101,6 +101,8 @@ def oauth_response():
         else:
             access_token = auth_response['access_token']
             instance_url = auth_response['instance_url']
+            session['access_token'] = auth_response['access_token']
+            session['instance_url'] = auth_response['instance_url']
             user_id = auth_response['id'][-18:]
             org_id = auth_response['id'][:-19]
             org_id = org_id[-18:]
@@ -131,8 +133,8 @@ def oauth_response():
 
         login_form = LoginForm(request.form)
         environment = login_form.environment.data
-        access_token = login_form.access_token.data
-        instance_url = login_form.instance_url.data
+        access_token = session.get('access_token')
+        instance_url = session.get('instance_url')
         org_id = login_form.org_id.data
         login_form = LoginForm(environment=environment, access_token=access_token, instance_url=instance_url,org_id = org_id)
         #You can now use these variables as needed
@@ -210,8 +212,8 @@ def oauth_response():
 
         login_form = LoginForm(request.form)
         environment = login_form.environment.data
-        access_token = login_form.access_token.data
-        instance_url = login_form.instance_url.data
+        access_token = session.get('access_token')
+        instance_url = session.get('instance_url')
         org_id= login_form.org_id.data
         #Custom Object data
         objectfullName = request.form.get('object_full_name')
