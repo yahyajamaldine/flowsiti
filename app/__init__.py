@@ -204,7 +204,7 @@ def oauth_response():
         if 'logout' in request.form:
 			# Logout action
            r = requests.post(instance_url + '/services/oauth2/revoke', headers={'content-type':'application/x-www-form-urlencoded'}, data={'token': access_token})
-           return "Successfully loged-out "+'instance_prefix=' + instance_url.replace('https://','').replace('.salesforce.com','')
+           return "Successfully loged-out From " + instance_url.replace('https://','').replace('.salesforce.com','')
     
     if request.method == 'POST' and 'insert_object' in request.form:
 
