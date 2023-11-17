@@ -167,25 +167,12 @@ def oauth_response():
              'User',
              'WorkOrder',
              'WorkOrderLineItem',]
-        
-        request_url = str(instance_url) + '/services/data/v' + str(SALESFORCE_API_VERSION) + '.0/'
-        headers = {
-			'Accept': 'application/json',
-			'X-PrettyPrint': '1',
-			'Authorization': 'Bearer ' + str(access_token)
-		}
-
-        custom_objects_infos = []   
-        custom_objects = requests.get(request_url + 'sobjects', headers=headers).json()['sobjects']
-
-        for record in custom_objects:
-          #This condition is neccessary to get objects That we can do CRUD apps with !
-          if record['custom'] or record['name'] in supported_standard_objects:
-           custom_object_info = {
-            'label': record['label'],
-            'name': record['name'],
-             }
-           custom_objects_infos.append(custom_object_info)
+        if access_token and instance_url:
+        # Do something with access_token and instance_url
+         request_url = instance_url + '/services/data/v' + str(SALESFORCE_API_VERSION) + '.0/'
+         return f'Access Token: {access_token}, Instance URL: {instance_url}, {request_url}'
+        else:
+         return 'error'
 
         # Now, custom_objects is a list of dictionaries representing CustomObject instances
         if 'get_metadata' in request.form:
