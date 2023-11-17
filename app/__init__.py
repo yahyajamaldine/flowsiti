@@ -191,14 +191,14 @@ def oauth_response():
                                login_form=login_form,
                                custom_object =  custom_objects_infos
                                )
-    				# Return the POST response"
+    	# Return the POST response"
         if 'object_field' in request.form:
           return render_template('objectfields.html',
                                login_form=login_form,
                                custom_object =  custom_objects_infos)
 
         if 'update_field' in request.form:
-           return render_template('getfields.html',
+           return render_template('objectfields.html',
                                login_form=login_form,
                                custom_object =  custom_objects_infos
                                )
