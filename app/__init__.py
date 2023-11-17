@@ -168,11 +168,11 @@ def oauth_response():
              'WorkOrder',
              'WorkOrderLineItem',]
         
-        request_url = instance_url + '/services/data/v' + str(SALESFORCE_API_VERSION) + '.0/'
+        request_url = str(instance_url) + '/services/data/v' + str(SALESFORCE_API_VERSION) + '.0/'
         headers = {
 			'Accept': 'application/json',
 			'X-PrettyPrint': '1',
-			'Authorization': 'Bearer ' + access_token
+			'Authorization': 'Bearer ' + str(access_token)
 		}
 
         custom_objects_infos = []   
