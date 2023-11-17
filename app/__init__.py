@@ -99,10 +99,11 @@ def oauth_response():
 
         # Otherwise, get session details
         else:
-            access_token = auth_response['access_token']
-            instance_url = auth_response['instance_url']
+            
             session['access_token'] = auth_response['access_token']
             session['instance_url'] = auth_response['instance_url']
+            access_token = session.get('access_token')
+            instance_url = session.get('instance_url')
             user_id = auth_response['id'][-18:]
             org_id = auth_response['id'][:-19]
             org_id = org_id[-18:]
@@ -135,6 +136,7 @@ def oauth_response():
         environment = login_form.environment.data
         access_token = session.get('access_token')
         instance_url = session.get('instance_url')
+        
         org_id = login_form.org_id.data
         login_form = LoginForm(environment=environment, access_token=access_token, instance_url=instance_url,org_id = org_id)
         #You can now use these variables as needed
