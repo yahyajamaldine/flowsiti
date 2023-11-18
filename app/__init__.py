@@ -322,7 +322,7 @@ def fields():
           #fieldSec.hidden = 'false'
           fieldSec.editable= 'true'
           fieldSec.readable = 'true'
-          fieldPermissions.append[fieldSec]
+          fieldPermissions.append(fieldSec)
         
         Admin.fieldPermissions = fieldPermissions
         
