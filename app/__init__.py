@@ -345,8 +345,8 @@ def fields():
                 else:
                     page_response = {
 						'success': False,
-						'errorCode': Updateresult[0].errors[0].statusCode,
-						'message': Updateresult[0].errors[0].message
+						'errorCode': Updateresult,
+						'message': Updateresult,
                     }
 
             else:
