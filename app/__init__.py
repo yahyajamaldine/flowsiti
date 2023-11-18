@@ -309,37 +309,40 @@ def fields():
              field_metadata = buildFieldsForSObject(fields[i], metadata =metadata_client, objectName = objectfullName)
              metatdataToDeploy.append(field_metadata)
         #Test return str(metatdataToDeploy)
-        return str(metatdataToDeploy[1].fullName)
 
         #Setting Permisson Sets
-    """ Admin = metadata_client.factory.create("Profile")
+        Admin = metadata_client.factory.create("Profile")
         Admin.fullName = 'Admin'
         Admin.custom = 'false'
         fieldSec = metadata_client.factory.create("ProfileFieldLevelSecurity")
         fieldSec.field = metatdataToDeploy[1].fullName
-        fieldSec.hidden = 'true'
+        fieldSec.hidden = 'false'
         fieldSec.editable= 'true'
+        Admin.fieldPermissions = [fieldSec]
         
 
         #We are going to add deploy fields that we want to create   
         try:
             result = metadata_client.service.createMetadata(metatdataToDeploy)
 
-            if result[0].success:
+            Updateresult = metadata_client.service.updateMetadata(metatdataToDeploy)
+
+            if result[0].success and Updateresult[0].success:
 
                 page_response = {
 						'success': True,
 						'errorCode': None,
-						'message': 'Successfully added 3 fields to the '+ objectfullName + 'Object'
+						'message': 'Successfully added fields to the '+ objectfullName + 'Object'
 					}
-            #After creating the field we are going to update it's security level
+                #After creating the field we are going to update it's security level
+                
 
 
             else:
                     page_response = {
 						'success': False,
-						'errorCode': result[0].errors[0].statusCode,
-						'message': result[0].errors[0].message
+						'errorCode': result[0].errors[0].statusCode + "Update error's code = " + Updateresult[0].errors[0].statusCode,
+						'message': result[0].errors[0].message + "Update error's message  = " + Updateresult[0].errors[0].message
 					}
         except Exception as ex:
 
@@ -369,7 +372,7 @@ def object_fields():
                                fields_data = fields
                                )
 
-"""
+
 @app.route('/updateField', methods=['GET', 'POST'])
 def updateObjectfieldSync():
      if request.method == 'POST':
