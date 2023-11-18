@@ -187,7 +187,7 @@ def oauth_response():
         # Now, custom_objects is a list of dictionaries representing CustomObject instances
         if 'get_metadata' in request.form:
 
-          return render_template('org_infos.html',
+          return render_template('add-field.html',
                                login_form=login_form,
                                custom_object =  custom_objects_infos
                                )

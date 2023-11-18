@@ -131,7 +131,9 @@
                             <p>No custom objects found.</p>
                             {% endif %}
                         </div>
-                        {% for i in range(4) %}
+                        </div>
+                    <div>
+                        {% for i in range(3) %}
                         <div class="form-group">
                             <label for="field_label_{{ i }}">Field-{{ i }} Label:</label>
                             <input type="text" class="form-control" id="field_label_{{ i }}" name="field_label_{{ i }}" placeholder="Field label...">
@@ -169,9 +171,8 @@
                                 <!-- Add other options here -->
                             </select>
                         </div>
-                    </div>
-                    {% endfor %}
-                </div>                
+                      {% endfor %}
+                    </div>                
 
                 <button type="submit" class="btn-primary">Submit</button>
             </form>
