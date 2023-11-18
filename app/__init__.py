@@ -197,11 +197,6 @@ def oauth_response():
                                login_form=login_form,
                                custom_object =  custom_objects_infos)
 
-        if 'update_field' in request.form:
-           return render_template('objectfields.html',
-                               login_form=login_form,
-                               custom_object =  custom_objects_infos
-                               )
         # Run after user selects logout or get schema
         if 'logout' in request.form:
 			# Logout action
@@ -342,6 +337,25 @@ def fields():
 				}
                  
         return render_template('client.html',custom_object = page_response)
+    
+@app.route('/getobjfields', methods=['GET', 'POST'])
+def object_fields():
+    
+    if request.method == 'POST':
+        login_form = LoginForm(request.form)
+        access_token = login_form.access_token.data
+        instance_url = login_form.instance_url.data   
+        objectName = request.form.get('object_name')
+        custom_object = requests.get(instance_url + '/services/data/v' + str(SALESFORCE_API_VERSION) + '.0/sobjects/'+objectName+'/describe', headers={'Authorization': 'OAuth ' + access_token})
+        fields = json.loads(custom_object.text)['fields']
+        #fields= str(fields)
+
+    return render_template('update.html',
+                               login_form=login_form,
+                               object_name=objectName,
+                               fields_data = fields
+                               )
+
 
 @app.route('/updateField', methods=['GET', 'POST'])
 def updateObjectfieldSync():
@@ -458,22 +472,3 @@ def deleteCustomObjectSync():
 				}
                  
         return str(page_response)
-
-        
-@app.route('/getobjfields', methods=['GET', 'POST'])
-def object_fields():
-    
-    if request.method == 'POST':
-        login_form = LoginForm(request.form)
-        access_token = login_form.access_token.data
-        instance_url = login_form.instance_url.data   
-        objectName = request.form.get('object_name')
-        custom_object = requests.get(instance_url + '/services/data/v' + str(SALESFORCE_API_VERSION) + '.0/sobjects/'+objectName+'/describe', headers={'Authorization': 'OAuth ' + access_token})
-        fields = json.loads(custom_object.text)['fields']
-        #fields= str(fields)
-
-    return render_template('update.html',
-                               login_form=login_form,
-                               object_name=objectName,
-                               fields_data = fields
-                               )
