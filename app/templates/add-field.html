@@ -120,9 +120,9 @@
                 <div class="form-columns">
                     <div class="form-column">
                         <div class="form-group">
-                            <label for="customObjectDropdown_{{ i }}">Select Custom Objec:</label>
+                            <label for="customObjectDropdown">Select Custom Objec:</label>
                             {% if custom_object %}
-                            <select class="form-control" id="customObjectDropdown_{{ i }}" name="object_full_name_{{ i }}">
+                            <select class="form-control" id="customObjectDropdown" name="object_full_name">
                                 {% for obj in custom_object %}
                                 <option value="{{ obj.name }}">{{ obj.name }}({{ obj.label }})</option>
                                 {% endfor %}
