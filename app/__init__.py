@@ -315,12 +315,16 @@ def fields():
         Admin.fullName = 'Admin'
         Admin.custom = 'false'
         fieldSec = metadata_client.factory.create("ProfileFieldLevelSecurity")
-        fieldSec.field = metatdataToDeploy[0].fullName
-        #Deprecated
-        #fieldSec.hidden = 'false'
-        fieldSec.editable= 'true'
-        fieldSec.readable = 'true'
-        Admin.fieldPermissions = [fieldSec]
+        fieldPermissions=[]
+        for i in range(3):  # Adjust the range based on the number of fields you expect
+          fieldSec.field = metatdataToDeploy[i].fullName
+          #Deprecated
+          #fieldSec.hidden = 'false'
+          fieldSec.editable= 'true'
+          fieldSec.readable = 'true'
+          fieldPermissions.append[fieldSec]
+        
+        Admin.fieldPermissions = fieldPermissions
         
 
         #We are going to add deploy fields that we want to create   
@@ -336,7 +340,7 @@ def fields():
 					}
                 #After creating the field we are going to update it's security level
                 Updateresult = metadata_client.service.updateMetadata([Admin])
-                if Updateresult: 
+                if Updateresult[0].success: 
                    page_response = {
 						'success': True,
 						'errorCode': None,
@@ -345,8 +349,8 @@ def fields():
                 else:
                     page_response = {
 						'success': False,
-						'errorCode': Updateresult,
-						'message': Updateresult,
+						'errorCode': Updateresult.errors[0].statusCode,
+						'message': Updateresult.errors[0].message
                     }
 
             else:
