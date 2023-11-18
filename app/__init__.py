@@ -325,7 +325,7 @@ def fields():
         try:
             result = metadata_client.service.createMetadata(metatdataToDeploy)
 
-            Updateresult = metadata_client.service.updateMetadata(metatdataToDeploy)
+            Updateresult = metadata_client.service.updateMetadata([Admin])
 
             if result[0].success and Updateresult[0].success:
 
