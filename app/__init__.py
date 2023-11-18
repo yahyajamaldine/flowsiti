@@ -315,7 +315,7 @@ def fields():
         Admin.fullName = 'Admin'
         Admin.custom = 'false'
         fieldSec = metadata_client.factory.create("ProfileFieldLevelSecurity")
-        fieldSec.field = metatdataToDeploy[1].fullName
+        fieldSec.field = metatdataToDeploy[0].fullName
         #Deprecated
         #fieldSec.hidden = 'false'
         fieldSec.editable= 'true'
@@ -336,7 +336,7 @@ def fields():
 					}
                 #After creating the field we are going to update it's security level
                 Updateresult = metadata_client.service.updateMetadata([Admin])
-                if Updateresult[0].success: 
+                if Updateresult: 
                    page_response = {
 						'success': True,
 						'errorCode': None,
