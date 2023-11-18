@@ -327,24 +327,33 @@ def fields():
         try:
             result = metadata_client.service.createMetadata(metatdataToDeploy)
 
-            Updateresult = metadata_client.service.updateMetadata([Admin])
 
-            if result[0].success and Updateresult[0].success:
-
+            if result[0].success:
                 page_response = {
 						'success': True,
 						'errorCode': None,
 						'message': 'Successfully added fields to the '+ objectfullName + 'Object'
 					}
                 #After creating the field we are going to update it's security level
-                
-
+                Updateresult = metadata_client.service.updateMetadata([Admin])
+                if Updateresult[0].success: 
+                   page_response = {
+						'success': True,
+						'errorCode': None,
+						'message': 'Updated the security of fields'
+					}
+                else:
+                    page_response = {
+						'success': False,
+						'errorCode': Updateresult[0].errors[0].statusCode,
+						'message': Updateresult[0].errors[0].message
+                    }
 
             else:
                     page_response = {
 						'success': False,
-						'errorCode': result[0].errors[0].statusCode + "Update error's code = " + Updateresult[0].errors[0].statusCode,
-						'message': result[0].errors[0].message + "Update error's message  = " + Updateresult[0].errors[0].message
+						'errorCode': result[0].errors[0].statusCode,
+						'message': result[0].errors[0].message
 					}
         except Exception as ex:
 
