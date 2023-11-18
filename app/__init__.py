@@ -316,8 +316,10 @@ def fields():
         Admin.custom = 'false'
         fieldSec = metadata_client.factory.create("ProfileFieldLevelSecurity")
         fieldSec.field = metatdataToDeploy[1].fullName
-        fieldSec.hidden = 'false'
+        #Deprecated
+        #fieldSec.hidden = 'false'
         fieldSec.editable= 'true'
+        fieldSec.readable = 'true'
         Admin.fieldPermissions = [fieldSec]
         
 
