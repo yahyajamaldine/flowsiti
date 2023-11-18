@@ -293,7 +293,7 @@ def fields():
         session_header.sessionId = access_token
         metadata_client.set_options(location=metadata_url, soapheaders=session_header)
         fields = []
-        for i in range(3):  # Adjust the range based on the number of fields you expect
+        for i in range(2):  # Adjust the range based on the number of fields you expect
          field ={
              'field_label':request.form.get(f'field_label_{i}'),
              'field_name':request.form.get(f'field_name_{i}'),
@@ -304,7 +304,7 @@ def fields():
         
         metatdataToDeploy=[]
         #Since we have pulled fields data, let's create Metadata for fields
-        for i in range(3):  # Adjust the range based on the number of fields you expect
+        for i in range(2):  # Adjust the range based on the number of fields you expect
           if fields[i] :
              field_metadata = buildFieldsForSObject(fields[i], metadata =metadata_client, objectName = objectfullName)
              metatdataToDeploy.append(field_metadata)
@@ -316,7 +316,7 @@ def fields():
         Admin.custom = 'false'
         fieldSec = metadata_client.factory.create("ProfileFieldLevelSecurity")
         fieldPermissions=[]
-        for i in range(3):  # Adjust the range based on the number of fields you expect
+        for i in range(2):  # Adjust the range based on the number of fields you expect
           fieldSec.field = metatdataToDeploy[i].fullName
           #Deprecated
           #fieldSec.hidden = 'false'
