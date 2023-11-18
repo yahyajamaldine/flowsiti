@@ -308,9 +308,20 @@ def fields():
           if fields[i] :
              field_metadata = buildFieldsForSObject(fields[i], metadata =metadata_client, objectName = objectfullName)
              metatdataToDeploy.append(field_metadata)
-        #return str(metatdataToDeploy)
+        #Test return str(metatdataToDeploy)
+        return str(metatdataToDeploy[1].fullName)
+
+        #Setting Permisson Sets
+    """ Admin = metadata_client.factory.create("Profile")
+        Admin.fullName = 'Admin'
+        Admin.custom = 'false'
+        fieldSec = metadata_client.factory.create("ProfileFieldLevelSecurity")
+        fieldSec.field = metatdataToDeploy[1].fullName
+        fieldSec.hidden = 'true'
+        fieldSec.editable= 'true'
         
-        #Plus we are going to add each field to   
+
+        #We are going to add deploy fields that we want to create   
         try:
             result = metadata_client.service.createMetadata(metatdataToDeploy)
 
@@ -321,6 +332,8 @@ def fields():
 						'errorCode': None,
 						'message': 'Successfully added 3 fields to the '+ objectfullName + 'Object'
 					}
+            #After creating the field we are going to update it's security level
+
 
             else:
                     page_response = {
@@ -356,7 +369,7 @@ def object_fields():
                                fields_data = fields
                                )
 
-
+"""
 @app.route('/updateField', methods=['GET', 'POST'])
 def updateObjectfieldSync():
      if request.method == 'POST':
@@ -365,12 +378,9 @@ def updateObjectfieldSync():
         access_token = login_form.access_token.data
         instance_url = login_form.instance_url.data
 
-        #Object Name to get from the responce
+        #Object Name to get from the response
 
-        """objectfullName = request.form.get('object_full_name')"""
-        #We are using 'Account' as an example
-        objectfullName = 'Account'
-
+        objectfullName = request.form.get('object_full_name')
         #list of field to update
         #request.form.get('property name')
         #This Array accept a list of fields

@@ -124,16 +124,12 @@
                     <input type="text" class="form-control" id="instance_url" name="instance_url" value="{{ login_form.instance_url.data }}">
                 </div>
 
-                <div class="form-group">
-                    <label for="token">token:</label>
-                    <input type="hidden" class="form-control" id="token" name="access_token" value="{{ login_form.access_token.data }}">
-                </div>
                 <div class="form-columns">
                     <div class="form-column">
                         <div class="form-group">
                             <label for="customObjectDropdown"></label>
                             {% if custom_object %}
-                            
+                            <input type="text" class="form-control" id="" name="object_full_name" value="{{ custom_object }}">
                             {% else %}
                             <p>No custom objects found.</p>
                             {% endif %}
