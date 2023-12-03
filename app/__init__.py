@@ -24,11 +24,6 @@ SALESFORCE_CONSUMER_KEY = '3MVG9DREgiBqN9WmkvM3yN3IVuL3AVGBSmf7SjpjZ3P6Za55OmT8i
 SALESFORCE_CONSUMER_SECRET = 'ED6B772975C07C92B2F8EDDBC6C5F1E012C7ED30A54C04C00B27AB6C33FD4C27'
 SALESFORCE_REDIRECT_URI = 'https://13.37.66.143/oauthrp'
 
-"""
-SALESFORCE_CONSUMER_KEY = '3MVG9DREgiBqN9WmkvM3yN3IVuOsViW3I.Sox5g7uMnn1ZhU2qDB_LQ2B91pwM_ut6u7pW5zDkgjTQXvtWxrU'
-SALESFORCE_CONSUMER_SECRET = '26D777FD0021CC92F049E7072DD537AFB251AFB80CFAE555ACA133ECC790626B'
-SALESFORCE_REDIRECT_URI = 'https://www.flowsiti.ai/oauthrp'
-"""
 
 SALESFORCE_API_VERSION =58
 
@@ -187,10 +182,11 @@ def oauth_response():
         # Now, custom_objects is a list of dictionaries representing CustomObject instances
         if 'get_metadata' in request.form:
 
-          return render_template('add-field.html',
+          """return render_template('add-field.html',
                                login_form=login_form,
                                custom_object =  custom_objects_infos
-                               )
+                               )""" 
+          return str(custom_objects)
     	# Return the POST response"
         if 'object_field' in request.form:
           return render_template('objectfields.html',
