@@ -187,7 +187,7 @@ def oauth_response():
                                login_form=login_form,
                                custom_object =  custom_objects_infos
                                )"""
-          request_url = instance_url + '/services/data/v34.0/tooling/query/?q=Select+Id,Name,FullName+From+Profile'
+          request_url = instance_url + '/services/data/v58.0/tooling/query/?q=Select+Id,Name,FullName+From+Profile'
           headers = {
 			'Accept': 'application/json',
 			'X-PrettyPrint': '1',
