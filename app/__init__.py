@@ -194,10 +194,10 @@ def oauth_response():
 		   	'Authorization': 'Bearer ' + access_token
 		  }
   
-          records = requests.get(request_url, headers=headers).json()
+          records = requests.get(request_url, headers=headers).json()['records']
         
-          namespace_prefix_list = [record['SubscriberPackage']['NamespacePrefix'] for record in records['records'] ]
-
+          namespace_prefix_list = [ record['SubscriberPackage']['NamespacePrefix'] for record in records ]
+             
           return str(namespace_prefix_list)
     	# Return the POST response"
         if 'object_field' in request.form:
