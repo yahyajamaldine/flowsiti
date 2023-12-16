@@ -160,7 +160,8 @@ def oauth_response():
              'User',
              'WorkOrder',
              'WorkOrderLineItem',]
-        request_url = instance_url + '/services/data/v' + str(SALESFORCE_API_VERSION) + '.0/'
+        
+        """request_url = instance_url + '/services/data/v' + str(SALESFORCE_API_VERSION) + '.0/'
         headers = {
 			'Accept': 'application/json',
 			'X-PrettyPrint': '1',
@@ -178,20 +179,31 @@ def oauth_response():
             'name': record['name'],
              }
            custom_objects_infos.append(custom_object_info)
-
+        """
         # Now, custom_objects is a list of dictionaries representing CustomObject instances
         if 'get_metadata' in request.form:
 
           """return render_template('add-field.html',
                                login_form=login_form,
                                custom_object =  custom_objects_infos
-                               )""" 
-          return str(custom_objects)
+                               )"""
+          request_url = instance_url + '/services/data/v' + str(SALESFORCE_API_VERSION) + '/tooling/query/?q=SELECT Id, SubscriberPackageId, SubscriberPackage.NamespacePrefix,SubscriberPackage.Name, SubscriberPackageVersion.Id, SubscriberPackageVersion.Name, SubscriberPackageVersion.MajorVersion, SubscriberPackageVersion.MinorVersion, SubscriberPackageVersion.PatchVersion, SubscriberPackageVersion.BuildNumber FROM InstalledSubscriberPackage ORDER BY SubscriberPackageId'
+          headers = {
+			'Accept': 'application/json',
+			'X-PrettyPrint': '1',
+		   	'Authorization': 'Bearer ' + access_token
+		  }
+  
+          records = requests.get(request_url, headers=headers).json()
+        
+          namespace_prefix_list = [record['SubscriberPackage']['NamespacePrefix'] for record in records['records'] ]
+
+          return str(namespace_prefix_list)
     	# Return the POST response"
         if 'object_field' in request.form:
           return render_template('objectfields.html',
                                login_form=login_form,
-                               custom_object =  custom_objects_infos)
+                               custom_object =  '')
 
         # Run after user selects logout or get schema
         if 'logout' in request.form:
