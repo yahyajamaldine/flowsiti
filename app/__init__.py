@@ -194,7 +194,7 @@ def oauth_response():
 		   	'Authorization': 'Bearer ' + access_token
 		  }
   
-          records = requests.get(request_url, headers=headers).json()['records']
+          records = requests.get(request_url, headers=headers).json()
         
           #namespace_prefix_list = [ record['SubscriberPackage']['NamespacePrefix'] for record in records ]
              
