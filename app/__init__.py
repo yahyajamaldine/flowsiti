@@ -196,9 +196,9 @@ def oauth_response():
   
           records = requests.get(request_url, headers=headers).json()['records']
         
-          namespace_prefix_list = [ record['SubscriberPackage']['NamespacePrefix'] for record in records ]
+          #namespace_prefix_list = [ record['SubscriberPackage']['NamespacePrefix'] for record in records ]
              
-          return str(namespace_prefix_list)
+          return str(records)
     	# Return the POST response"
         if 'object_field' in request.form:
           return render_template('objectfields.html',
