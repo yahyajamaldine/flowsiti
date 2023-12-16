@@ -187,14 +187,14 @@ def oauth_response():
                                login_form=login_form,
                                custom_object =  custom_objects_infos
                                )"""
-          request_url = instance_url + '/services/data/v' + str(SALESFORCE_API_VERSION) + '/tooling/sobjects/' 
+          request_url = instance_url + '/services/data/v' + str(SALESFORCE_API_VERSION)+'.0/'
           headers = {
 			'Accept': 'application/json',
 			'X-PrettyPrint': '1',
 		   	'Authorization': 'Bearer ' + access_token
 		  }
   
-          records = requests.get(request_url, headers=headers).json()
+          records = requests.get(request_url + '/tooling/sobjects/', headers=headers).json()
         
           #namespace_prefix_list = [ record['SubscriberPackage']['NamespacePrefix'] for record in records ]
              
