@@ -187,7 +187,7 @@ def oauth_response():
                                login_form=login_form,
                                custom_object =  custom_objects_infos
                                )"""
-          request_url = instance_url + '/services/data/v58.0/tooling/query/?q=Select+Id,Name,FullName+From+Profile'
+          request_url = instance_url + '/services/data/v58.0/tooling/query/?q=SELECT Id, SubscriberPackageId, SubscriberPackage.NamespacePrefix,SubscriberPackage.Name, SubscriberPackageVersion.Id,SubscriberPackageVersion.Name, SubscriberPackageVersion.MajorVersion,SubscriberPackageVersion.MinorVersion,SubscriberPackageVersion.PatchVersion,SubscriberPackageVersion.BuildNumber FROM InstalledSubscriberPackage ORDER BY SubscriberPackageId'
           headers = {
 			'Accept': 'application/json',
 			'X-PrettyPrint': '1',
