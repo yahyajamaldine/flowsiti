@@ -193,12 +193,15 @@ def oauth_response():
 			'X-PrettyPrint': '1',
 		   	'Authorization': 'Bearer ' + access_token
 		  }
+
+          namespaceprefix=[]
   
-          records = requests.get(request_url, headers=headers).json()['records']
-        
-          #namespace_prefix_list = [ record['SubscriberPackage']['NamespacePrefix'] for record in records ]
-             
-          return str(records)
+          data = requests.get(request_url, headers=headers).json()
+          for record in data['records']:
+            namespace_prefix = record['SubscriberPackage']['NamespacePrefix']
+            namespaceprefix.append[namespace_prefix]
+               
+          return str(namespaceprefix)
     	# Return the POST response"
         if 'object_field' in request.form:
           return render_template('objectfields.html',
