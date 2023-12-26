@@ -199,7 +199,7 @@ def oauth_response():
           data = requests.get(request_url, headers=headers).json()
           for record in data['records']:
             namespace_prefix = record['SubscriberPackage']['NamespacePrefix']
-            namespaceprefix.append[namespace_prefix]
+            namespaceprefix.append(namespace_prefix)
                
           return str(namespaceprefix)
     	# Return the POST response"
