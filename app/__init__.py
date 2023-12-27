@@ -187,7 +187,8 @@ def oauth_response():
              }
            custom_objects_infos.append(custom_object_info)
 
-        filtered_objects = [obj for obj in custom_objects if not any(obj.startswith(prefix) for prefix in package_names)]
+        # Filter custom_objects based on namespaceprefix
+        filtered_objects = [obj for obj in custom_objects if not any(obj['name'].startswith(prefix) for prefix in namespaceprefix)]
 
         return str(filtered_objects)
 
