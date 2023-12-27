@@ -190,21 +190,19 @@ def oauth_response():
         # Filter custom_objects based on namespaceprefix
         filtered_objects = [obj for obj in custom_objects if not any(obj['name'].startswith(prefix) for prefix in namespaceprefix)]
 
-        return str(filtered_objects)
-
         # Now, custom_objects is a list of dictionaries representing CustomObject instances
         if 'get_metadata' in request.form:
 
           return render_template('add-field.html',
                                login_form=login_form,
-                               custom_object =  custom_objects_infos
+                               custom_object =  filtered_objects
                                )
 
     	# Return the POST response"
         if 'object_field' in request.form:
           return render_template('objectfields.html',
                                login_form=login_form,
-                               custom_object =  '')
+                               custom_object =  filtered_objects)
 
         # Run after user selects logout or get schema
         if 'logout' in request.form:
