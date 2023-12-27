@@ -108,3 +108,87 @@
         }
     ]
 }
+
+
+<select class="form-control" id="customObjectDropdown" name="object_full_name">
+                                
+                                "Account"
+                                
+                                "Asset"
+                                
+                                "Campaign"
+                                
+                                "CampaignMember"
+                                
+                                "Case"
+                                
+                                "Contact"
+                                
+                                "Contract"
+                                
+                                "Event"
+                                
+                                "Lead
+                                
+                                "MC4SF__MC_Campaign_Hourly_Stats__c
+                                
+                                "MC4SF__MC_Campaign__c"
+                                
+                                <option value="MC4SF__MC_Interest_Group__c">MC4SF__MC_Interest_Group__c(MC Interest Group)</option>
+                                
+                                <option value="MC4SF__MC_Interest_Grouping__c">MC4SF__MC_Interest_Grouping__c(MC Interest Grouping)</option>
+                                
+                                <option value="MC4SF__MC_List__c">MC4SF__MC_List__c(MC Audience)</option>
+                                
+                                <option value="MC4SF__MC_Merge_Variable__c">MC4SF__MC_Merge_Variable__c(MC Merge Variable)</option>
+                                
+                                <option value="MC4SF__MC_Query_Filter__c">MC4SF__MC_Query_Filter__c(MC Query Filter)</option>
+                                
+                                <option value="MC4SF__MC_Query__c">MC4SF__MC_Query__c(MC Query)</option>
+                                
+                                <option value="MC4SF__MC_Static_Segment__c">MC4SF__MC_Static_Segment__c(MC Static Segment)</option>
+                                
+                                <option value="MC4SF__MC_Subscriber_Activity__c">MC4SF__MC_Subscriber_Activity__c(MC Subscriber Activity)</option>
+                                
+                                <option value="MC4SF__MC_Subscriber__c">MC4SF__MC_Subscriber__c(MC Subscriber)</option>
+                                
+                                <option value="Opportunity">Opportunity(Opportunity)</option>
+                                
+                                <option value="OpportunityCompetitor">OpportunityCompetitor(Opportunity: Competitor)</option>
+                                
+                                <option value="OpportunityLineItem">OpportunityLineItem(Opportunity Product)</option>
+                                
+                                <option value="Order">Order(Order)</option>
+                                
+                                <option value="OrderItem">OrderItem(Order Product)</option>
+                                
+                                <option value="Pricebook2">Pricebook2(Price Book)</option>
+                                
+                                <option value="PricebookEntry">PricebookEntry(Price Book Entry)</option>
+                                
+                                <option value="Product2">Product2(Product)</option>
+                                
+                                <option value="Task">Task(Task)</option>
+                                
+                                <option value="TestYahya__c">TestYahya__c(TestYahya)</option>
+                                
+                                <option value="Test__c">Test__c(Test)</option>
+                                
+                                <option value="User">User(User)</option>
+                                
+                                <option value="WorkOrder">WorkOrder(Work Order)</option>
+                                
+                                <option value="WorkOrderLineItem">WorkOrderLineItem(Work Order Line Item)</option>
+                                
+                                <option value="accounting_ma__c">accounting_ma__c(Accoutning)</option>
+                                
+                                <option value="atingsls_max__c">atingsls_max__c(Atningxsls)</option>
+                                
+                                <option value="work__c">work__c(work)</option>
+                                
+                            </select>
+
+
+//Objects: 
+
+['sf_com_apps', 'trlhdtips', 'MC4SF']
