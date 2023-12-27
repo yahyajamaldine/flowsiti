@@ -188,7 +188,7 @@ def oauth_response():
            custom_objects_infos.append(custom_object_info)
 
         # Filter custom_objects based on namespaceprefix
-        filtered_objects = [obj for obj in custom_objects if not any(obj['name'].startswith(prefix) for prefix in namespaceprefix)]
+        filtered_objects = [obj for obj in custom_objects_infos if not any(obj['name'].startswith(prefix) for prefix in namespaceprefix)]
 
         # Now, custom_objects is a list of dictionaries representing CustomObject instances
         if 'get_metadata' in request.form:
