@@ -185,7 +185,7 @@ def oauth_response():
             'label': record['label'],
             'name': record['name'],
              }
-          custom_objects_infos.append(custom_object_info)
+           custom_objects_infos.append(custom_object_info)
 
         filtered_objects = [obj for obj in custom_objects if not any(obj.startswith(prefix) for prefix in package_names)]
 
