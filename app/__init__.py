@@ -160,17 +160,24 @@ def oauth_response():
              'User',
              'WorkOrder',
              'WorkOrderLineItem',]
-        
-        """request_url = instance_url + '/services/data/v' + str(SALESFORCE_API_VERSION) + '.0/'
         headers = {
 			'Accept': 'application/json',
 			'X-PrettyPrint': '1',
 			'Authorization': 'Bearer ' + access_token
 		}
 
-        custom_objects_infos = []   
-        custom_objects = requests.get(request_url + 'sobjects', headers=headers).json()['sobjects']
+        custom_objects_infos = []
+        namespaceprefix= []
+        request_url = instance_url + '/services/data/v' + str(SALESFORCE_API_VERSION) + '.0/'
+        package_names = instance_url + '/services/data/v58.0/tooling/query/?q=SELECT Id, SubscriberPackageId, SubscriberPackage.NamespacePrefix,SubscriberPackage.Name, SubscriberPackageVersion.Id,SubscriberPackageVersion.Name, SubscriberPackageVersion.MajorVersion,SubscriberPackageVersion.MinorVersion,SubscriberPackageVersion.PatchVersion,SubscriberPackageVersion.BuildNumber FROM InstalledSubscriberPackage ORDER BY SubscriberPackageId'
 
+        custom_objects = requests.get(request_url + 'sobjects', headers=headers).json()['sobjects']        
+        
+        Data = requests.get(package_names, headers=headers).json()
+        for record in Data['records']:
+           namespace_prefix = record['SubscriberPackage']['NamespacePrefix']
+           namespaceprefix.append(namespace_prefix)
+  
         for record in custom_objects:
           #This condition is neccessary to get objects That we can do CRUD apps with !
           if record['custom'] or record['name'] in supported_standard_objects:
@@ -179,29 +186,15 @@ def oauth_response():
             'name': record['name'],
              }
            custom_objects_infos.append(custom_object_info)
-        """
+           
         # Now, custom_objects is a list of dictionaries representing CustomObject instances
         if 'get_metadata' in request.form:
 
-          """return render_template('add-field.html',
+          return render_template('add-field.html',
                                login_form=login_form,
                                custom_object =  custom_objects_infos
-                               )"""
-          request_url = instance_url + '/services/data/v58.0/tooling/query/?q=SELECT Id, SubscriberPackageId, SubscriberPackage.NamespacePrefix,SubscriberPackage.Name, SubscriberPackageVersion.Id,SubscriberPackageVersion.Name, SubscriberPackageVersion.MajorVersion,SubscriberPackageVersion.MinorVersion,SubscriberPackageVersion.PatchVersion,SubscriberPackageVersion.BuildNumber FROM InstalledSubscriberPackage ORDER BY SubscriberPackageId'
-          headers = {
-			'Accept': 'application/json',
-			'X-PrettyPrint': '1',
-		   	'Authorization': 'Bearer ' + access_token
-		  }
+                               )
 
-          namespaceprefix=[]
-  
-          data = requests.get(request_url, headers=headers).json()
-          for record in data['records']:
-            namespace_prefix = record['SubscriberPackage']['NamespacePrefix']
-            namespaceprefix.append(namespace_prefix)
-               
-          return str(namespaceprefix)
     	# Return the POST response"
         if 'object_field' in request.form:
           return render_template('objectfields.html',
