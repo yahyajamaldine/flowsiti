@@ -624,7 +624,7 @@ def DeleteCsObjt():
         access_token = login_form.access_token.data
         instance_url = login_form.instance_url.data
         #Custom Object data
-        ObjectfullName ="TestYahya"
+        ObjectfullName ="TestYahya"+'__c'
         metadata_client = Client('https://13.37.66.143/static/metadata-52.xml')
         metadata_url = instance_url + '/services/Soap/m/' +'52.0/'
         session_header = metadata_client.factory.create("SessionHeader")
