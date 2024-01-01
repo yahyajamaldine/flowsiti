@@ -596,7 +596,49 @@ def UpdateCsObjt():
                 page_response = {
 						'success': True,
 						'errorCode': None,
-						'message': 'Created custom object '+ObjectNewName +'__c'
+						'message': 'Updating custom object '+ObjectNewName +'__c'
+					}
+
+            else:
+                    page_response = {
+						'success': False,
+						'errorCode': result[0].errors[0].statusCode,
+						'message': result[0].errors[0].message
+					}
+        except Exception as ex:
+
+                page_response = {
+					'success': False,
+					'errorCode': 'Error building Metadata',
+					'message': ex
+				}
+                 
+        return str(page_response)    
+     
+@app.route('/DeleteCsObjt', methods=['GET', 'POST'])
+def UpdateCsObjt():
+     
+     if request.method == 'POST':
+
+        login_form = LoginForm(request.form)
+        access_token = login_form.access_token.data
+        instance_url = login_form.instance_url.data
+        #Custom Object data
+        ObjectfullName ="TestYahya"
+        metadata_client = Client('https://13.37.66.143/static/metadata-52.xml')
+        metadata_url = instance_url + '/services/Soap/m/' +'52.0/'
+        session_header = metadata_client.factory.create("SessionHeader")
+        session_header.sessionId = access_token
+        metadata_client.set_options(location=metadata_url, soapheaders=session_header)
+        try:
+            #Only One CustomObject for the current moment
+            result = metadata_client.service.deleteMetadata("CustomObject",[ObjectfullName])
+            if result[0].success:
+
+                page_response = {
+						'success': True,
+						'errorCode': None,
+						'message': 'Deleted custom object '+ObjectfullName
 					}
 
             else:
