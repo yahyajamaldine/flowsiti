@@ -507,3 +507,110 @@ def deleteCustomObjectSync():
 				}
                  
         return str(page_response)
+
+#CRUD for Custom Object(Create)
+@app.route('/CreateCsObjt', methods=['GET', 'POST'])
+def CreateCsObjt():
+     
+     if request.method == 'POST':
+
+        login_form = LoginForm(request.form)
+        access_token = login_form.access_token.data
+        instance_url = login_form.instance_url.data
+        #Custom Object data
+        ObjectfullName = "TestYahya"
+        Label = request.form.get('label')
+        metadata_client = Client('https://13.37.66.143/static/metadata-52.xml')
+        metadata_url = instance_url + '/services/Soap/m/' +'52.0/'
+        session_header = metadata_client.factory.create("SessionHeader")
+        session_header.sessionId = access_token
+        metadata_client.set_options(location=metadata_url, soapheaders=session_header)
+        metatdataToDeploy = []
+        custom_object = metadata_client.factory.create("CustomObject")
+        custom_object.fullName = ObjectfullName +'__c'
+        custom_object.label = Label
+        custom_object.pluralLabel = Label+'s'
+        custom_object.nameField =  metadata_client.factory.create("CustomField")
+        custom_object.nameField.type = 'Text'
+        custom_object.nameField.label = Label+' Record'
+        custom_object.deploymentStatus = 'Deployed'
+        custom_object.sharingModel = 'ReadWrite'
+        metatdataToDeploy.append(custom_object)
+        try:
+            result = metadata_client.service.createMetadata(metatdataToDeploy)
+            if result[0].success:
+
+                page_response = {
+						'success': True,
+						'errorCode': None,
+						'message': 'Created custom object '+ObjectfullName +'__c'
+					}
+
+            else:
+                    page_response = {
+						'success': False,
+						'errorCode': result[0].errors[0].statusCode,
+						'message': result[0].errors[0].message
+					}
+        except Exception as ex:
+
+                page_response = {
+					'success': False,
+					'errorCode': 'Error building Metadata',
+					'message': ex
+				}
+                 
+        return str(page_response)
+ #CRUD for Custom Object (Update)
+@app.route('/UpdateCsObjt', methods=['GET', 'POST'])
+def UpdateCsObjt():
+     
+     if request.method == 'POST':
+
+        login_form = LoginForm(request.form)
+        access_token = login_form.access_token.data
+        instance_url = login_form.instance_url.data
+        #Custom Object data
+        ObjectNewName = request.form.get('object_full_name')
+        Label = request.form.get('label')
+        metadata_client = Client('https://13.37.66.143/static/metadata-52.xml')
+        metadata_url = instance_url + '/services/Soap/m/' +'52.0/'
+        session_header = metadata_client.factory.create("SessionHeader")
+        session_header.sessionId = access_token
+        metadata_client.set_options(location=metadata_url, soapheaders=session_header)
+        metatdataToDeploy = []
+        custom_object = metadata_client.factory.create("CustomObject")
+        custom_object.fullName = ObjectNewName +'__c'
+        custom_object.label = Label
+        custom_object.pluralLabel = Label+'s Updated'
+        custom_object.nameField =  metadata_client.factory.create("CustomField")
+        custom_object.nameField.type = 'Text'
+        custom_object.nameField.label = Label+' Record Updated'
+        custom_object.deploymentStatus = 'Deployed'
+        custom_object.sharingModel = 'ReadWrite'
+        metatdataToDeploy.append(custom_object)
+        try:
+            result = metadata_client.service.createMetadata(metatdataToDeploy)
+            if result[0].success:
+
+                page_response = {
+						'success': True,
+						'errorCode': None,
+						'message': 'Created custom object '+ObjectNewName +'__c'
+					}
+
+            else:
+                    page_response = {
+						'success': False,
+						'errorCode': result[0].errors[0].statusCode,
+						'message': result[0].errors[0].message
+					}
+        except Exception as ex:
+
+                page_response = {
+					'success': False,
+					'errorCode': 'Error building Metadata',
+					'message': ex
+				}
+                 
+        return str(page_response)    
