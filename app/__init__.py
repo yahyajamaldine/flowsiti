@@ -519,7 +519,7 @@ def CreateCsObjt():
         instance_url = login_form.instance_url.data
         #Custom Object data
         ObjectfullName = "TestYahya"
-        Label = request.form.get('label')
+        Label = "TestYahya"
         metadata_client = Client('https://13.37.66.143/static/metadata-52.xml')
         metadata_url = instance_url + '/services/Soap/m/' +'52.0/'
         session_header = metadata_client.factory.create("SessionHeader")
