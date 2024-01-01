@@ -616,7 +616,7 @@ def UpdateCsObjt():
         return str(page_response)    
      
 @app.route('/DeleteCsObjt', methods=['GET', 'POST'])
-def UpdateCsObjt():
+def DeleteCsObjt():
      
      if request.method == 'POST':
 
