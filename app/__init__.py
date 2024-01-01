@@ -571,14 +571,14 @@ def UpdateCsObjt():
         access_token = login_form.access_token.data
         instance_url = login_form.instance_url.data
         #Custom Object data
-        ObjectNewName = request.form.get('object_full_name')
-        Label = request.form.get('label')
+        ObjectNewName ="TestYahya"
+        Label = "TestYahya"
         metadata_client = Client('https://13.37.66.143/static/metadata-52.xml')
         metadata_url = instance_url + '/services/Soap/m/' +'52.0/'
         session_header = metadata_client.factory.create("SessionHeader")
         session_header.sessionId = access_token
         metadata_client.set_options(location=metadata_url, soapheaders=session_header)
-        metatdataToDeploy = []
+        metatdataToUpdate = []
         custom_object = metadata_client.factory.create("CustomObject")
         custom_object.fullName = ObjectNewName +'__c'
         custom_object.label = Label
@@ -588,9 +588,9 @@ def UpdateCsObjt():
         custom_object.nameField.label = Label+' Record Updated'
         custom_object.deploymentStatus = 'Deployed'
         custom_object.sharingModel = 'ReadWrite'
-        metatdataToDeploy.append(custom_object)
+        metatdataToUpdate.append(custom_object)
         try:
-            result = metadata_client.service.createMetadata(metatdataToDeploy)
+            result = metadata_client.service.updateMetadata(metatdataToUpdate)
             if result[0].success:
 
                 page_response = {
