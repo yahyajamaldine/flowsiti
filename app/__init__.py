@@ -656,3 +656,35 @@ def DeleteCsObjt():
 				}
                  
         return str(page_response)    
+     
+#Hubspot integration app
+
+HS_AUTH_URL="https://app.hubspot.com/oauth/authorize"
+HS_CLIENT_ID="6bf83307-c845-4d1b-b708-1c69b2853f79"
+HS_SCOPE="crm.lists.read crm.objects.contacts.read settings.users.write crm.objects.contacts.write crm.objects.custom.read crm.objects.custom.write crm.objects.companies.write settings.users.read crm.lists.write crm.objects.companies.read"
+HS_URI="13.37.66.143/HOuath"
+	
+@app.route('/Hubspot', methods=['GET', 'POST'])
+def Hubspot():
+    login_form = LoginForm(request.form)
+
+    if request.method == 'POST':
+        # Get Production or Sandbox value
+        accounttype = login_form.environment.data
+        # Set up URL based on Salesforce Connected App details
+        oauth_url = f'{HS_AUTH_URL}?client_id={HS_CLIENT_ID}&redirect_uri={HS_URI}&scope={HS_SCOPE}'       
+
+        # Redirect to the login page
+        return redirect(oauth_url)
+
+    return render_template('hubspot.html', form=login_form)
+
+@app.route('/HOuath', methods=['GET', 'POST'])
+def HOuath():
+
+    if request.method == 'GET':
+        # Get OAuth response values
+        oauth_code = request.args.get('code')
+
+    return str(oauth_code)
+     

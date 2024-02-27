@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HubSpot CRM Style Form</title>
+    <style>
+        /* Style for the form container */
+        .form-container {
+          max-width: 400px;
+          margin: 0 auto;
+          padding: 20px;
+          border: 1px solid #e1e1e1;
+          border-radius: 5px;
+          background-color: #f7f7f7;
+          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Style for form labels */
+        label {
+          display: block;
+          font-weight: bold;
+          margin-bottom: 10px;
+          color: #333;
+        }
+
+        /* Style for form inputs */
+        input[type="text"],
+        select,
+        textarea {
+          width: 100%;
+          padding: 10px;
+          margin-bottom: 10px;
+          border: 1px solid #ddd;
+          border-radius: 3px;
+          box-sizing: border-box;
+        }
+
+        /* Style for the submit button */
+        input[type="submit"] {
+          background-color: #ff7a59;
+          color: #fff;
+          padding: 10px 20px;
+          border: none;
+          border-radius: 3px;
+          cursor: pointer;
+          font-size: 16px;
+        }
+
+        /* Style for info alert */
+        .info-alert {
+          background-color: #ff7a59;
+          border: 1px solid #ff7a59;
+          border-radius: 3px;
+          padding: 10px;
+          margin-top: 10px;
+          font-size: 14px;
+          color: #333;
+        }
+    </style>
+</head>
+<body>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <form action="/Hubspot" method="POST" id="loginForm" class="form-container">
+        {{ form.hidden_tag() }}
+        {% if messages %}
+            <div class="info-alert">
+                {% for message in messages %}
+                    {{ message }}<br/>
+                {% endfor %}
+            </div>
+        {% endif %}
+        <label style="font-size: larger" id="id_environment">Connect to HubSpot</label>
+        <select id="id_environment" name="environment">
+            <option value="standard">Standard HubSpot accounts</option>
+            <option value="app-developer">App developer accounts</option>
+            <option value="developer-test">Developer test accounts</option>
+        </select>
+        <input type="submit" value="Connect" />
+        <div class="info-alert">
+            <strong>Note: </strong> There are several types of HubSpot accounts, each with a distinct purpose. Above.
+        </div>
+    </form>
+</body>
+</html>
