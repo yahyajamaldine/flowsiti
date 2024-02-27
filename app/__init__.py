@@ -668,71 +668,8 @@ def OrgDetails():
        return render_template('OrgDetail.html')
     
     if request.method == 'POST' and 'Custom_Standard' in request.form:
-        login_form = LoginForm(request.form)
-        environment = login_form.environment.data
-        access_token = login_form.access_token.data
-        instance_url = login_form.instance_url.data
-        #The list of standard objects that support custom fields
-		#https://www.salesforce.com/us/developer/docs/object_reference/Content/sforce_api_objects_custom_objects.html
-        # Define the list of supported standard objects
-        supported_standard_objects = [
-             'Account',
-             'Asset',
-             'Campaign',
-             'CampaignMember',
-             'Case',
-             'Contact',
-             'Contract',
-             'Event',
-             'Lead',
-             'Opportunity',
-             'OpportunityCompetitor',
-             'OpportunityLineItem',
-             'Order',
-             'OrderItem',
-             'Pricebook2',
-             'PricebookEntry',
-             'Product2',
-             'Quote',
-             'QuoteLineItem',
-             'Task',
-             'User',
-             'WorkOrder',
-             'WorkOrderLineItem',]
-        headers = {
-			'Accept': 'application/json',
-			'X-PrettyPrint': '1',
-			'Authorization': 'Bearer ' + access_token
-		}
-
-        custom_objects = []
-        standard_objects = []
-        namespaceprefix= []
-        request_url = instance_url + '/services/data/v' + str(SALESFORCE_API_VERSION) + '.0/'
-        #package_names = instance_url + '/services/data/v58.0/tooling/query/?q=SELECT Id, SubscriberPackageId, SubscriberPackage.NamespacePrefix,SubscriberPackage.Name, SubscriberPackageVersion.Id,SubscriberPackageVersion.Name, SubscriberPackageVersion.MajorVersion,SubscriberPackageVersion.MinorVersion,SubscriberPackageVersion.PatchVersion,SubscriberPackageVersion.BuildNumber FROM InstalledSubscriberPackage ORDER BY SubscriberPackageId'
-
-        Objects = requests.get(request_url + 'sobjects', headers=headers).json()['sobjects']        
         
-        #Data = requests.get(package_names, headers=headers).json()
-        #for record in Data['records']:
-        #  namespace_prefix = record['SubscriberPackage']['NamespacePrefix']
-        #  namespaceprefix.append(namespace_prefix)
-        
-        for record in Objects:
-          #This condition is neccessary to get objects That we can do CRUD apps with !
-          if record['custom']:
-           custom_objects.append({ 'label': record['label'],'name': record['name'], })
-          if record['name'] in supported_standard_objects:
-           standard_objects.append({'label': record['label'], 'name': record['name'],})
-
-        # Filter custom_objects based on namespaceprefix
-        #filtered_objects = [obj for obj in custom_objects_infos if not any(obj['name'].startswith(prefix) for prefix in namespaceprefix)]
-
-        return render_template('custom_standard',
-                               login_form=login_form,
-                               custom_objects = custom_objects,
-                               standard_objects = standard_objects
-                               )
+        return "heeee"
 
 @app.route('/custom_standard', methods=['GET', 'POST'])
 def custom_standar():
