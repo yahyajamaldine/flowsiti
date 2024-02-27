@@ -662,14 +662,14 @@ def DeleteCsObjt():
      
 @app.route('/OrgDetails', methods=['GET', 'POST'])
 def OrgDetails():
-
+    
     if request.method == 'GET':
        
        return render_template('OrgDetail.html')
     
     if request.method == 'POST' and 'Custom_Standard' in request.form:
         
-        return "heeee"
+        return "works"
     return "heee"
 
 @app.route('/custom_standard', methods=['GET', 'POST'])

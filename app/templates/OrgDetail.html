@@ -102,12 +102,12 @@ body {
 <form action="/OrgDetails" method="POST">
 
   
-    {{ login_form.hidden_tag() }}
-  
+   {{ login_form.hidden_tag() }}
+    
   <input type="hidden" name="environment" value="{{ login_form.environment.data }}">
   <input type="hidden" name="access_token" value="{{ login_form.access_token.data }}">
   <input type="hidden" name="instance_url" value="{{ login_form.instance_url.data }}">
-   
+  
 <div class="row">
   <div class="column">
     <div class="card">
