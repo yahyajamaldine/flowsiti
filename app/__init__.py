@@ -197,13 +197,16 @@ def oauth_response():
                                login_form=login_form,
                                custom_object =  filtered_objects
                                )
-
     	# Return the POST response"
         if 'object_field' in request.form:
           return render_template('objectfields.html',
                                login_form=login_form,
                                custom_object =  filtered_objects)
-
+        #Get Org details, from this page the user will be able to aceess many org Details! 
+        if 'OrgDetail' in request.form:
+         return render_template('OrgDetail.html',
+                               login_form=login_form,
+                               )
         # Run after user selects logout or get schema
         if 'logout' in request.form:
 			# Logout action
@@ -657,8 +660,15 @@ def DeleteCsObjt():
                  
         return str(page_response)    
      
-#Hubspot integration app
+@app.route('/OrgDetails', methods=['GET', 'POST'])
+def OrgDetails():
 
+    if request.method == 'GET':
+       
+       return render_template('OrgDetail.html')
+     
+#Hubspot integration app
+"""
 HS_AUTH_URL="https://app.hubspot.com/oauth/authorize"
 HS_CLIENT_ID="6bf83307-c845-4d1b-b708-1c69b2853f79"
 HS_SCOPE="crm.lists.read crm.objects.contacts.read settings.users.write crm.objects.contacts.write crm.objects.custom.read crm.objects.custom.write crm.objects.companies.write settings.users.read crm.lists.write crm.objects.companies.read"
@@ -688,3 +698,4 @@ def HOuath():
 
     return str(oauth_code)
      
+"""

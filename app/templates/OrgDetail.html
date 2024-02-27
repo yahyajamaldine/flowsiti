@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Float four columns side by side */
+.column {
+  float: left;
+  width: 25%;
+  padding: 0 10px;
+  margin-top: 15px;
+  margin-bottom: 20px;
+}
+
+/* Remove extra left and right margins, due to padding */
+.row {margin: 0 -5px;}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Responsive columns */
+@media screen and (max-width: 600px) {
+  .column {
+    width: 100%;
+    display: block;
+    margin-bottom: 20px;
+  }
+}
+
+/* Style the counter cards */
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  padding: 16px;
+  text-align: center;
+  background-color: #f1f1f1;
+}
+
+.button-s {
+  align-items: center;
+  appearance: none;
+  background-image: radial-gradient(100% 100% at 100% 0, #5adaff 0, #5468ff 100%);
+  border: 0;
+  border-radius: 6px;
+  box-shadow: rgba(45, 35, 66, .4) 0 2px 4px,rgba(45, 35, 66, .3) 0 7px 13px -3px,rgba(58, 65, 111, .5) 0 -3px 0 inset;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inline-flex;
+  font-family: "JetBrains Mono",monospace;
+  height: 48px;
+  justify-content: center;
+  line-height: 1;
+  list-style: none;
+  overflow: hidden;
+  padding-left: 16px;
+  padding-right: 16px;
+  position: relative;
+  text-align: left;
+  text-decoration: none;
+  transition: box-shadow .15s,transform .15s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  white-space: nowrap;
+  will-change: box-shadow,transform;
+  font-size: 18px;
+}
+
+.button-s:focus {
+  box-shadow: #3c4fe0 0 0 0 1.5px inset, rgba(45, 35, 66, .4) 0 2px 4px, rgba(45, 35, 66, .3) 0 7px 13px -3px, #3c4fe0 0 -3px 0 inset;
+}
+
+.button-s:hover {
+  box-shadow: rgba(45, 35, 66, .4) 0 4px 8px, rgba(45, 35, 66, .3) 0 7px 13px -3px, #3c4fe0 0 -3px 0 inset;
+  transform: translateY(-2px);
+}
+
+.button-s:active {
+  box-shadow: #3c4fe0 0 3px 7px inset;
+  transform: translateY(2px);
+}
+
+</style>
+</head>
+<body>
+
+<h2>Responsive Column Cards</h2>
+<p>Resize the browser window to see the effect.</p>
+
+<form action="/OrgDetails" method="POST">
+
+  
+    {{ login_form.hidden_tag() }}
+  
+  <input type="hidden" name="environment" value="{{ login_form.environment.data }}">
+  <input type="hidden" name="access_token" value="{{ login_form.access_token.data }}">
+  <input type="hidden" name="instance_url" value="{{ login_form.instance_url.data }}">
+   
+<div class="row">
+  <div class="column">
+    <div class="card">
+      <h3>Custom Objects and Fields Overview</h3>
+      <p>Summary of Custom Objects</p>
+      <p>Field Details per Object</p>
+      <button type="submit" value="Custom" class="button-s" role="button">Check 1</button>
+    </div>
+  </div>
+
+  <div class="column">
+    <div class="card">
+      <h3>Card 2</h3>
+      <p>Some text</p>
+      <p>Some text</p>
+      <button type="submit" value="Custom" class="button-s" role="button">Button 2</button>
+
+    </div>
+  </div>
+  
+  <div class="column">
+    <div class="card">
+      <h3>Card 3</h3>
+      <p>Some text</p>
+      <p>Some text</p>
+      <button class="button-s" role="button">Button 3</button>
+
+    </div>
+  </div>
+  
+  <div class="column">
+    <div class="card">
+      <h3>Card 4</h3>
+      <p>Some text</p>
+      <p>Some text</p>
+      <button class="button-s" role="button">Button 4</button>
+
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="column">
+    <div class="card">
+      <h3>Card 5</h3>
+      <p>Some text</p>
+      <p>Some text</p>
+      <button class="button-s" role="button">Button 5</button>
+    </div>
+  </div>
+
+  <div class="column">
+    <div class="card">
+      <h3>Card 6</h3>
+      <p>Some text</p>
+      <p>Some text</p>
+      <button class="button-s" role="button">Button 6</button>
+    </div>
+  </div>
+  
+  <div class="column">
+    <div class="card">
+      <h3>Card 7</h3>
+      <p>Some text</p>
+      <p>Some text</p>
+      <button class="button-s" role="button">Button 7</button>
+    </div>
+  </div>
+  
+  <div class="column">
+    <div class="card">
+      <h3>Card 8</h3>
+      <p>Some text</p>
+      <p>Some text</p>
+      <button class="button-s" role="button">Button 8</button>
+    </div>
+  </div>
+</div>
+</form>
+</body>
+</html>
