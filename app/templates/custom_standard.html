@@ -14,14 +14,16 @@ body {
 /* Float four columns side by side */
 .column {
   float: left;
-  width: 25%;
+  width: 50%;
+  height: 100%;
   padding: 0 10px;
   margin-top: 15px;
   margin-bottom: 20px;
 }
 
 /* Remove extra left and right margins, due to padding */
-.row {margin: 0 -5px;}
+.row {margin: 0 -5px;
+  height: 450px;}
 
 /* Clear floats after the columns */
 .row:after {
@@ -46,6 +48,13 @@ body {
   text-align: center;
   background-color: #f1f1f1;
 }
+.card-2 {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    padding: 16px;
+    height: 80%;
+    text-align: left;
+    background-color: #f1f1f1;
+  }
 
 .button-s {
   align-items: center;
@@ -95,96 +104,59 @@ body {
 </style>
 </head>
 <body>
-
-<h2>Responsive Column Cards</h2>
 <p>Resize the browser window to see the effect.</p>
 
 <form action="/OrgDetails" method="POST">
 
   
-    {{ login_form.hidden_tag() }}
+   {#  {{ login_form.hidden_tag() }}
   
   <input type="hidden" name="environment" value="{{ login_form.environment.data }}">
   <input type="hidden" name="access_token" value="{{ login_form.access_token.data }}">
   <input type="hidden" name="instance_url" value="{{ login_form.instance_url.data }}">
-   
+  #}
 <div class="row">
   <div class="column">
-    <div class="card">
-      <h3>Custom Objects and Fields Overview</h3>
-      <p>Summary of Custom Objects</p>
-      <p>Field Details per Object</p>
-      <button type="submit" value="Custom_Standard" class="button-s" role="button">Custom_Standard</button>
+    <div class="card-2">
+        <h3>Standard Ojects</h3>
+        <div>
+            {% if standard_objects %}
+            <select class="form-control" id="customObjectDropdown" name="object_full_name">
+                {% for obj in standard_objects %}
+                <option value="{{ obj.name }}">{{ obj.name }}({{ obj.label }})</option>
+                {% endfor %}
+            </select>
+            {% else %}
+            <p>No custom objects found.</p>
+            {% endif %}
+
+        </div>
+      </div>
+      <div class="card-2">
+          <h3>Custom objects</h3>
+          <div>
+            {% if custom_objects %}
+            <select class="form-control" id="customObjectDropdown" name="object_full_name">
+                {% for obj in custom_objects %}
+                <option value="{{ obj.name }}">{{ obj.name }}({{ obj.label }})</option>
+                {% endfor %}
+            </select>
+            {% else %}
+            <p>No custom objects found.</p>
+            {% endif %}
+          </div>
     </div>
   </div>
 
   <div class="column">
     <div class="card">
-      <h3>Card 2</h3>
-      <p>Some text</p>
-      <p>Some text</p>
-      <button type="submit" value="Custom" class="button-s" role="button">Button 2</button>
-
-    </div>
-  </div>
-  
-  <div class="column">
-    <div class="card">
-      <h3>Card 3</h3>
-      <p>Some text</p>
-      <p>Some text</p>
-      <button class="button-s" role="button">Button 3</button>
-
-    </div>
-  </div>
-  
-  <div class="column">
-    <div class="card">
-      <h3>Card 4</h3>
-      <p>Some text</p>
-      <p>Some text</p>
-      <button class="button-s" role="button">Button 4</button>
-
-    </div>
-  </div>
-</div>
-
-<div class="row">
-  <div class="column">
-    <div class="card">
-      <h3>Card 5</h3>
-      <p>Some text</p>
-      <p>Some text</p>
-      <button class="button-s" role="button">Button 5</button>
-    </div>
+        <h3>Standard Ojects</h3>
+        <p>Summary of Custom Objects</p>
+        <p>Field Details per Object</p>
+        <button type="submit" value="Custom_Standard" class="button-s" role="button">Check 1</button>
+      </div>
   </div>
 
-  <div class="column">
-    <div class="card">
-      <h3>Card 6</h3>
-      <p>Some text</p>
-      <p>Some text</p>
-      <button class="button-s" role="button">Button 6</button>
-    </div>
-  </div>
-  
-  <div class="column">
-    <div class="card">
-      <h3>Card 7</h3>
-      <p>Some text</p>
-      <p>Some text</p>
-      <button class="button-s" role="button">Button 7</button>
-    </div>
-  </div>
-  
-  <div class="column">
-    <div class="card">
-      <h3>Card 8</h3>
-      <p>Some text</p>
-      <p>Some text</p>
-      <button class="button-s" role="button">Button 8</button>
-    </div>
-  </div>
 </div>
 </form>
 </body>
