@@ -670,6 +670,7 @@ def OrgDetails():
     if request.method == 'POST' and 'Custom_Standard' in request.form:
         
         return "heeee"
+    return "heee"
 
 @app.route('/custom_standard', methods=['GET', 'POST'])
 def custom_standar():
